@@ -1,0 +1,21 @@
+#CREATION GIT
+
+git init
+git clone https://github.com/Arozab/LO21-Whynote
+git remote add origin https://github.com/Arozab/LO21-Whynote
+git push --set-upstream origin master
+
+#ENVOI D'UNE MISE A JOUR
+
+Un push est comme un chariot:
+> Tu remplis le chariot ( avec du charbon, du bois...)
+> Tu donnes un nom à ton chariot pour savoir ce qu'il y a dedans ( "Super chariot de charbon")
+> Tu envoies ton chariot !
+
+git add fichier.php OU git add .
+git commit -m "Indication particulière sur la mise a jour"
+git push
+
+#RECUPERATION DES MISES A JOUR
+
+git pull
