@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1493502214 source:c:\users\alban\documents\lo21\lo21-whynote\lo21-whynote\notes_manager\notes.cpp
+	"Notes.h"
+	<fstream>
+
+1493502186 c:\users\alban\documents\lo21\lo21-whynote\lo21-whynote\notes_manager\notes.h
+	<string>
+	<iostream>
+
+1493502184 source:c:\users\alban\documents\lo21\lo21-whynote\lo21-whynote\notes_manager\main.cpp
+	"Notes.h"
+	<windows.h>
+
