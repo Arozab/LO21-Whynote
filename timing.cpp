@@ -1,7 +1,7 @@
 #include "timing.h"
 
 
-std::ostream& operator<<(std::ostream& f, const Date& x){ x.afficher(f); return f;} 
+std::ostream& operator<<(std::ostream& f, const Date& x){ x.afficher(f); return f;}
 
 
 void Date::setDate(unsigned short int j, unsigned short int m, unsigned int a){
@@ -67,7 +67,7 @@ Date Date::operator+(unsigned int nb_jours) const{
 
 
 
-std::istream& operator>>(std::istream& flot, TIME::Date& date){
+std::istream& operator>>(std::istream& flot, Date& date){
 	unsigned int short j,m,a;
 	bool ok=true;
 	flot>>j;

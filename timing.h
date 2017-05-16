@@ -16,10 +16,10 @@ private:
 };
 
 /*! \class Date
-		\brief Classe permettant de manipuler des dates standards 		
-		L'utilisation de cette classe nécessite des dates valides au sens commun du terme. 
+		\brief Classe permettant de manipuler des dates standards
+		L'utilisation de cette classe nécessite des dates valides au sens commun du terme.
 		Déclenchement d'exception dans le cas contraire
-*/	
+*/
 class Date {
 public:
 	//! Constructeur à partir d'un jour, mois, année
@@ -43,12 +43,12 @@ private:
 	// attributs
 	unsigned short int jour; // jour entre 1 et 31
 	unsigned short int mois; // mois entre 1 et 12
-	unsigned int annee; 
+	unsigned int annee;
 };
 
-std::ostream& operator<<(std::ostream&, const TIME::Date&);
+//std::ostream& operator<<(std::ostream&, const TIME::Date&);
 
-std::istream& operator>>(std::istream&, TIME::Date&); // lecture format JJ/MM/AAAA
+//std::istream& operator>>(std::istream&, TIME::Date&); // lecture format JJ/MM/AAAA
 
 #endif
 

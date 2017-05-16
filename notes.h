@@ -3,14 +3,13 @@
 
 #include <string>
 #include <iostream>
-#include <timing.h>
+#include "timing.h"
 using namespace std;
+class Article;
 
-enum statutTache{
-	"en attente",
-	"en cours",
-	"terminee"
-};
+
+typedef enum{en_attente,en_cours,terminee}statutTache;
+
 
 class NotesException{
 
@@ -19,7 +18,7 @@ class NotesException{
 
 	public:
 		NotesException(const string& message):info(message){}
-		string getInfo()const{return info;}		
+		string getInfo()const{return info;}
 };
 
 
@@ -31,8 +30,8 @@ class Notes {
 		void setDateCrea(const Date& d);
 		Notes(const Notes& n);
 		Notes& operator=(const Notes& n);
-		Notes(const string& i, const string& ti);
-		~Notes();
+		//~Notes();
+
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	protected:
@@ -40,23 +39,32 @@ class Notes {
 		string titre;
 		Date dateCrea;
 		Date dateModif;
+
+
 		//Empecher la duplication
-		
+
 	public:
+
+	Notes(const string& i, const string& ti);
 		string getId() const { return id; }
 		string getTitre() const { return titre; }
-		string getDateCrea() const { return dateCrea;}
-		string getDateModif() const { return dateModif;}	
+		void getDateCrea() const { return dateCrea.afficher();}
+		void getDateModif() const { return dateModif.afficher();}
+		virtual void afficher(ostream& f=cout) const;
 };
 
 
 class NotesManager{
 
-	private: 
-		Notes** tabNotes;
+	private:
+		/*Notes** tabNotes;
 		unsigned int nbNotes;
 		unsigned int nbMaxNotes;
-		void addNote(Notes* n);
+		void addNote(Notes* n);*/
+		Article** tabArticles;
+		unsigned int nbArticles;
+		unsigned int nbMaxArticles;
+		void addArticles(Article* a);
 		string filename;	//pour le fichier contenant les notes
 
 		NotesManager();
@@ -76,19 +84,23 @@ class NotesManager{
 		static Handler handler;	//le destructeur sera appelé automatiquement à la fin du programme pour cet objet
 
 	public:
-		Notes& getNewNote(const string& n);
-		Notes& getNote(const string& n);
+		//Notes& getNewNote(const string& id);
+		//Notes& getNote(const string& id);
+
+		Article& getNewArticle(const string& id,const string& ti,const string& te);
+		Article& getArticle(const string& id);
+
 		void load(const string& f);
 		void save()const;
 		static NotesManager& getInstance();
 		static void libererInstance();
 
-		class Iterator{
+		/*class Iterator{
 		private:
 			Notes** tab;
 			unsigned int nb;
 			unsigned int courant;
-			Iterator(Notes** n,unsigned int n):tab(t),nb(n),courant(0){}
+			Iterator(Notes** t,unsigned int n):tab(t),nb(n),courant(0){}
 			friend class NotesManager;
 
 		public:
@@ -98,9 +110,9 @@ class NotesManager{
 				else throw NotesException("Iterator is done\n");
 			}
 			bool isDone(){return nb==courant;}
-			
+
 		};
-		Iterator getIterator(){return Iterator(tab,nbNotes);}	
+		Iterator getIterator(){return Iterator(tabNotes,nbNotes);}*/
 };
 
 
@@ -109,10 +121,13 @@ class Article: protected Notes {
 	private:
 		void setText(const string& t);
 		string text;
-		Article(const string& i, const string& ti, const string& t);
+
+		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
+	    Article(const string& i, const string& ti, const string& t);
 		string getText() const {return text;}
+		void afficher(ostream& f=cout) const;
 };
 
 
@@ -124,10 +139,12 @@ class NoteAvecFichier: protected Notes {
 		string description;
 		string file;
 		NoteAvecFichier(const string& i, const string& ti, const string& des, const string& fi);
+		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
 		string getDescription() const {return description;}
 		string getFile() const {return file;}
+		void afficher(ostream& f=cout) const;
 };
 
 
@@ -143,14 +160,16 @@ class Tache: protected Notes {
 		Date dateEch;
 		statutTache statut;
 		Tache(const string& i, const string& ti,const string& a,const string& pr, Date d, statutTache t);
+		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
 		string getAction() const {return action;}
 		string getPriorite() const {return priorite;}
-		string getDateEch() const {return dateEch;}
-		string getStatutTache() const {return statutTache;}
-};	
-	
+		void getDateEch() const {return dateEch.afficher();}
+		statutTache getStatutTache() const {return statut;}
+		void afficher(ostream& f=cout) const;
+};
+
 
 class couple{
 
@@ -160,7 +179,7 @@ class couple{
 		Notes& note2;
 		void setLabel(const string& l);
 		couple();
-		couple(const string& l,Notes& n1,Notes& n2):label(l),note1(n1),Note2(n2){}
+		couple(const string& l,Notes& n1,Notes& n2):label(l),note1(n1),note2(n2){}
 		~couple();
 
 	public:

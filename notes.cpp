@@ -1,24 +1,33 @@
 #include "notes.h"
 #include <fstream>
+using namespace std;
+
 //--------------------NOTES------------------------//
 Notes::Notes(const string& i, const string& ti):id(i),titre(ti){}	//ajouter automatiquement la date créa et date modif
 
 void Notes::setTitre(const string& t){
 
 	titre=t;
-}	
+}
+
 void Notes::setDateModif(const Date& d){
 
 	dateCrea=d;
-}	
+}
+
 void Notes::setDateCrea(const Date& d){
 
 	dateModif=d;
 }
 
+void Notes::afficher(ostream& f)const{
+
+	f << "ID : "<<getId()<<", Titre : "<<getTitre();//<<", Date de creation : "<<getDateCrea()<<", Date de modification : "<<getDateModif();
+}
+
 
 //--------------------NOTESMANAGER------------------------//
-void NotesManager::addNote(Notes* n){
+/*void NotesManager::addNote(Notes* n){
 	for(unsigned int i=0; i<nbNotes; i++){
 		if (tabNotes[i]->getId()==n->getId()) throw NotesException("Erreur, creation d'une note deja existante");
 	}
@@ -30,40 +39,71 @@ void NotesManager::addNote(Notes* n){
 		nbMaxNotes+=10;
 		if(oldNotes) delete[] oldNotes;
 	}
-	tabNotes[nbNotes++]=a;
-}
+	tabNotes[nbNotes++]=n;
+}*/
 
-Notes& NotesManager::getNote(const string& id){
+/*Notes& NotesManager::getNote(const string& id){
 	for(unsigned int i=0;i<nbNotes;i++){
 		if(tabNotes[i]->getId()==id) return *tabNotes[i];
 	}
 	throw NotesException("Erreur, la note n'existe pas");
+}*/
+
+/*Notes& NotesManager::getNewNote(const string& id){
+	Notes* n=new Article(id,"","");
+	addNote(n);
+	return *n;
+}*/
+
+
+void NotesManager::addArticles(Article* a){
+	for(unsigned int i=0; i<nbArticles; i++){
+		if (tabArticles[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
+	}
+	if(nbArticles==nbMaxArticles){
+		Article** newTabArticles=new Article*[nbMaxArticles+10];
+		for(unsigned int i=0;i<nbArticles;i++) newTabArticles[i]=tabArticles[i];
+		Article** oldArticles=tabArticles;
+		tabArticles=newTabArticles;
+		nbMaxArticles+=10;
+		if(oldArticles) delete[] oldArticles;
+	}
+	tabArticles[nbArticles++]=a;
 }
 
-Notes& NotesManager::getNewNote(const Notes& id){
-	Notes* n=new Notes(id,"");
-	addNote(n);
+Article& NotesManager::getNewArticle(const string& id,const string& ti,const string& te){
+	Article* n=new Article(id,ti,te);
+	addArticles(n);
 	return *n;
 }
 
-NotesManager::NotesManager():tabNotes(nullptr),nbNotes(0),nbMaxNotes(0),filename(""){}
-
-NotesManager::~NotesManager(){
-	save();
-	for(unsigned int i=0; i<nbNotes; i++) delete tabNotes[i];
-	delete[] tabNotes;
+Article& NotesManager::getArticle(const string& id){
+	for(unsigned int i=0;i<nbArticles;i++){
+		if(tabArticles[i]->getId()==id) return *tabArticles[i];
+	}
+	throw NotesException("Erreur, l'Article n'existe pas");
 }
 
-void NotesManager::save()const{
+
+
+NotesManager::NotesManager():tabArticles(nullptr),nbArticles(0),nbMaxArticles(0),filename(""){}
+
+NotesManager::~NotesManager(){
+	//save();
+	for(unsigned int i=0; i<nbArticles; i++) delete tabArticles[i];
+	delete[] tabArticles;
+}
+
+/*void NotesManager::save()const{
 	ofstream fout(filename);
 	for(unsigned int i=0; i<nbNotes; i++){
 		fout<<*tabNotes[i];
 	}
 	fout.close();
-}
+}*/
 
 void NotesManager::load(const string& f) {
-	if (filename!=f) save();
+	//if (filename!=f) save();
 	filename=f;
 	ifstream fin(filename); // open file
 	if (!fin) throw NotesException("Erreur, le fichier n'existe pas");
@@ -84,7 +124,7 @@ void NotesManager::load(const string& f) {
 		Date dateModif=tmp;*/
 
 		Notes* n=new Notes(id,titre);
-		addNote(n);
+		//addNote(n);
 		if (fin.peek()=='\r') fin.ignore();
 		if (fin.peek()=='\n') fin.ignore();
 	}
@@ -94,8 +134,15 @@ void NotesManager::load(const string& f) {
 NotesManager::Handler NotesManager::handler=NotesManager::Handler(); //un objet handler de type Handler initialisé avec le constructeur Handler
 
 NotesManager& NotesManager::getInstance(){
-	if(handler.instance==nullptr) handler.instance=new NotesManager;
-	return *handler.instance;
+	if(handler.instance==nullptr){
+		handler.instance=new NotesManager;
+		return *handler.instance;	
+	} 
+	else{
+		throw NotesException("Erreur, on a deja un note manager");
+		return *handler.instance;
+	}
+
 }
 
 void NotesManager::libererInstance(){
@@ -112,6 +159,12 @@ void Article::setText(const string& t){
 	text=t;
 }
 
+void Article::afficher(ostream& f) const{
+
+	Notes::afficher(f);
+	f<<", Texte : "<<getText()<<endl;
+}
+
 
 //--------------------NOTEAVECFICHIER------------------------//
 NoteAvecFichier::NoteAvecFichier(const string& i,const string& ti,const string& d,const string& f):Notes(i,ti),description(d),file(f){}
@@ -126,6 +179,12 @@ void NoteAvecFichier::setFile(const string& t){
 	file=t;
 }
 
+void NoteAvecFichier::afficher(ostream& f)const{
+
+	Notes::afficher(f);
+	f<<", Description : "<<getDescription()<<", Lien du fichier : "<<getFile()<<endl;
+}
+
 
 //--------------------TACHE------------------------//
 Tache::Tache(const string& i, const string& ti,const string& a,const string& pr, Date d, statutTache t):Notes(i,ti),action(a),priorite(pr),dateEch(d),statut(t){}
@@ -137,15 +196,21 @@ void Tache::setAction(const string& a){
 
 void Tache::setPriorite(const string& pr){
 
-	priorite=p;
+	priorite=pr;
 }
 
 void Tache::setDateEch(const Date& d){
 
-	dateEch=t;
+	dateEch=d;
 }
 
-void Tache::setStatut(statutTache t){
+void Tache::setStatutTache(statutTache t){
 
 	statut=t;
+}
+
+void Tache::afficher(ostream& f)const{
+
+	Notes::afficher(f);
+	f<<", Action : "<<getAction()<<", Priorite : "<<getPriorite()<<", Statut de la tache : "<<getStatutTache();//<<", Date d echeance : "<<getDateEch()<<endl;
 }
