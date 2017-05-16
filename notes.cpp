@@ -27,35 +27,6 @@ void Notes::afficher(ostream& f)const{
 
 
 //--------------------NOTESMANAGER------------------------//
-/*void NotesManager::addNote(Notes* n){
-	for(unsigned int i=0; i<nbNotes; i++){
-		if (tabNotes[i]->getId()==n->getId()) throw NotesException("Erreur, creation d'une note deja existante");
-	}
-	if(nbNotes==nbMaxNotes){
-		Notes** newTabNotes=new Notes*[nbMaxNotes+10];
-		for(unsigned int i=0;i<nbNotes;i++) newTabNotes[i]=tabNotes[i];
-		Notes** oldNotes=tabNotes;
-		tabNotes=newTabNotes;
-		nbMaxNotes+=10;
-		if(oldNotes) delete[] oldNotes;
-	}
-	tabNotes[nbNotes++]=n;
-}*/
-
-/*Notes& NotesManager::getNote(const string& id){
-	for(unsigned int i=0;i<nbNotes;i++){
-		if(tabNotes[i]->getId()==id) return *tabNotes[i];
-	}
-	throw NotesException("Erreur, la note n'existe pas");
-}*/
-
-/*Notes& NotesManager::getNewNote(const string& id){
-	Notes* n=new Article(id,"","");
-	addNote(n);
-	return *n;
-}*/
-
-
 void NotesManager::addArticles(Article* a){
 	for(unsigned int i=0; i<nbArticles; i++){
 		if (tabArticles[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
@@ -85,13 +56,73 @@ Article& NotesManager::getArticle(const string& id){
 }
 
 
+void NotesManager::addNoteAvecFichier(NoteAvecFichier* a){
+	for(unsigned int i=0; i<nbNoteAvecFichier; i++){
+		if (tabNoteAvecFichier[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
+	}
+	if(nbNoteAvecFichier==nbMaxNoteAvecFichier){
+		NoteAvecFichier** newTabNoteAvecFichier=new NoteAvecFichier*[nbMaxNoteAvecFichier+10];
+		for(unsigned int i=0;i<nbNoteAvecFichier;i++) newTabNoteAvecFichier[i]=tabNoteAvecFichier[i];
+		NoteAvecFichier** oldNoteAvecFichier=tabNoteAvecFichier;
+		tabNoteAvecFichier=newTabNoteAvecFichier;
+		nbMaxNoteAvecFichier+=10;
+		if(oldNoteAvecFichier) delete[] oldNoteAvecFichier;
+	}
+	tabNoteAvecFichier[nbNoteAvecFichier++]=a;
+}
 
-NotesManager::NotesManager():tabArticles(nullptr),nbArticles(0),nbMaxArticles(0),filename(""){}
+NoteAvecFichier& NotesManager::getNewNoteAvecFichier(const string& id,const string& ti,const string& de,const string& fi){
+	NoteAvecFichier* n=new NoteAvecFichier(id,ti,de,fi);
+	addNoteAvecFichier(n);
+	return *n;
+}
+
+NoteAvecFichier& NotesManager::getNoteAvecFichier(const string& id){
+	for(unsigned int i=0;i<nbNoteAvecFichier;i++){
+		if(tabNoteAvecFichier[i]->getId()==id) return *tabNoteAvecFichier[i];
+	}
+	throw NotesException("Erreur, la note n'existe pas");
+}
+
+
+void NotesManager::addTaches(Tache* a){
+	for(unsigned int i=0; i<nbTaches; i++){
+		if (tabTaches[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
+	}
+	if(nbTaches==nbMaxTaches){
+		Tache** newTabTaches=new Tache*[nbMaxTaches+10];
+		for(unsigned int i=0;i<nbTaches;i++) newTabTaches[i]=tabTaches[i];
+		Tache** oldTaches=tabTaches;
+		tabTaches=newTabTaches;
+		nbMaxTaches+=10;
+		if(oldTaches) delete[] oldTaches;
+	}
+	tabTaches[nbTaches++]=a;
+}
+
+Tache& NotesManager::getNewTache(const string& id,const string& ti,const string& ac,const string& pr,statutTache t){
+	Tache* n=new Tache(id,ti,ac,pr,t);
+	addTaches(n);
+	return *n;
+}
+
+Tache& NotesManager::getTache(const string& id){
+	for(unsigned int i=0;i<nbTaches;i++){
+		if(tabTaches[i]->getId()==id) return *tabTaches[i];
+	}
+	throw NotesException("Erreur, la tache n'existe pas");
+}
+
+
+
+NotesManager::NotesManager():tabArticles(nullptr),nbArticles(0),nbMaxArticles(0),filename(""),tabNoteAvecFichier(nullptr),nbNoteAvecFichier(0),nbMaxNoteAvecFichier(0){}
 
 NotesManager::~NotesManager(){
 	//save();
 	for(unsigned int i=0; i<nbArticles; i++) delete tabArticles[i];
 	delete[] tabArticles;
+	for(unsigned int i=0; i<nbNoteAvecFichier; i++) delete tabNoteAvecFichier[i];
+	delete[] tabNoteAvecFichier;
 }
 
 /*void NotesManager::save()const{
@@ -136,8 +167,8 @@ NotesManager::Handler NotesManager::handler=NotesManager::Handler(); //un objet 
 NotesManager& NotesManager::getInstance(){
 	if(handler.instance==nullptr){
 		handler.instance=new NotesManager;
-		return *handler.instance;	
-	} 
+		return *handler.instance;
+	}
 	else{
 		throw NotesException("Erreur, on a deja un note manager");
 		return *handler.instance;
@@ -187,7 +218,7 @@ void NoteAvecFichier::afficher(ostream& f)const{
 
 
 //--------------------TACHE------------------------//
-Tache::Tache(const string& i, const string& ti,const string& a,const string& pr, Date d, statutTache t):Notes(i,ti),action(a),priorite(pr),dateEch(d),statut(t){}
+Tache::Tache(const string& i, const string& ti,const string& a,const string& pr, statutTache t):Notes(i,ti),action(a),priorite(pr),statut(t){}
 
 void Tache::setAction(const string& a){
 

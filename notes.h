@@ -6,9 +6,10 @@
 #include "timing.h"
 using namespace std;
 class Article;
+class NoteAvecFichier;
+class Tache;
 
-
-typedef enum{en_attente,en_cours,terminee}statutTache;
+typedef enum{en_attente=1,en_cours=2,terminee=3}statutTache;
 
 
 class NotesException{
@@ -30,8 +31,7 @@ class Notes {
 		void setDateCrea(const Date& d);
 		Notes(const Notes& n);
 		Notes& operator=(const Notes& n);
-		//~Notes();
-
+		//~Notes();		
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	protected:
@@ -39,13 +39,11 @@ class Notes {
 		string titre;
 		Date dateCrea;
 		Date dateModif;
-
-
 		//Empecher la duplication
 
 	public:
 
-	Notes(const string& i, const string& ti);
+		Notes(const string& i, const string& ti);
 		string getId() const { return id; }
 		string getTitre() const { return titre; }
 		void getDateCrea() const { return dateCrea.afficher();}
@@ -57,14 +55,21 @@ class Notes {
 class NotesManager{
 
 	private:
-		/*Notes** tabNotes;
-		unsigned int nbNotes;
-		unsigned int nbMaxNotes;
-		void addNote(Notes* n);*/
 		Article** tabArticles;
 		unsigned int nbArticles;
 		unsigned int nbMaxArticles;
 		void addArticles(Article* a);
+
+		NoteAvecFichier** tabNoteAvecFichier;
+		unsigned int nbNoteAvecFichier;
+		unsigned int nbMaxNoteAvecFichier;
+		void addNoteAvecFichier(NoteAvecFichier* a);
+
+		Tache** tabTaches;
+		unsigned int nbTaches;
+		unsigned int nbMaxTaches;
+		void addTaches(Tache* a);
+
 		string filename;	//pour le fichier contenant les notes
 
 		NotesManager();
@@ -84,11 +89,15 @@ class NotesManager{
 		static Handler handler;	//le destructeur sera appelé automatiquement à la fin du programme pour cet objet
 
 	public:
-		//Notes& getNewNote(const string& id);
-		//Notes& getNote(const string& id);
 
 		Article& getNewArticle(const string& id,const string& ti,const string& te);
 		Article& getArticle(const string& id);
+
+		NoteAvecFichier& getNewNoteAvecFichier(const string& id,const string& ti,const string& de,const string& fi);
+		NoteAvecFichier& getNoteAvecFichier(const string& id);
+
+		Tache& getNewTache(const string& id,const string& ti,const string& ac,const string& pr,statutTache t);
+		Tache& getTache(const string& id);
 
 		void load(const string& f);
 		void save()const;
@@ -121,11 +130,11 @@ class Article: protected Notes {
 	private:
 		void setText(const string& t);
 		string text;
-
+		Article(const string& i, const string& ti, const string& t);
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
-	    Article(const string& i, const string& ti, const string& t);
+	   
 		string getText() const {return text;}
 		void afficher(ostream& f=cout) const;
 };
@@ -138,10 +147,11 @@ class NoteAvecFichier: protected Notes {
 		void setFile(const string& t);
 		string description;
 		string file;
-		NoteAvecFichier(const string& i, const string& ti, const string& des, const string& fi);
+	 	NoteAvecFichier(const string& i, const string& ti, const string& des, const string& fi);
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
+		
 		string getDescription() const {return description;}
 		string getFile() const {return file;}
 		void afficher(ostream& f=cout) const;
@@ -159,7 +169,7 @@ class Tache: protected Notes {
 		string priorite;
 		Date dateEch;
 		statutTache statut;
-		Tache(const string& i, const string& ti,const string& a,const string& pr, Date d, statutTache t);
+		Tache(const string& i, const string& ti,const string& a,const string& pr, statutTache t);
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
@@ -200,12 +210,6 @@ class relation{
 		relation();
 		~relation();
 };
-
-
-
-
-
-
 
 
 
