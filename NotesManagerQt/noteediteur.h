@@ -11,6 +11,9 @@
 #include <QHBoxLayout>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDockWidget>
+#include <QMainWindow>
+
 #include "Notes.h"
 class ArticleEditeur : public QWidget
 {
@@ -25,15 +28,16 @@ class ArticleEditeur : public QWidget
     QHBoxLayout* ctitre;
     QHBoxLayout* ctext;
     QVBoxLayout* ccouche;
-    QPushButton* sauver;
-    QPushButton* quitter;
-
+    QPushButton* m_boutonSauver;
+    QPushButton* m_boutonQuitter;
+    void createDockWindows();
 
     Q_OBJECT
 public:
     explicit ArticleEditeur(Article& a,QWidget *parent = 0);
 
 signals:
+     void quitter();
 
 public slots:
     void saveArticle();

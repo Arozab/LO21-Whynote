@@ -31,7 +31,7 @@ class Notes {
 		void setDateCrea(const Date& d);
 		Notes(const Notes& n);
 		Notes& operator=(const Notes& n);
-		//~Notes();		
+		//~Notes();
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	protected:
@@ -109,7 +109,7 @@ class NotesManager{
 			Notes** tab;
 			unsigned int nb;
 			unsigned int courant;
-			Iterator(Notes** t,unsigned int n):tab(t),nb(n),courant(0){}
+			Iterator(Notes** t,unsigned int n,unsigned int c):tab(t),nb(n),courant(c){}
 			friend class NotesManager;
 
 		public:
@@ -118,10 +118,12 @@ class NotesManager{
 				if(courant<nb) courant++;
 				else throw NotesException("Iterator is done\n");
 			}
-			bool isDone(){return nb==courant;}
+			bool isDone(){return courant<0 || courant>=nb;}
+			void previous(){courant--;}
 
 		};
-		Iterator getIterator(){return Iterator(tabNotes,nbNotes);}*/
+		Iterator first(){return Iterator(tabNotes,nbNotes,0);}
+		Iterator last(){return Iterator(tabNotes,nbNotes,nbNotes-1);}*/
 };
 
 
@@ -134,7 +136,7 @@ class Article: protected Notes {
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
-	   
+
 		string getText() const {return text;}
 		void afficher(ostream& f=cout) const;
 };
@@ -151,7 +153,7 @@ class NoteAvecFichier: protected Notes {
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
-		
+
 		string getDescription() const {return description;}
 		string getFile() const {return file;}
 		void afficher(ostream& f=cout) const;

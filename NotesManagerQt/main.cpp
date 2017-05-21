@@ -55,7 +55,9 @@ int main(int argc, char *argv[]) {
 */
 #include <QApplication>
 #include <QString>
+#include <QtWidgets>
 #include "noteediteur.h"
+#include "fenprincipale.h"
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     QString fichier = QFileDialog::getOpenFileName();
@@ -64,6 +66,8 @@ int main(int argc, char *argv[]) {
     m.load();
     Article& a=m.getArticle("id:to_read");
     ArticleEditeur fenetre(a);
+
+
     fenetre.show();
     return app.exec();
 }
