@@ -5,9 +5,11 @@ QMAKE_LFLAGS = -std=c++11
 
 HEADERS += \
     Notes.h \
-    noteediteur.h
+    noteediteur.h \
+    fenprincipale.h
 
 SOURCES += \
     main.cpp \
     Notes.cpp \
-    noteediteur.cpp
+    noteediteur.cpp \
+    fenprincipale.cpp

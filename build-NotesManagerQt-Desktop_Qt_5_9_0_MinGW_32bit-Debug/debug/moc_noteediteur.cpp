@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ArticleEditeur_t {
-    QByteArrayData data[6];
-    char stringdata0[59];
+    QByteArrayData data[7];
+    char stringdata0[67];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,15 +32,16 @@ struct qt_meta_stringdata_ArticleEditeur_t {
 static const qt_meta_stringdata_ArticleEditeur_t qt_meta_stringdata_ArticleEditeur = {
     {
 QT_MOC_LITERAL(0, 0, 14), // "ArticleEditeur"
-QT_MOC_LITERAL(1, 15, 11), // "saveArticle"
-QT_MOC_LITERAL(2, 27, 0), // ""
-QT_MOC_LITERAL(3, 28, 12), // "closeArticle"
-QT_MOC_LITERAL(4, 41, 13), // "activerSauver"
-QT_MOC_LITERAL(5, 55, 3) // "str"
+QT_MOC_LITERAL(1, 15, 7), // "quitter"
+QT_MOC_LITERAL(2, 23, 0), // ""
+QT_MOC_LITERAL(3, 24, 11), // "saveArticle"
+QT_MOC_LITERAL(4, 36, 12), // "closeArticle"
+QT_MOC_LITERAL(5, 49, 13), // "activerSauver"
+QT_MOC_LITERAL(6, 63, 3) // "str"
 
     },
-    "ArticleEditeur\0saveArticle\0\0closeArticle\0"
-    "activerSauver\0str"
+    "ArticleEditeur\0quitter\0\0saveArticle\0"
+    "closeArticle\0activerSauver\0str"
 };
 #undef QT_MOC_LITERAL
 
@@ -50,23 +51,29 @@ static const uint qt_meta_data_ArticleEditeur[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    0,   39,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   34,    2, 0x0a /* Public */,
-       3,    0,   35,    2, 0x0a /* Public */,
-       4,    1,   36,    2, 0x08 /* Private */,
-       4,    0,   39,    2, 0x28 /* Private | MethodCloned */,
+       3,    0,   40,    2, 0x0a /* Public */,
+       4,    0,   41,    2, 0x0a /* Public */,
+       5,    1,   42,    2, 0x08 /* Private */,
+       5,    0,   45,    2, 0x28 /* Private | MethodCloned */,
+
+ // signals: parameters
+    QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,    5,
+    QMetaType::Void, QMetaType::QString,    6,
     QMetaType::Void,
 
        0        // eod
@@ -78,11 +85,22 @@ void ArticleEditeur::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         ArticleEditeur *_t = static_cast<ArticleEditeur *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->saveArticle(); break;
-        //case 1: _t->closeArticle(); break;
-        case 2: _t->activerSauver((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 3: _t->activerSauver(); break;
+        case 0: _t->quitter(); break;
+        case 1: _t->saveArticle(); break;
+        case 2: _t->closeArticle(); break;
+        case 3: _t->activerSauver((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->activerSauver(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        void **func = reinterpret_cast<void **>(_a[1]);
+        {
+            typedef void (ArticleEditeur::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ArticleEditeur::quitter)) {
+                *result = 0;
+                return;
+            }
         }
     }
 }
@@ -112,15 +130,21 @@ int ArticleEditeur::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
+}
+
+// SIGNAL 0
+void ArticleEditeur::quitter()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE
