@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 #include "timing.h"
 using namespace std;
 class Article;
@@ -55,17 +56,17 @@ class Notes {
 class NotesManager{
 
 	private:
-		Article** tabArticles;
+		vector<Article*> tabArticles;
 		unsigned int nbArticles;
 		unsigned int nbMaxArticles;
 		void addArticles(Article* a);
 
-		NoteAvecFichier** tabNoteAvecFichier;
+		vector<NoteAvecFichier*> tabNoteAvecFichier;
 		unsigned int nbNoteAvecFichier;
 		unsigned int nbMaxNoteAvecFichier;
 		void addNoteAvecFichier(NoteAvecFichier* a);
 
-		Tache** tabTaches;
+		vector<Tache*> tabTaches;
 		unsigned int nbTaches;
 		unsigned int nbMaxTaches;
 		void addTaches(Tache* a);
@@ -179,38 +180,5 @@ class Tache: protected Notes {
 		statutTache getStatutTache() const {return statut;}
 		void afficher(ostream& f=cout) const;
 };
-
-
-class couple{
-
-	private:
-		string label;
-		Notes& note1;
-		Notes& note2;
-		void setLabel(const string& l);
-		couple();
-		couple(const string& l,Notes& n1,Notes& n2):label(l),note1(n1),note2(n2){}
-		~couple();
-
-	public:
-		string getLabel()const{return label;}
-};
-
-
-class relation{
-
-	private:
-		string titre;
-		string description;
-		couple* ensemble_couple;
-
-	public:
-		string getTitre()const{return titre;}
-		string getDescription()const{return description;}
-		relation();
-		~relation();
-};
-
-
 
 #endif

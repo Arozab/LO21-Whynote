@@ -1,7 +1,6 @@
 #include "notes.h"
-#include "notes.cpp"
 #include "timing.h"
-#include "timing.cpp"
+#include "relation.h"
 #include <windows.h>
 
 int main() {
@@ -27,5 +26,3 @@ int main() {
 	system("pause");
 	return 0;
 }
-
-

@@ -31,15 +31,8 @@ void NotesManager::addArticles(Article* a){
 	for(unsigned int i=0; i<nbArticles; i++){
 		if (tabArticles[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
 	}
-	if(nbArticles==nbMaxArticles){
-		Article** newTabArticles=new Article*[nbMaxArticles+10];
-		for(unsigned int i=0;i<nbArticles;i++) newTabArticles[i]=tabArticles[i];
-		Article** oldArticles=tabArticles;
-		tabArticles=newTabArticles;
-		nbMaxArticles+=10;
-		if(oldArticles) delete[] oldArticles;
-	}
-	tabArticles[nbArticles++]=a;
+	tabArticles.push_back(a);
+	nbArticles++;
 }
 
 Article& NotesManager::getNewArticle(const string& id,const string& ti,const string& te){
@@ -60,15 +53,8 @@ void NotesManager::addNoteAvecFichier(NoteAvecFichier* a){
 	for(unsigned int i=0; i<nbNoteAvecFichier; i++){
 		if (tabNoteAvecFichier[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
 	}
-	if(nbNoteAvecFichier==nbMaxNoteAvecFichier){
-		NoteAvecFichier** newTabNoteAvecFichier=new NoteAvecFichier*[nbMaxNoteAvecFichier+10];
-		for(unsigned int i=0;i<nbNoteAvecFichier;i++) newTabNoteAvecFichier[i]=tabNoteAvecFichier[i];
-		NoteAvecFichier** oldNoteAvecFichier=tabNoteAvecFichier;
-		tabNoteAvecFichier=newTabNoteAvecFichier;
-		nbMaxNoteAvecFichier+=10;
-		if(oldNoteAvecFichier) delete[] oldNoteAvecFichier;
-	}
-	tabNoteAvecFichier[nbNoteAvecFichier++]=a;
+	tabNoteAvecFichier.push_back(a);
+	nbNoteAvecFichier++;
 }
 
 NoteAvecFichier& NotesManager::getNewNoteAvecFichier(const string& id,const string& ti,const string& de,const string& fi){
@@ -89,15 +75,8 @@ void NotesManager::addTaches(Tache* a){
 	for(unsigned int i=0; i<nbTaches; i++){
 		if (tabTaches[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
 	}
-	if(nbTaches==nbMaxTaches){
-		Tache** newTabTaches=new Tache*[nbMaxTaches+10];
-		for(unsigned int i=0;i<nbTaches;i++) newTabTaches[i]=tabTaches[i];
-		Tache** oldTaches=tabTaches;
-		tabTaches=newTabTaches;
-		nbMaxTaches+=10;
-		if(oldTaches) delete[] oldTaches;
-	}
-	tabTaches[nbTaches++]=a;
+	tabTaches.push_back(a);
+	nbTaches++;
 }
 
 Tache& NotesManager::getNewTache(const string& id,const string& ti,const string& ac,const string& pr,statutTache t){
@@ -115,14 +94,17 @@ Tache& NotesManager::getTache(const string& id){
 
 
 
-NotesManager::NotesManager():tabArticles(nullptr),nbArticles(0),nbMaxArticles(0),filename(""),tabNoteAvecFichier(nullptr),nbNoteAvecFichier(0),nbMaxNoteAvecFichier(0){}
+NotesManager::NotesManager():nbArticles(0),nbMaxArticles(0),filename(""),nbNoteAvecFichier(0),nbMaxNoteAvecFichier(0){}
 
 NotesManager::~NotesManager(){
 	//save();
-	for(unsigned int i=0; i<nbArticles; i++) delete tabArticles[i];
-	delete[] tabArticles;
-	for(unsigned int i=0; i<nbNoteAvecFichier; i++) delete tabNoteAvecFichier[i];
-	delete[] tabNoteAvecFichier;
+	for(auto element : tabArticles) delete element;
+	// on vide le tableau
+	tabArticles.clear();
+	for(auto element : tabNoteAvecFichier) delete element;
+	tabNoteAvecFichier.clear();
+	for(auto element : tabTaches) delete element;
+	tabTaches.clear();
 }
 
 /*void NotesManager::save()const{
