@@ -33,6 +33,12 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="main.cpp" />
+		<Unit filename="notes.cpp" />
+		<Unit filename="notes.h" />
+		<Unit filename="relation.cpp" />
+		<Unit filename="relation.h" />
+		<Unit filename="timing.cpp" />
+		<Unit filename="timing.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
