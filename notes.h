@@ -97,7 +97,7 @@ class NotesManager{
 		NoteAvecFichier& getNewNoteAvecFichier(const string& id,const string& ti,const string& de,const string& fi);
 		NoteAvecFichier& getNoteAvecFichier(const string& id);
 
-		Tache& getNewTache(const string& id,const string& ti,const string& ac,const string& pr,statutTache t);
+		Tache& getNewTache(const string& id,const string& ti,const string& ac,const string& pr,const Date& d,statutTache t);
 		Tache& getTache(const string& id);
 
 		void load(const string& f);
@@ -172,7 +172,7 @@ class Tache: protected Notes {
 		string priorite;
 		Date dateEch;
 		statutTache statut;
-		Tache(const string& i, const string& ti,const string& a,const string& pr, statutTache t);
+		Tache(const string& i, const string& ti,const string& a,const string& pr,const Date&, statutTache t);
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:

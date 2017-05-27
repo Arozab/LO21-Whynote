@@ -3,7 +3,15 @@
 using namespace std;
 
 //--------------------NOTES------------------------//
-Notes::Notes(const string& i, const string& ti):id(i),titre(ti){}	//ajouter automatiquement la date créa et date modif
+Notes::Notes(const string& i, const string& ti):id(i),titre(ti){
+
+
+
+	time_t seconds = time(NULL);
+    struct tm * timeinfo = localtime(&seconds);
+   	dateCrea=Date((timeinfo->tm_mday),(timeinfo->tm_mon+1),(1900+timeinfo->tm_year));
+   	dateModif=Date((timeinfo->tm_mday),(timeinfo->tm_mon+1),(1900+timeinfo->tm_year));
+}	//ajouter automatiquement la date créa et date modif
 
 void Notes::setTitre(const string& t){
 
@@ -23,6 +31,10 @@ void Notes::setDateCrea(const Date& d){
 void Notes::afficher(ostream& f)const{
 
 	f << "ID : "<<getId()<<", Titre : "<<getTitre();//<<", Date de creation : "<<getDateCrea()<<", Date de modification : "<<getDateModif();
+    f<<" Date de creation : ";
+    getDateCrea();
+    f<<" Date de modification : ";
+    getDateModif();
 }
 
 
@@ -79,8 +91,8 @@ void NotesManager::addTaches(Tache* a){
 	nbTaches++;
 }
 
-Tache& NotesManager::getNewTache(const string& id,const string& ti,const string& ac,const string& pr,statutTache t){
-	Tache* n=new Tache(id,ti,ac,pr,t);
+Tache& NotesManager::getNewTache(const string& id,const string& ti,const string& ac,const string& pr,const Date& d,statutTache t){
+	Tache* n=new Tache(id,ti,ac,pr,d,t);
 	addTaches(n);
 	return *n;
 }
@@ -175,7 +187,7 @@ void Article::setText(const string& t){
 void Article::afficher(ostream& f) const{
 
 	Notes::afficher(f);
-	f<<", Texte : "<<getText()<<endl;
+	f<<", Texte : "<<getText()<<endl<<endl;
 }
 
 
@@ -195,12 +207,12 @@ void NoteAvecFichier::setFile(const string& t){
 void NoteAvecFichier::afficher(ostream& f)const{
 
 	Notes::afficher(f);
-	f<<", Description : "<<getDescription()<<", Lien du fichier : "<<getFile()<<endl;
+	f<<", Description : "<<getDescription()<<", Lien du fichier : "<<getFile()<<endl<<endl;
 }
 
 
 //--------------------TACHE------------------------//
-Tache::Tache(const string& i, const string& ti,const string& a,const string& pr, statutTache t):Notes(i,ti),action(a),priorite(pr),statut(t){}
+Tache::Tache(const string& i, const string& ti,const string& a,const string& pr,const Date& d, statutTache t):Notes(i,ti),action(a),priorite(pr),dateEch(d),statut(t){}
 
 void Tache::setAction(const string& a){
 
@@ -225,5 +237,5 @@ void Tache::setStatutTache(statutTache t){
 void Tache::afficher(ostream& f)const{
 
 	Notes::afficher(f);
-	f<<", Action : "<<getAction()<<", Priorite : "<<getPriorite()<<", Statut de la tache : "<<getStatutTache();//<<", Date d echeance : "<<getDateEch()<<endl;
+	f<<", Action : "<<getAction()<<", Priorite : "<<getPriorite()<<", Statut de la tache : "<<getStatutTache()<<endl<<endl;//<<", Date d echeance : "<<getDateEch()<<endl;
 }

@@ -13,12 +13,11 @@ int main() {
        	manager.getNewNoteAvecFichier("22","NoteAvecFichierTest","Description de la note","/Documents/LO21-WHYNOTE/test.txt");
        	NoteAvecFichier& a2=manager.getNoteAvecFichier("22");
        	a2.afficher();
-       /*	manager.getNewTache("4","Tache","Go farm mid","Imporant",en_cours);
-       	Tache& a3=manager.getTache("3");
-       	a3.afficher();*/
+        Tache& a3=manager.getNewTache("4","Tache","Go farm mid","Important",Date(15,06,2017),en_cours);
+        a3.afficher();
 
-       //NotesManager& manager2=NotesManager::getInstance();
-	//manager.getNewNote("22");
+        //NotesManager& manager2=NotesManager::getInstance();
+        //manager.getNewN("22","NoteTest1","Ceci est une note d'essai pour verifier le bon fonctionnement1");
     }
 	catch(NotesException& e){
 		std::cout<<e.getInfo()<<"\n";

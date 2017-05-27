@@ -4,7 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <ctime>
-
+#include <time.h>
 
 class TimeException{
 public:
@@ -14,6 +14,11 @@ public:
 private:
 	std::string info;
 };
+
+
+
+
+
 
 /*! \class Date
 		\brief Classe permettant de manipuler des dates standards
@@ -45,6 +50,9 @@ private:
 	unsigned short int mois; // mois entre 1 et 12
 	unsigned int annee;
 };
+
+
+
 
 //std::ostream& operator<<(std::ostream&, const TIME::Date&);
 
