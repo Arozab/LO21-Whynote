@@ -3,7 +3,7 @@
 using namespace std;
 
 //--------------------NOTES------------------------//
-Notes::Notes(const string& i, const string& ti):id(i),titre(ti){
+Notes::Notes(const string& i, const string& ti):id(i),titre(ti),ancienneVersion(NULL){
 
 
 
@@ -39,6 +39,26 @@ void Notes::afficher(ostream& f)const{
 
 
 //--------------------NOTESMANAGER------------------------//
+
+void NotesManager::addNotes(Notes* n) {
+    if (!notes.empty()) {
+        for(unsigned int i=0; i<nbNotes; i++){
+            if (notes[i]->getId()==n->getId()) throw NotesException("Erreur, creation d'une note deja existante");
+        }
+    }
+	cout << "ok google" << endl;
+	notes.push_back(n);
+	nbNotes++;
+}
+
+/*Notes& NotesManager::getNotes(const string& id){
+	for(unsigned int i=0;i<nbNotes;i++){
+		if(notes[i]->getId()==id) return *notes[i];
+	}
+	throw NotesException("Erreur, l'Article n'existe pas");
+}*/
+
+
 void NotesManager::addArticles(Article* a){
 	for(unsigned int i=0; i<nbArticles; i++){
 		if (tabArticles[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
@@ -49,7 +69,9 @@ void NotesManager::addArticles(Article* a){
 
 Article& NotesManager::getNewArticle(const string& id,const string& ti,const string& te){
 	Article* n=new Article(id,ti,te);
-	addArticles(n);
+	cout << "Article bien cree" << endl;
+	n->afficher();
+	addNotes(n);
 	return *n;
 }
 
@@ -148,7 +170,7 @@ void NotesManager::load(const string& f) {
 		if (fin.bad()) throw NotesException("error reading note text on file");
 		Date dateModif=tmp;*/
 
-		Notes* n=new Notes(id,titre);
+//		Notes* n=new Notes(id,titre);
 		//addNote(n);
 		if (fin.peek()=='\r') fin.ignore();
 		if (fin.peek()=='\n') fin.ignore();
@@ -173,6 +195,11 @@ NotesManager& NotesManager::getInstance(){
 void NotesManager::libererInstance(){
 	delete handler.instance;
 	handler.instance=nullptr;
+}
+
+
+void editer(const Notes& n){
+
 }
 
 

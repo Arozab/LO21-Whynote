@@ -7,9 +7,9 @@ int main() {
 
     try{
         NotesManager& manager=NotesManager::getInstance();
-       	manager.getNewArticle("22","NoteTest","Ceci est une note d'essai pour verifier le bon fonctionnement");
-       	Article& a1=manager.getArticle("22");
-       	a1.afficher();
+       	Article& a1=manager.getNewArticle("22","NoteTest","Ceci est une note d'essai pour verifier le bon fonctionnement");
+       	//Article& a1=manager.getNotes("22");
+        a1.afficher();
        	manager.getNewNoteAvecFichier("22","NoteAvecFichierTest","Description de la note","/Documents/LO21-WHYNOTE/test.txt");
        	NoteAvecFichier& a2=manager.getNoteAvecFichier("22");
        	a2.afficher();

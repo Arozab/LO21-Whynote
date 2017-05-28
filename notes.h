@@ -30,7 +30,6 @@ class Notes {
 		void setTitre(const string& t);		//Mis à part son identificateur qui ne pourra jamais être édité,
 		void setDateModif(const Date& d); 	//tous les éléments d’une note sont modifiables.
 		void setDateCrea(const Date& d);
-		Notes(const Notes& n);
 		Notes& operator=(const Notes& n);
 		//~Notes();
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
@@ -40,6 +39,7 @@ class Notes {
 		string titre;
 		Date dateCrea;
 		Date dateModif;
+		vector<Notes*> ancienneVersion;
 		//Empecher la duplication
 
 	public:
@@ -49,6 +49,7 @@ class Notes {
 		string getTitre() const { return titre; }
 		void getDateCrea() const { return dateCrea.afficher();}
 		void getDateModif() const { return dateModif.afficher();}
+		virtual Notes* clone()const=0;
 		virtual void afficher(ostream& f=cout) const;
 };
 
@@ -70,6 +71,10 @@ class NotesManager{
 		unsigned int nbTaches;
 		unsigned int nbMaxTaches;
 		void addTaches(Tache* a);
+
+		vector<Notes*> notes;
+		void addNotes(Notes* n);
+		unsigned int nbNotes;
 
 		string filename;	//pour le fichier contenant les notes
 
@@ -101,9 +106,12 @@ class NotesManager{
 		Tache& getTache(const string& id);
 
 		void load(const string& f);
-		void save()const;
+		void save()const;	//on ajoute la note modifiée dans le tableau notes de notesManager (si elle existe deja, remplacer l'ancienne version)
 		static NotesManager& getInstance();
 		static void libererInstance();
+
+		void editer(const Notes& n);	//ajout de l'adresse de n dans le tableau ancienneVersion de n, et on clone n et on l'ouvre
+		//Notes& getNotes(const string& id);
 
 		/*class Iterator{
 		private:
@@ -134,6 +142,7 @@ class Article: protected Notes {
 		void setText(const string& t);
 		string text;
 		Article(const string& i, const string& ti, const string& t);
+		Article* clone()const{return new Article(*this);}
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
@@ -151,6 +160,7 @@ class NoteAvecFichier: protected Notes {
 		string description;
 		string file;
 	 	NoteAvecFichier(const string& i, const string& ti, const string& des, const string& fi);
+	 	NoteAvecFichier* clone()const{return new NoteAvecFichier(*this);}
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
@@ -173,6 +183,7 @@ class Tache: protected Notes {
 		Date dateEch;
 		statutTache statut;
 		Tache(const string& i, const string& ti,const string& a,const string& pr,const Date&, statutTache t);
+		Tache* clone()const{return new Tache(*this);}
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
