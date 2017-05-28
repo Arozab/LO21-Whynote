@@ -30,10 +30,10 @@ void Notes::setDateCrea(const Date& d){
 
 void Notes::afficher(ostream& f)const{
 
-	f << "ID : "<<getId()<<", Titre : "<<getTitre();//<<", Date de creation : "<<getDateCrea()<<", Date de modification : "<<getDateModif();
-    f<<" Date de creation : ";
+	f << "ID : "<<getId()<<"\nTitre : "<<getTitre();//<<", Date de creation : "<<getDateCrea()<<", Date de modification : "<<getDateModif();
+    f<<"\nDate de creation : ";
     getDateCrea();
-    f<<" Date de modification : ";
+    f<<"\nDate de modification : ";
     getDateModif();
 }
 
@@ -187,7 +187,7 @@ void Article::setText(const string& t){
 void Article::afficher(ostream& f) const{
 
 	Notes::afficher(f);
-	f<<", Texte : "<<getText()<<endl<<endl;
+	f<<"\nTexte : "<<getText()<<endl<<endl<<endl;
 }
 
 
@@ -207,7 +207,7 @@ void NoteAvecFichier::setFile(const string& t){
 void NoteAvecFichier::afficher(ostream& f)const{
 
 	Notes::afficher(f);
-	f<<", Description : "<<getDescription()<<", Lien du fichier : "<<getFile()<<endl<<endl;
+	f<<"\nDescription : "<<getDescription()<<"\nLien du fichier : "<<getFile()<<endl<<endl<<endl;
 }
 
 
@@ -237,5 +237,7 @@ void Tache::setStatutTache(statutTache t){
 void Tache::afficher(ostream& f)const{
 
 	Notes::afficher(f);
-	f<<", Action : "<<getAction()<<", Priorite : "<<getPriorite()<<", Statut de la tache : "<<getStatutTache()<<endl<<endl;//<<", Date d echeance : "<<getDateEch()<<endl;
+	f<<"\nAction : "<<getAction()<<"\nPriorite : "<<getPriorite()<<"\nDate d'echeance : ";
+    getDateEch();
+    f<<"\nStatut de la tache : "<<getStatutTache()<<endl<<endl<<endl;
 }
