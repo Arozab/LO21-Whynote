@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLineEdit>
+#include <QDebug>
+#include "noteview.h"
+#include "notesactives.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +21,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
+private slots:
+    void reactSave();
 };
 
 #endif // MAINWINDOW_H
