@@ -38,15 +38,18 @@ void Notes::afficher(ostream& f)const{
 }
 
 
+
 //--------------------NOTESMANAGER------------------------//
 
 void NotesManager::addNotes(Notes* n) {
     if (!notes.empty()) {
-        for(unsigned int i=0; i<nbNotes; i++){
+        for(unsigned int i=0; i<getnbNotes(); i++){
             if (notes[i]->getId()==n->getId()) throw NotesException("Erreur, creation d'une note deja existante");
         }
     }
-	cout << "ok google" << endl;
+    else{
+    	nbNotes=0;
+    }
 	notes.push_back(n);
 	nbNotes++;
 }
@@ -69,8 +72,6 @@ void NotesManager::addArticles(Article* a){
 
 Article& NotesManager::getNewArticle(const string& id,const string& ti,const string& te){
 	Article* n=new Article(id,ti,te);
-	cout << "Article bien cree" << endl;
-	n->afficher();
 	addNotes(n);
 	return *n;
 }
@@ -93,7 +94,7 @@ void NotesManager::addNoteAvecFichier(NoteAvecFichier* a){
 
 NoteAvecFichier& NotesManager::getNewNoteAvecFichier(const string& id,const string& ti,const string& de,const string& fi){
 	NoteAvecFichier* n=new NoteAvecFichier(id,ti,de,fi);
-	addNoteAvecFichier(n);
+	addNotes(n);
 	return *n;
 }
 
@@ -115,7 +116,7 @@ void NotesManager::addTaches(Tache* a){
 
 Tache& NotesManager::getNewTache(const string& id,const string& ti,const string& ac,const string& pr,const Date& d,statutTache t){
 	Tache* n=new Tache(id,ti,ac,pr,d,t);
-	addTaches(n);
+	addNotes(n);
 	return *n;
 }
 
@@ -169,8 +170,7 @@ void NotesManager::load(const string& f) {
 		fin.getline(tmp,1000); // get text on the next line
 		if (fin.bad()) throw NotesException("error reading note text on file");
 		Date dateModif=tmp;*/
-
-//		Notes* n=new Notes(id,titre);
+		//		Notes* n=new Notes(id,titre);
 		//addNote(n);
 		if (fin.peek()=='\r') fin.ignore();
 		if (fin.peek()=='\n') fin.ignore();
@@ -189,7 +189,6 @@ NotesManager& NotesManager::getInstance(){
 		throw NotesException("Erreur, on a deja un note manager");
 		return *handler.instance;
 	}
-
 }
 
 void NotesManager::libererInstance(){
@@ -198,10 +197,19 @@ void NotesManager::libererInstance(){
 }
 
 
-void editer(const Notes& n){
-
+Notes& NotesManager::edition(Notes* n){
+	unsigned int i=0;
+	while(notes[i]->getId()!=n->getId()){
+   		i++;
+   	}
+	notes[i]=n->editer();
+	time_t seconds = time(NULL);
+    struct tm * timeinfo = localtime(&seconds);
+   	notes[i]->setDateModif(Date((timeinfo->tm_mday),(timeinfo->tm_mon+1),(1900+timeinfo->tm_year)));
+   	notes[i]->setTitre("Grosse BITE");
+   	notes[i]->ancienneVersion.push_back(n);
+	return *notes[i];
 }
-
 
 //--------------------ARTICLE------------------------//
 Article::Article(const string& i, const string& ti, const string& t):Notes(i,ti),text(t){}
@@ -217,6 +225,10 @@ void Article::afficher(ostream& f) const{
 	f<<"\nTexte : "<<getText()<<endl<<endl<<endl;
 }
 
+
+Article* Article::editer(){
+	return this->clone();
+}
 
 //--------------------NOTEAVECFICHIER------------------------//
 NoteAvecFichier::NoteAvecFichier(const string& i,const string& ti,const string& d,const string& f):Notes(i,ti),description(d),file(f){}
@@ -237,6 +249,10 @@ void NoteAvecFichier::afficher(ostream& f)const{
 	f<<"\nDescription : "<<getDescription()<<"\nLien du fichier : "<<getFile()<<endl<<endl<<endl;
 }
 
+
+NoteAvecFichier* NoteAvecFichier::editer(){
+	return this->clone();
+}
 
 //--------------------TACHE------------------------//
 Tache::Tache(const string& i, const string& ti,const string& a,const string& pr,const Date& d, statutTache t):Notes(i,ti),action(a),priorite(pr),dateEch(d),statut(t){}
@@ -267,4 +283,8 @@ void Tache::afficher(ostream& f)const{
 	f<<"\nAction : "<<getAction()<<"\nPriorite : "<<getPriorite()<<"\nDate d'echeance : ";
     getDateEch();
     f<<"\nStatut de la tache : "<<getStatutTache()<<endl<<endl<<endl;
+}
+
+Tache* Tache::editer(){
+	return this->clone();
 }

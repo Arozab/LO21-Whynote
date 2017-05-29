@@ -49,8 +49,10 @@ class Notes {
 		string getTitre() const { return titre; }
 		void getDateCrea() const { return dateCrea.afficher();}
 		void getDateModif() const { return dateModif.afficher();}
+		Notes& getOldVersion(unsigned int i)const{return *ancienneVersion[i];}
 		virtual Notes* clone()const=0;
 		virtual void afficher(ostream& f=cout) const;
+		virtual Notes* editer()=0;	//ajout de l'adresse de n dans le tableau ancienneVersion de n, et on clone n et on l'ouvre
 };
 
 
@@ -110,7 +112,10 @@ class NotesManager{
 		static NotesManager& getInstance();
 		static void libererInstance();
 
-		void editer(const Notes& n);	//ajout de l'adresse de n dans le tableau ancienneVersion de n, et on clone n et on l'ouvre
+		unsigned int getnbNotes() const {return nbNotes;}
+        Notes& edition(Notes* n);
+
+        Notes* getNotes(unsigned int i)const{return notes[i];}
 		//Notes& getNotes(const string& id);
 
 		/*class Iterator{
@@ -136,7 +141,7 @@ class NotesManager{
 };
 
 
-class Article: protected Notes {
+class Article: public Notes {
 
 	private:
 		void setText(const string& t);
@@ -146,13 +151,13 @@ class Article: protected Notes {
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
-
+        Article* editer();
 		string getText() const {return text;}
 		void afficher(ostream& f=cout) const;
 };
 
 
-class NoteAvecFichier: protected Notes {
+class NoteAvecFichier: public Notes {
 
 	private:
 		void setDescription(const string& t);
@@ -164,14 +169,14 @@ class NoteAvecFichier: protected Notes {
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
-
+		NoteAvecFichier* editer();
 		string getDescription() const {return description;}
 		string getFile() const {return file;}
 		void afficher(ostream& f=cout) const;
 };
 
 
-class Tache: protected Notes {
+class Tache: public Notes {
 
 	private:
 		void setAction(const string& a);
@@ -187,6 +192,7 @@ class Tache: protected Notes {
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
 	public:
+		Tache* editer();
 		string getAction() const {return action;}
 		string getPriorite() const {return priorite;}
 		void getDateEch() const {return dateEch.afficher();}
