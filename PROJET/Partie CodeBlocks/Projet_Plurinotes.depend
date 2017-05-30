@@ -75,3 +75,35 @@
 	"notes.h"
 	<fstream>
 
+1496164886 source:c:\users\alban\documents\lo21-whynote\projet\partie codeblocks\main.cpp
+	"notes.h"
+	"timing.h"
+	"relation.h"
+	<windows.h>
+
+1496164886 c:\users\alban\documents\lo21-whynote\projet\partie codeblocks\notes.h
+	<string>
+	<iostream>
+	<vector>
+	"timing.h"
+
+1496164887 c:\users\alban\documents\lo21-whynote\projet\partie codeblocks\timing.h
+	<iostream>
+	<iomanip>
+	<ctime>
+	<time.h>
+
+1496164887 c:\users\alban\documents\lo21-whynote\projet\partie codeblocks\relation.h
+	<string>
+	<iostream>
+	<vector>
+	"notes.h"
+	"timing.h"
+
+1496164886 source:c:\users\alban\documents\lo21-whynote\projet\partie codeblocks\notes.cpp
+	"notes.h"
+	<fstream>
+
+1496164887 source:c:\users\alban\documents\lo21-whynote\projet\partie codeblocks\timing.cpp
+	"timing.h"
+
