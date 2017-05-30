@@ -6,49 +6,43 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>391</width>
+    <height>306</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>0</y>
-      <width>171</width>
-      <height>241</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="ArticleEditeur">
-     <item>
-      <layout class="QHBoxLayout" name="Date">
-       <item>
-        <layout class="QVBoxLayout" name="DateCreation"/>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="DateLastUpdate"/>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="Titre"/>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="Text"/>
-     </item>
-    </layout>
-   </widget>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QVBoxLayout" name="ArticleEditeur">
+      <item>
+       <layout class="QHBoxLayout" name="Date">
+        <item>
+         <layout class="QVBoxLayout" name="DateCreation"/>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="DateLastUpdate"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="Titre"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="Text"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>391</width>
      <height>21</height>
     </rect>
    </property>
@@ -56,6 +50,7 @@
     <property name="title">
      <string>file</string>
     </property>
+    <addaction name="actionOpen"/>
    </widget>
    <addaction name="menufile"/>
   </widget>
@@ -68,6 +63,11 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
