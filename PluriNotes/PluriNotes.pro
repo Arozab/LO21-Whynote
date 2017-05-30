@@ -24,8 +24,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    noteview.cpp \
+    notesactives.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    noteview.h \
+    notesactives.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    noteview.ui \
+    notesactives.ui
