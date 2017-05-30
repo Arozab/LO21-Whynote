@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<epandage>
+
+  <parametres>
+    <parametres_parcelle>
+      <nom>TEST</nom>
+      <longueur>455</longueur>
+      <largeur>22</largeur>
+      <volume_pulverise>27</volume_pulverise>
+      <volume_hectare>18</volume_hectare>
+    </parametres_parcelle>
+    <parametres_buses>
+      ...
+    </parametres_buses>
+    ...
+  </parametres>
+</epandage>

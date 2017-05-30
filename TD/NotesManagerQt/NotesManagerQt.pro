@@ -4,12 +4,10 @@ QMAKE_CXXFLAGS = -std=c++11
 QMAKE_LFLAGS = -std=c++11
 
 HEADERS += \
-    Notes.h \
-    noteediteur.h \
-    fenprincipale.h
+    Xml_Dom.h
+
 
 SOURCES += \
     main.cpp \
-    Notes.cpp \
-    noteediteur.cpp \
-    fenprincipale.cpp
+    Xml_Dom.cpp \
+    xml_doc.xml
