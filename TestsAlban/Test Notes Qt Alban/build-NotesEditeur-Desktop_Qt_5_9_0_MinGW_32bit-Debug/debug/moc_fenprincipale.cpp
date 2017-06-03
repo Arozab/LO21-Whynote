@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_FenPrincipale_t {
-    QByteArrayData data[3];
-    char stringdata0[30];
+    QByteArrayData data[4];
+    char stringdata0[33];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,11 +32,12 @@ struct qt_meta_stringdata_FenPrincipale_t {
 static const qt_meta_stringdata_FenPrincipale_t qt_meta_stringdata_FenPrincipale = {
     {
 QT_MOC_LITERAL(0, 0, 13), // "FenPrincipale"
-QT_MOC_LITERAL(1, 14, 14), // "ouvrirDialogue"
-QT_MOC_LITERAL(2, 29, 0) // ""
+QT_MOC_LITERAL(1, 14, 11), // "afficheNote"
+QT_MOC_LITERAL(2, 26, 0), // ""
+QT_MOC_LITERAL(3, 27, 5) // "titre"
 
     },
-    "FenPrincipale\0ouvrirDialogue\0"
+    "FenPrincipale\0afficheNote\0\0titre"
 };
 #undef QT_MOC_LITERAL
 
@@ -54,10 +55,10 @@ static const uint qt_meta_data_FenPrincipale[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   19,    2, 0x0a /* Public */,
+       1,    1,   19,    2, 0x0a /* Public */,
 
  // slots: parameters
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    3,
 
        0        // eod
 };
@@ -68,11 +69,10 @@ void FenPrincipale::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         FenPrincipale *_t = static_cast<FenPrincipale *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->ouvrirDialogue(); break;
+        case 0: _t->afficheNote((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject FenPrincipale::staticMetaObject = {

@@ -1,6 +1,7 @@
 #include "FenPrincipale.h"
+#include "notes.h"
 
-FenPrincipale::FenPrincipale()
+FenPrincipale::FenPrincipale(NotesManager& m)
 {
     zoneCentrale = new QWidget;
 
@@ -9,30 +10,92 @@ FenPrincipale::FenPrincipale()
         menuFichier->addAction(actionQuitter);
         connect(actionQuitter, SIGNAL(triggered()), qApp, SLOT(quit()));
 
-    liste = new QComboBox();
-    liste->setMinimumContentsLength(30);
+    dock = new QDockWidget(tr("Liste de Notes"));
+    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 
-    bouton1 = new QPushButton("Ouvrir");
+    liste = new QListWidget(dock);
+    for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
+        QString str=it.current().getTitre();
+        //str.append(" ");
+        //str.append(it.current().getTitre());
+        //liste->addItem(it.current().getTitre());
+        liste->addItem(str);
+    }
+    dock->setWidget(liste);
+    addDockWidget(Qt::LeftDockWidgetArea, dock);
+    connect(liste, SIGNAL(currentTextChanged(QString)),this, SLOT(afficheNote(QString)));
 
-    layout = new QGridLayout;
-    layout->addWidget(bouton1,0,1);
-    layout->addWidget(liste,0,0);
+    /*dock = new QDockWidget();
+    bouton1 = new QPushButton("Afficher");
+    dock->setWidget(bouton1);
+    addDockWidget(Qt::LeftDockWidgetArea, dock);*/
 
-    zoneCentrale->setLayout(layout);
+    idlabel=new QLabel("id",this);
+    titrelabel=new QLabel("titre",this);
+    dateCrealabel=new QLabel("date creation",this);
+    dateModiflabel=new QLabel("date modification",this);
+    idEdit=new QLineEdit(this);
+    titreEdit=new QLineEdit(this);
+    dateCreaEdit=new QLineEdit(this);
+    dateModifEdit=new QLineEdit(this);
 
+
+    cid = new QHBoxLayout;
+    cid->addWidget(idlabel);
+    cid->addWidget(idEdit);
+    ctitre = new QHBoxLayout;
+    ctitre->addWidget(titrelabel);
+    ctitre->addWidget(titreEdit);
+    cdateCrea = new QHBoxLayout;
+    cdateCrea->addWidget(dateCrealabel);
+    cdateCrea->addWidget(dateCreaEdit);
+    cdateModif = new QHBoxLayout;
+    cdateModif->addWidget(dateModiflabel);
+    cdateModif->addWidget(dateModifEdit);
+    ccentral = new QVBoxLayout;
+    ccentral->addLayout(cid);
+    ccentral->addLayout(ctitre);
+    ccentral->addLayout(cdateCrea);
+    ccentral->addLayout(cdateModif);
+    zoneCentrale->setLayout(ccentral);
     setCentralWidget(zoneCentrale);
-    QObject::connect(bouton1,SIGNAL(clicked()),this,SLOT(ouvrirDialogue()));
 
 }
 
-void FenPrincipale::ouvrirDialogue()
+void FenPrincipale::afficheNote(const QString& titre){
+    if (titre.isEmpty()){
+        qDebug()<<"titre : "<<titre<<"\n";
+        return;
+    }
+    else{
+        qDebug()<<"titre : "<<titre<<"\n";
+       // Notes& n=trouverNote(titre,m);
+        //idEdit->setText(n.getId());
+        idEdit->setText(titre);
+
+    }
+       /* for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
+            liste->addItem(it.current().getTitre());
+        }*/
+}
+
+/*Notes& FenPrincipale::trouverNote(const QString& titre,NotesManager& m){
+    NotesManager::Iterator it=m.getIterator();
+    while(!it.isDone() && it.current().getTitre()!=titre){
+        it.next();
+    }
+    if(!it.isDone())
+        return it.current();
+}*/
+
+/*void FenPrincipale::ouvrirDialogue()
 {
     QString fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "(*.xml)");
-    load(fichier);
-}
+    //load(fichier);
+}*/
 
 
-void FenPrincipale::load(QString f) {
+/*void FenPrincipale::load(QString f) {
     QFile fin(f);
     // If we can't open it, let's show an error message.
    if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -98,3 +161,4 @@ void FenPrincipale::load(QString f) {
     xml.clear();
     qDebug()<<"fin load\n";
 }
+*/

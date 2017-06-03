@@ -2,7 +2,11 @@ QT += widgets
 QT += xml
 SOURCES += \
     main.cpp \
-    fenprincipale.cpp
+    fenprincipale.cpp \
+    notes.cpp \
+    timing.cpp
 
 HEADERS += \
-    fenprincipale.h
+    fenprincipale.h \
+    notes.h \
+    timing.h
