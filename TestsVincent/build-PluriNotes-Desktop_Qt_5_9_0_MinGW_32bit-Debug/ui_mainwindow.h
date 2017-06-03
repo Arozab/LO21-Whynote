@@ -29,19 +29,6 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-<<<<<<< HEAD
-    QAction *actionOpen;
-    QWidget *centralWidget;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *ArticleEditeur;
-    QHBoxLayout *Date;
-    QVBoxLayout *DateCreation;
-    QVBoxLayout *DateLastUpdate;
-    QHBoxLayout *Titre;
-    QHBoxLayout *Text;
-    QMenuBar *menuBar;
-    QMenu *menufile;
-=======
     QAction *actionSave;
     QAction *actionExit;
     QAction *actionArticle;
@@ -62,7 +49,6 @@ public:
     QMenuBar *menuBar;
     QMenu *menufile;
     QMenu *menuNouveau;
->>>>>>> 167c8c55c89ddc92716ee315578f8f81f33cb262
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -70,50 +56,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(400, 300);
-<<<<<<< HEAD
-        actionOpen = new QAction(MainWindow);
-        actionOpen->setObjectName(QStringLiteral("actionOpen"));
-        centralWidget = new QWidget(MainWindow);
-        centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        verticalLayoutWidget = new QWidget(centralWidget);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(110, 0, 171, 241));
-        ArticleEditeur = new QVBoxLayout(verticalLayoutWidget);
-        ArticleEditeur->setSpacing(6);
-        ArticleEditeur->setContentsMargins(11, 11, 11, 11);
-        ArticleEditeur->setObjectName(QStringLiteral("ArticleEditeur"));
-        ArticleEditeur->setContentsMargins(0, 0, 0, 0);
-        Date = new QHBoxLayout();
-        Date->setSpacing(6);
-        Date->setObjectName(QStringLiteral("Date"));
-        DateCreation = new QVBoxLayout();
-        DateCreation->setSpacing(6);
-        DateCreation->setObjectName(QStringLiteral("DateCreation"));
-
-        Date->addLayout(DateCreation);
-
-        DateLastUpdate = new QVBoxLayout();
-        DateLastUpdate->setSpacing(6);
-        DateLastUpdate->setObjectName(QStringLiteral("DateLastUpdate"));
-
-        Date->addLayout(DateLastUpdate);
-
-
-        ArticleEditeur->addLayout(Date);
-
-        Titre = new QHBoxLayout();
-        Titre->setSpacing(6);
-        Titre->setObjectName(QStringLiteral("Titre"));
-
-        ArticleEditeur->addLayout(Titre);
-
-        Text = new QHBoxLayout();
-        Text->setSpacing(6);
-        Text->setObjectName(QStringLiteral("Text"));
-
-        ArticleEditeur->addLayout(Text);
-=======
+        MainWindow->resize(391, 306);
         actionSave = new QAction(MainWindow);
         actionSave->setObjectName(QStringLiteral("actionSave"));
         actionExit = new QAction(MainWindow);
@@ -185,19 +128,15 @@ public:
 
 
         horizontalLayout->addWidget(droite);
->>>>>>> 167c8c55c89ddc92716ee315578f8f81f33cb262
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 21));
+        menuBar->setGeometry(QRect(0, 0, 391, 21));
         menufile = new QMenu(menuBar);
         menufile->setObjectName(QStringLiteral("menufile"));
-<<<<<<< HEAD
-=======
         menuNouveau = new QMenu(menuBar);
         menuNouveau->setObjectName(QStringLiteral("menuNouveau"));
->>>>>>> 167c8c55c89ddc92716ee315578f8f81f33cb262
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -207,9 +146,6 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menufile->menuAction());
-<<<<<<< HEAD
-        menufile->addAction(actionOpen);
-=======
         menuBar->addAction(menuNouveau->menuAction());
         menufile->addAction(actionSave);
         menufile->addAction(actionExit);
@@ -217,7 +153,6 @@ public:
         menuNouveau->addAction(actionTache);
         menuNouveau->addAction(actionMedia);
         mainToolBar->addAction(actionExit);
->>>>>>> 167c8c55c89ddc92716ee315578f8f81f33cb262
 
         retranslateUi(MainWindow);
 
@@ -227,10 +162,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
-<<<<<<< HEAD
-        actionOpen->setText(QApplication::translate("MainWindow", "Open", Q_NULLPTR));
-        menufile->setTitle(QApplication::translate("MainWindow", "file", Q_NULLPTR));
-=======
         actionSave->setText(QApplication::translate("MainWindow", "Save", Q_NULLPTR));
         actionExit->setText(QApplication::translate("MainWindow", "Exit", Q_NULLPTR));
         actionArticle->setText(QApplication::translate("MainWindow", "Article", Q_NULLPTR));
@@ -240,7 +171,6 @@ public:
         label_2->setText(QApplication::translate("MainWindow", "Relations :", Q_NULLPTR));
         menufile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuNouveau->setTitle(QApplication::translate("MainWindow", "Nouveau", Q_NULLPTR));
->>>>>>> 167c8c55c89ddc92716ee315578f8f81f33cb262
     } // retranslateUi
 
 };
