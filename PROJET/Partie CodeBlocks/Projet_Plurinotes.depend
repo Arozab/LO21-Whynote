@@ -1,0 +1,109 @@
+# depslib dependency file v1.0
+1495411372 source:c:\users\vincent\documents\github\lo21-whynote\main.cpp
+	"notes.h"
+	"timing.h"
+	"relation.h"
+	<windows.h>
+
+1495407429 c:\users\vincent\documents\github\lo21-whynote\notes.h
+	<string>
+	<iostream>
+	<vector>
+	"timing.h"
+
+1495118615 c:\users\vincent\documents\github\lo21-whynote\timing.h
+	<iostream>
+	<iomanip>
+	<ctime>
+
+1495411188 c:\users\vincent\documents\github\lo21-whynote\notes.cpp
+	"notes.h"
+	<fstream>
+
+1495118615 c:\users\vincent\documents\github\lo21-whynote\timing.cpp
+	"timing.h"
+
+1495411188 source:c:\users\vincent\documents\github\lo21-whynote\notes.cpp
+	"notes.h"
+	<fstream>
+
+1495411489 source:c:\users\vincent\documents\github\lo21-whynote\relation.cpp
+	"relation.h"
+
+1495411580 c:\users\vincent\documents\github\lo21-whynote\relation.h
+	<string>
+	<iostream>
+	<vector>
+	"notes.h"
+	"timing.h"
+
+1495118615 source:c:\users\vincent\documents\github\lo21-whynote\timing.cpp
+	"timing.h"
+
+1496078049 source:c:\users\alban\documents\lo21-whynote\main.cpp
+	"notes.h"
+	"timing.h"
+	"relation.h"
+	<windows.h>
+
+1496078389 c:\users\alban\documents\lo21-whynote\notes.h
+	<string>
+	<iostream>
+	<vector>
+	"timing.h"
+
+1495891399 c:\users\alban\documents\lo21-whynote\timing.h
+	<iostream>
+	<iomanip>
+	<ctime>
+	<time.h>
+
+1495889974 c:\users\alban\documents\lo21-whynote\relation.h
+	<string>
+	<iostream>
+	<vector>
+	"notes.h"
+	"timing.h"
+
+1495889974 source:c:\users\alban\documents\lo21-whynote\relation.cpp
+	"relation.h"
+
+1494931684 source:c:\users\alban\documents\lo21-whynote\timing.cpp
+	"timing.h"
+
+1496078144 source:c:\users\alban\documents\lo21-whynote\notes.cpp
+	"notes.h"
+	<fstream>
+
+1496164886 source:c:\users\alban\documents\lo21-whynote\projet\partie codeblocks\main.cpp
+	"notes.h"
+	"timing.h"
+	"relation.h"
+	<windows.h>
+
+1496164886 c:\users\alban\documents\lo21-whynote\projet\partie codeblocks\notes.h
+	<string>
+	<iostream>
+	<vector>
+	"timing.h"
+
+1496164887 c:\users\alban\documents\lo21-whynote\projet\partie codeblocks\timing.h
+	<iostream>
+	<iomanip>
+	<ctime>
+	<time.h>
+
+1496164887 c:\users\alban\documents\lo21-whynote\projet\partie codeblocks\relation.h
+	<string>
+	<iostream>
+	<vector>
+	"notes.h"
+	"timing.h"
+
+1496164886 source:c:\users\alban\documents\lo21-whynote\projet\partie codeblocks\notes.cpp
+	"notes.h"
+	<fstream>
+
+1496164887 source:c:\users\alban\documents\lo21-whynote\projet\partie codeblocks\timing.cpp
+	"timing.h"
+
