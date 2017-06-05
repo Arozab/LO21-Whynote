@@ -6,7 +6,7 @@
 #include <QMessageBox>
 using namespace std;
 
-//--------------------NOTES------------------------//
+//--------------------NOTES------------------------// bite
 Notes::Notes(const QString& i, const QString& ti):id(i),titre(ti),ancienneVersion(NULL){
 
 
