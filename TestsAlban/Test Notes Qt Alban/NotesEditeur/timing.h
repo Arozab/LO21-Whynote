@@ -39,7 +39,7 @@ public:
 	unsigned short int  getMois() const { return mois; } //<! Retourne le mois de la date
 	unsigned int getAnnee() const { return annee; } //<! Retourne l'année de la date
 	void setDate(unsigned short int j, unsigned short int m, unsigned int a); //!< initialisation de la date
-	void afficher(std::ostream& f=std::cout) const; //!< affiche le date sous le format JJ/MM/AAAA
+    QString afficher() const; //!< affiche le date sous le format JJ/MM/AAAA
 	bool operator==(const Date& d) const; //<! d1==d2 retourne vrai si les deux dates sont égales
 	bool operator<(const Date& d) const; //<! Compare deux dates dans le temps : d1<d2 retourne true si d1 est avant d2
 	int operator-(const Date& d) const; //<! Retourne le nombre de jours séparant les deux dates

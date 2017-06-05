@@ -27,9 +27,7 @@ class NotesException{
 class Notes {
 
 	private:
-        void setTitre(const QString& t);		//Mis à part son identificateur qui ne pourra jamais être édité,
-		void setDateModif(const Date& d); 	//tous les éléments d’une note sont modifiables.
-		void setDateCrea(const Date& d);
+
 		Notes& operator=(const Notes& n);
 		//~Notes();
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
@@ -39,7 +37,10 @@ class Notes {
         QString titre;
 		Date dateCrea;
 		Date dateModif;
-		vector<Notes*> ancienneVersion;
+        vector<Notes*> ancienneVersion;
+
+
+
 		//Empecher la duplication
 
 	public:
@@ -47,12 +48,17 @@ class Notes {
         Notes(const QString& i, const QString& ti);
         QString getId() const { return id; }
         QString getTitre() const { return titre; }
-		void getDateCrea() const { return dateCrea.afficher();}
-		void getDateModif() const { return dateModif.afficher();}
+        QString getDateCrea() const { return dateCrea.afficher();}
+        QString getDateModif() const { return dateModif.afficher();}
 		Notes& getOldVersion(unsigned int i)const{return *ancienneVersion[i];}
 		virtual Notes* clone()const=0;
         //virtual void afficher(ostream& f=cout) const;
 		virtual Notes* editer()=0;	//ajout de l'adresse de n dans le tableau ancienneVersion de n, et on clone n et on l'ouvre
+
+        void setTitre(const QString& t);		//Mis à part son identificateur qui ne pourra jamais être édité,
+        void setDateModif(const Date& d); 	//tous les éléments d’une note sont modifiables.
+        void setDateCrea(const Date& d);
+        void setAncienneVersion(Notes* n);
 };
 
 
@@ -110,7 +116,8 @@ class NotesManager{
         void load(const QString& f);
 		void save()const;	//on ajoute la note modifiée dans le tableau notes de notesManager (si elle existe deja, remplacer l'ancienne version)
 		static NotesManager& getInstance();
-		static void libererInstance();
+        static void libererInstance();
+        static NotesManager& recupererInstance();
 
 		unsigned int getnbNotes() const {return nbNotes;}
         Notes& edition(Notes* n);
@@ -149,7 +156,7 @@ class NotesManager{
 class Article: public Notes {
 
 	private:
-        void setText(const QString& t);
+
         QString text;
         Article(const QString& i, const QString& ti, const QString& t);
         Article* clone()const{return new Article(*this);}
@@ -159,6 +166,7 @@ class Article: public Notes {
         Article* editer();
         QString getText() const {return text;}
 		void afficher(ostream& f=cout) const;
+        void setText(const QString& t);
 };
 
 
@@ -200,7 +208,7 @@ class Tache: public Notes {
 		Tache* editer();
         QString getAction() const {return action;}
         QString getPriorite() const {return priorite;}
-		void getDateEch() const {return dateEch.afficher();}
+        QString getDateEch() const {return dateEch.afficher();}
 		statutTache getStatutTache() const {return statut;}
 		void afficher(ostream& f=cout) const;
 };

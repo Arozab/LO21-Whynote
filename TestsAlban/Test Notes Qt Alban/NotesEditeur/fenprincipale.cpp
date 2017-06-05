@@ -23,7 +23,9 @@ FenPrincipale::FenPrincipale(NotesManager& m)
     }
     dock->setWidget(liste);
     addDockWidget(Qt::LeftDockWidgetArea, dock);
-    connect(liste, SIGNAL(currentTextChanged(QString)),this, SLOT(afficheNote(QString)));
+
+
+
 
     /*dock = new QDockWidget();
     bouton1 = new QPushButton("Afficher");
@@ -38,6 +40,14 @@ FenPrincipale::FenPrincipale(NotesManager& m)
     titreEdit=new QLineEdit(this);
     dateCreaEdit=new QLineEdit(this);
     dateModifEdit=new QLineEdit(this);
+    idEdit->setDisabled(true);
+    titreEdit->setDisabled(true);
+    dateCreaEdit->setDisabled(true);
+    dateModifEdit->setDisabled(true);
+    editer=new QPushButton("Editer",this);
+    sauver=new QPushButton("Sauver",this);
+
+
 
 
     cid = new QHBoxLayout;
@@ -52,113 +62,139 @@ FenPrincipale::FenPrincipale(NotesManager& m)
     cdateModif = new QHBoxLayout;
     cdateModif->addWidget(dateModiflabel);
     cdateModif->addWidget(dateModifEdit);
+    cboutons = new QHBoxLayout;
+    cboutons->addWidget(editer);
+    cboutons->addWidget(sauver);
     ccentral = new QVBoxLayout;
     ccentral->addLayout(cid);
     ccentral->addLayout(ctitre);
     ccentral->addLayout(cdateCrea);
     ccentral->addLayout(cdateModif);
+    ccentral->addLayout(cboutons);
     zoneCentrale->setLayout(ccentral);
     setCentralWidget(zoneCentrale);
 
+    QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
+    QObject::connect(liste, SIGNAL(itemDoubleClicked(QListWidgetItem*)),this, SLOT(afficheNote(QListWidgetItem*)));
+    QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
+
+    QObject::connect(titreEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver(QString)));
+    QObject::connect(dateCreaEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver(QString)));
+    QObject::connect(dateModifEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver(QString)));
+    QObject::connect(textEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver(QString)));
+
+    sauver->setDisabled(true);
+
+
 }
 
-void FenPrincipale::afficheNote(const QString& titre){
+void FenPrincipale::afficheNote(QListWidgetItem* item){
+    QString titre=item->text();
     if (titre.isEmpty()){
         qDebug()<<"titre : "<<titre<<"\n";
         return;
     }
     else{
-        qDebug()<<"titre : "<<titre<<"\n";
-       // Notes& n=trouverNote(titre,m);
-        //idEdit->setText(n.getId());
-        idEdit->setText(titre);
+        NotesManager& m=NotesManager::recupererInstance();
+        NotesManager::Iterator it=m.getIterator();
+        while(!it.isDone() && it.current().getTitre()!=titre){
+            it.next();
+        }
+        if(!it.isDone()){
+            idEdit->setText(it.current().getId());
+            titreEdit->setText(it.current().getTitre());
+            dateCreaEdit->setText(it.current().getDateCrea());
+            dateModifEdit->setText(it.current().getDateModif());
+            if(textEdit == NULL && textlabel == NULL && ctext == NULL){
+                textEdit=new QTextEdit(this);
+                ctext = new QHBoxLayout;
+                textlabel=new QLabel("texte",this);
+                ccentral->insertLayout(4,ctext);
+            }
+            textEdit->setDisabled(true);
+            idEdit->setDisabled(true);
+            titreEdit->setDisabled(true);
+            dateCreaEdit->setDisabled(true);
+            dateModifEdit->setDisabled(true);
+            ctext->addWidget(textlabel);
+            ctext->addWidget(textEdit);
 
+            Notes* n=it.current().clone();
+            Article& a1 = dynamic_cast<Article&>(*n);
+            textEdit->setText(a1.getText());
+            //article=&a1;
+        }
     }
-       /* for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
-            liste->addItem(it.current().getTitre());
-        }*/
+    sauver->setDisabled(true);
 }
 
-/*Notes& FenPrincipale::trouverNote(const QString& titre,NotesManager& m){
-    NotesManager::Iterator it=m.getIterator();
-    while(!it.isDone() && it.current().getTitre()!=titre){
-        it.next();
-    }
-    if(!it.isDone())
-        return it.current();
-}*/
+ void FenPrincipale::activerEditer(){
+     titreEdit->setDisabled(false);
+     dateCreaEdit->setDisabled(false);
+     dateModifEdit->setDisabled(false);
+     textEdit->setDisabled(false);
+ }
+
+  void FenPrincipale::activerSauver(QString str){
+      sauver->setEnabled(true);
+  }
+
+  void FenPrincipale::sauverNote(){
+      NotesManager& m=NotesManager::recupererInstance();
+      NotesManager::Iterator it=m.getIterator();
+      while(!it.isDone() && it.current().getId()!=idEdit->text()){
+          it.next();
+      }
+      if(!it.isDone()){
+          Notes* n=it.current().clone();
+          Article* a2 = dynamic_cast<Article*>(&it.current());
+          a2->setAncienneVersion(n);
+          a2->setTitre(titreEdit->text());
+          QString d1=dateCreaEdit->text();
+          QString strJ=d1.mid(0,2);
+          int j=strJ.toInt();
+          QString strM=d1.mid(3,2);
+          int m=strM.toInt();
+          QString strA=d1.mid(6,4);
+          int an=strA.toInt();
+          Date dateCrea=Date(j,m,an);
+          a2->setDateCrea(dateCrea);
+
+          QString d2=dateModifEdit->text();
+          QString str2J=d2.mid(0,2);
+          int j2=str2J.toInt();
+          QString str2M=d2.mid(3,2);
+          int m2=str2M.toInt();
+          QString str2A=d2.mid(6,4);
+          int an2=str2A.toInt();
+          Date dateModif=Date(j2,m2,an2);
+          a2->setDateModif(dateModif);
+
+          a2->setText(textEdit->toPlainText());
+          QMessageBox::information(this,"Sauvegarder","Article sauvegardé !");
+          sauver->setDisabled(true);
+          textEdit->setDisabled(true);
+          idEdit->setDisabled(true);
+          titreEdit->setDisabled(true);
+          dateCreaEdit->setDisabled(true);
+          dateModifEdit->setDisabled(true);
+          qDebug()<<it.current().getOldVersion(0).getTitre()<<"\n";
+        }
+      liste = new QListWidget(dock);
+      for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
+          QString str=it.current().getTitre();
+          //str.append(" ");
+          //str.append(it.current().getTitre());
+          //liste->addItem(it.current().getTitre());
+          liste->addItem(str);
+      }
+      dock->setWidget(liste);
+      QObject::connect(liste, SIGNAL(itemDoubleClicked(QListWidgetItem*)),this, SLOT(afficheNote(QListWidgetItem*)));
+      //addDockWidget(Qt::LeftDockWidgetArea, dock);
+  }
 
 /*void FenPrincipale::ouvrirDialogue()
 {
     QString fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "(*.xml)");
     //load(fichier);
 }*/
-
-
-/*void FenPrincipale::load(QString f) {
-    QFile fin(f);
-    // If we can't open it, let's show an error message.
-   if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QMessageBox::critical(this, "Erreur d'ouverture du fichier", "Le fichier n'as pas réussi à s'ouvrir correctement !");
-   }
-    // QXmlStreamReader takes any QIODevice.
-    QXmlStreamReader xml(&fin);
-    //qDebug()<<"debut fichier\n";
-    // We'll parse the XML until we reach end of it.
-    while(!xml.atEnd() && !xml.hasError()) {
-        // Read next element.
-        QXmlStreamReader::TokenType token = xml.readNext();
-        // If token is just StartDocument, we'll go to next.
-        if(token == QXmlStreamReader::StartDocument) continue;
-        // If token is StartElement, we'll see if we can read it.
-        if(token == QXmlStreamReader::StartElement) {
-            // If it's named taches, we'll go to the next.
-            if(xml.name() == "notes") continue;
-            // If it's named tache, we'll dig the information from there.
-            if(xml.name() == "article") {
-                qDebug()<<"new article\n";
-                QString identificateur;
-                QString titre;
-                QString text;
-                QXmlStreamAttributes attributes = xml.attributes();
-                xml.readNext();
-                //We're going to loop over the things because the order might change.
-                //We'll continue the loop until we hit an EndElement named article.
-                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "article")) {
-                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
-                        // We've found identificteur.
-                        if(xml.name() == "id") {
-                            xml.readNext(); identificateur=xml.text().toString();
-                            qDebug()<<"id="<<identificateur<<"\n";
-                        }
-
-                        // We've found titre.
-                        if(xml.name() == "title") {
-                            xml.readNext(); titre=xml.text().toString();
-                            qDebug()<<"titre="<<titre<<"\n";
-                        }
-                        // We've found text
-                        if(xml.name() == "text") {
-                            xml.readNext();
-                            text=xml.text().toString();
-                            qDebug()<<"text="<<text<<"\n";
-                        }
-                    }
-                    // ...and next...
-                    xml.readNext();
-                }
-                qDebug()<<"ajout note "<<identificateur<<"\n";
-                //addArticle(identificateur,titre,text);
-                liste->addItem(titre);
-            }
-        }
-    }
-    // Error handling.
-//    if(xml.hasError()) {
-//        throw NotesException("Erreur lecteur fichier notes, parser xml");
-//    }
-    // Removes any device() or data from the reader * and resets its internal state to the initial state.
-    xml.clear();
-    qDebug()<<"fin load\n";
-}
-*/

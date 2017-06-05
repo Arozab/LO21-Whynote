@@ -1,7 +1,7 @@
 #include "timing.h"
+#include <QString>
 
-
-std::ostream& operator<<(std::ostream& f, const Date& x){ x.afficher(f); return f;}
+//std::ostream& operator<<(std::ostream& f, const Date& x){ x.afficher(f); return f;}
 
 
 void Date::setDate(unsigned short int j, unsigned short int m, unsigned int a){
@@ -15,9 +15,22 @@ void Date::setDate(unsigned short int j, unsigned short int m, unsigned int a){
 	}
 }
 
-void Date::afficher(std::ostream& f) const{
+QString Date::afficher() const{
 	// affiche le date sous le format JJ/MM/AAAA
-	f<<std::setfill('0')<<std::setw(2)<<jour<<"/"<<std::setw(2)<<mois<<"/"<<annee<<std::setfill(' ');
+    QString f="";
+    //f<<std::setfill('0')<<std::setw(2)<<jour<<"/"<<std::setw(2)<<mois<<"/"<<annee<<std::setfill(' ');
+    //throw(QString::fromStdString(f.str()));
+    QString jourStr = QString::number(jour);
+    if (jourStr.length()==1) jourStr.prepend("0");
+    f.append(jourStr);
+    f.append("/");
+    QString moisStr = QString::number(mois);
+    if (moisStr.length()==1) moisStr.prepend("0");
+    f.append(moisStr);
+    f.append("/");
+    QString anneeStr = QString::number(annee);
+    f.append(anneeStr);
+    return f;
 }
 
 bool Date::operator==(const Date& d) const{

@@ -33,6 +33,10 @@ void Notes::setDateCrea(const Date& d){
     dateModif=d;
 }
 
+void Notes::setAncienneVersion(Notes* n){
+    ancienneVersion.push_back(n);
+}
+
 /*void Notes::afficher(ostream& f)const{
 
     f << "ID : "<<getId()<<"\nTitre : "<<getTitre();//<<", Date de creation : "<<getDateCrea()<<", Date de modification : "<<getDateModif();
@@ -302,6 +306,10 @@ void NotesManager::libererInstance(){
     handler.instance=nullptr;
 }
 
+NotesManager& NotesManager::recupererInstance(){
+    if(handler.instance==nullptr) throw NotesException("Erreur, aucun note manager existant\n");
+    else return *handler.instance;
+}
 
 Notes& NotesManager::edition(Notes* n){
     unsigned int i=0;
