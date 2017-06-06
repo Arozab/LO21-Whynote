@@ -122,7 +122,7 @@ class NotesManager{
         NoteAvecFichier& getNewNoteAvecFichier(const QString& id,const QString& ti,const QString& de,const QString& fi);
         NoteAvecFichier& getNoteAvecFichier(const QString& id);
 
-        Tache& getNewTache(const QString& id,const QString& ti,const QString& ac,const QString& pr,const Date& d,statutTache t);
+        Tache& getNewTache(const QString& id,const QString& ti,const QString& ac,const QString& pr,const QString& t);
         Tache& getTache(const QString& id);
 
         void load(const QString& f);
@@ -207,15 +207,12 @@ class NoteAvecFichier: public Notes {
 class Tache: public Notes {
 
 	private:
-        void setAction(const QString& a);
-        void setPriorite(const QString& pr);
-		void setDateEch(const Date& d);
-		void setStatutTache(statutTache t);
+      
         QString action;
         QString priorite;
 		Date dateEch;
-		statutTache statut;
-        Tache(const QString& i, const QString& ti,const QString& a,const QString& pr,const Date&, statutTache t);
+		QString statut;
+        Tache(const QString& i, const QString& ti,const QString& a,const QString& pr, const QString& t);
 		Tache* clone()const{return new Tache(*this);}
 		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
 
@@ -224,9 +221,13 @@ class Tache: public Notes {
         QString getAction() const {return action;}
         QString getPriorite() const {return priorite;}
         QString getDateEch() const {return dateEch.afficher();}
-		statutTache getStatutTache() const {return statut;}
+        QString getStatut() const {return statut;}
 		void afficher(ostream& f=cout) const;
 		//Tache* getType(){return this;}
+		void setAction(const QString& a);
+        void setPriorite(const QString& pr);
+		void setDateEch(const Date& d);
+		void setStatut(QString t);
 };
 
 #endif

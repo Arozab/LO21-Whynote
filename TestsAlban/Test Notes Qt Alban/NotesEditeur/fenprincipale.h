@@ -51,6 +51,10 @@ class FenPrincipale : public QMainWindow
         QLabel* textlabel;
         QLabel* descriptionlabel;
         QLabel* filelabel;
+        QLabel* actionlabel;
+        QLabel* prioritelabel;
+        QLabel* dateEchlabel;
+        QLabel* statutlabel;
         QHBoxLayout* cid;
         QHBoxLayout* ctitre;
         QHBoxLayout* cdateCrea;
@@ -59,6 +63,10 @@ class FenPrincipale : public QMainWindow
         QHBoxLayout* cdescription;
         QHBoxLayout* cfile;
         QHBoxLayout* cboutons;
+        QHBoxLayout* caction;
+        QHBoxLayout* cpriorite;
+        QHBoxLayout* cdateEch;
+        QHBoxLayout* cstatut;
         QVBoxLayout* ccentral;
         QDockWidget* dock;
         QLineEdit* idEdit;
@@ -68,6 +76,10 @@ class FenPrincipale : public QMainWindow
         QTextEdit* textEdit;
         QTextEdit* descritionEdit;
         QLineEdit* fileEdit;
+        QLineEdit* actionEdit;
+        QLineEdit* prioriteEdit;
+        QLineEdit* dateEchEdit;
+        QLineEdit* statutEdit;
         QString titre;
         QPushButton* editer;
         QPushButton* sauver;

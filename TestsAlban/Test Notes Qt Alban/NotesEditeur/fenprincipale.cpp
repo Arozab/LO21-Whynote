@@ -39,6 +39,10 @@ FenPrincipale::FenPrincipale(NotesManager& m)
     textlabel=new QLabel("texte",this);
     descriptionlabel=new QLabel("description",this);
     filelabel=new QLabel("file",this);
+    actionlabel=new QLabel("action",this);
+    prioritelabel=new QLabel("priorite",this);
+    dateEchlabel=new QLabel("date echéance",this);
+    statutlabel=new QLabel("statut",this);
     idEdit=new QLineEdit(this);
     titreEdit=new QLineEdit(this);
     dateCreaEdit=new QLineEdit(this);
@@ -46,6 +50,10 @@ FenPrincipale::FenPrincipale(NotesManager& m)
     textEdit=new QTextEdit(this);
     descritionEdit=new QTextEdit(this);
     fileEdit=new QLineEdit(this);
+    actionEdit=new QLineEdit(this);
+    prioriteEdit=new QLineEdit(this);
+    dateEchEdit=new QLineEdit(this);
+    statutEdit=new QLineEdit(this);
     idEdit->setDisabled(true);
     titreEdit->setDisabled(true);
     dateCreaEdit->setDisabled(true);
@@ -53,12 +61,24 @@ FenPrincipale::FenPrincipale(NotesManager& m)
     textEdit->setDisabled(true);
     descritionEdit->setDisabled(true);
     fileEdit->setDisabled(true);
+    actionEdit->setDisabled(true);
+    prioriteEdit->setDisabled(true);
+    dateEchEdit->setDisabled(true);
+    statutEdit->setDisabled(true);
     textEdit->setHidden(true);
     textlabel->setHidden(true);
     descriptionlabel->setHidden(true);
     descritionEdit->setHidden(true);
     filelabel->setHidden(true);
     fileEdit->setHidden(true);
+    actionlabel->setHidden(true);
+    actionEdit->setHidden(true);
+    prioritelabel->setHidden(true);
+    prioriteEdit->setHidden(true);
+    dateEchlabel->setHidden(true);
+    dateEchEdit->setHidden(true);
+    statutlabel->setHidden(true);
+    statutEdit->setHidden(true);
     editer=new QPushButton("Editer",this);
     sauver=new QPushButton("Sauver",this);
 
@@ -72,6 +92,18 @@ FenPrincipale::FenPrincipale(NotesManager& m)
     cfile = new QHBoxLayout;
     cfile->addWidget(filelabel);
     cfile->addWidget(fileEdit);
+    caction = new QHBoxLayout;
+    caction->addWidget(actionlabel);
+    caction->addWidget(actionEdit);
+    cpriorite = new QHBoxLayout;
+    cpriorite->addWidget(prioritelabel);
+    cpriorite->addWidget(prioriteEdit);
+    cdateEch = new QHBoxLayout;
+    cdateEch->addWidget(dateEchlabel);
+    cdateEch->addWidget(dateEchEdit);
+    cstatut = new QHBoxLayout;
+    cstatut->addWidget(statutlabel);
+    cstatut->addWidget(statutEdit);
     cid = new QHBoxLayout;
     cid->addWidget(idlabel);
     cid->addWidget(idEdit);
@@ -106,6 +138,11 @@ FenPrincipale::FenPrincipale(NotesManager& m)
     QObject::connect(textEdit,SIGNAL(textChanged()),this,SLOT(activerSauver()));
     QObject::connect(descritionEdit,SIGNAL(textChanged()),this,SLOT(activerSauver()));
     QObject::connect(fileEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver(QString)));
+    QObject::connect(actionEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver(QString)));
+    QObject::connect(prioriteEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver(QString)));
+    QObject::connect(dateEchEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver(QString)));
+    QObject::connect(statutEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver(QString)));
+
 
     sauver->setDisabled(true);
 
@@ -137,6 +174,14 @@ void FenPrincipale::afficheNote(QListWidgetItem* item){
 
             qDebug()<<"type : "<<it.current().getType()<<"\n";
             if(it.current().getType()=="7Article"){
+                actionlabel->setHidden(true);
+                actionEdit->setHidden(true);
+                prioritelabel->setHidden(true);
+                prioriteEdit->setHidden(true);
+                dateEchlabel->setHidden(true);
+                dateEchEdit->setHidden(true);
+                statutlabel->setHidden(true);
+                statutEdit->setHidden(true);
                 descriptionlabel->setHidden(true);
                 descritionEdit->setHidden(true);
                 filelabel->setHidden(true);
@@ -151,6 +196,14 @@ void FenPrincipale::afficheNote(QListWidgetItem* item){
 
             }
             if(it.current().getType()=="15NoteAvecFichier"){
+                actionlabel->setHidden(true);
+                actionEdit->setHidden(true);
+                prioritelabel->setHidden(true);
+                prioriteEdit->setHidden(true);
+                dateEchlabel->setHidden(true);
+                dateEchEdit->setHidden(true);
+                statutlabel->setHidden(true);
+                statutEdit->setHidden(true);
                 textEdit->setHidden(true);
                 textlabel->setHidden(true);
                 descritionEdit->setHidden(false);
@@ -166,6 +219,36 @@ void FenPrincipale::afficheNote(QListWidgetItem* item){
                 fileEdit->setText(a1.getFile());
                 fileEdit->setDisabled(true);
             }
+            if(it.current().getType()=="5Tache"){
+                textEdit->setHidden(true);
+                textlabel->setHidden(true);
+                descritionEdit->setHidden(true);
+                descriptionlabel->setHidden(true);
+                fileEdit->setHidden(true);
+                filelabel->setHidden(true);
+                actionlabel->setHidden(false);
+                actionEdit->setHidden(false);
+                prioritelabel->setHidden(false);
+                prioriteEdit->setHidden(false);
+                dateEchlabel->setHidden(false);
+                dateEchEdit->setHidden(false);
+                statutlabel->setHidden(false);
+                statutEdit->setHidden(false);
+                ccentral->insertLayout(4,caction);
+                ccentral->insertLayout(5,cpriorite);
+                ccentral->insertLayout(6,cdateEch);
+                ccentral->insertLayout(7,cstatut);
+                Notes* n=it.current().clone();
+                Tache& a1 = dynamic_cast<Tache&>(*n);
+                actionEdit->setText(a1.getAction());
+                actionEdit->setDisabled(true);
+                prioriteEdit->setText(a1.getPriorite());
+                prioriteEdit->setDisabled(true);
+                dateEchEdit->setText(a1.getDateEch());
+                dateEchEdit->setDisabled(true);
+                statutEdit->setText(a1.getStatut());
+                statutEdit->setDisabled(true);
+            }
         }
     }
     sauver->setDisabled(true);
@@ -178,6 +261,10 @@ void FenPrincipale::afficheNote(QListWidgetItem* item){
      textEdit->setDisabled(false);
      descritionEdit->setDisabled(false);
      fileEdit->setDisabled(false);
+     actionEdit->setDisabled(false);
+     prioriteEdit->setDisabled(false);
+     dateEchEdit->setDisabled(false);
+     statutEdit->setDisabled(false);
  }
 
   void FenPrincipale::activerSauver(QString str){
@@ -249,6 +336,47 @@ void FenPrincipale::afficheNote(QListWidgetItem* item){
               QMessageBox::information(this,"Sauvegarder","Note avec fichier sauvegardée !");
           }
 
+          if(it.current().getType()=="5Tache"){
+              Tache* a3 = dynamic_cast<Tache*>(&it.current());
+              a3->setAncienneVersion(n);
+              a3->setTitre(titreEdit->text());
+              QString d1=dateCreaEdit->text();
+              QString strJ=d1.mid(0,2);
+              int j=strJ.toInt();
+              QString strM=d1.mid(3,2);
+              int m=strM.toInt();
+              QString strA=d1.mid(6,4);
+              int an=strA.toInt();
+              Date dateCrea=Date(j,m,an);
+              a3->setDateCrea(dateCrea);
+
+              QString d2=dateModifEdit->text();
+              QString str2J=d2.mid(0,2);
+              int j2=str2J.toInt();
+              QString str2M=d2.mid(3,2);
+              int m2=str2M.toInt();
+              QString str2A=d2.mid(6,4);
+              int an2=str2A.toInt();
+              Date dateModif=Date(j2,m2,an2);
+              a3->setDateModif(dateModif);
+
+              a3->setAction(actionEdit->text());
+              a3->setPriorite(prioriteEdit->text());
+
+              QString d3=dateEchEdit->text();
+              QString str3J=d3.mid(0,2);
+              int j3=str3J.toInt();
+              QString str3M=d3.mid(3,2);
+              int m3=str3M.toInt();
+              QString str3A=d3.mid(6,4);
+              int an3=str3A.toInt();
+              Date dateEch=Date(j3,m3,an3);
+              a3->setAction(actionEdit->text());
+              a3->setStatut(statutEdit->text());
+              QMessageBox::information(this,"Sauvegarder","Tache sauvegardée !");
+          }
+
+
           sauver->setDisabled(true);
           textEdit->setDisabled(true);
           idEdit->setDisabled(true);
@@ -257,6 +385,10 @@ void FenPrincipale::afficheNote(QListWidgetItem* item){
           dateModifEdit->setDisabled(true);
           descritionEdit->setDisabled(true);
           fileEdit->setDisabled(true);
+          actionEdit->setDisabled(true);
+          prioriteEdit->setDisabled(true);
+          dateEchEdit->setDisabled(true);
+          statutEdit->setDisabled(true);
           qDebug()<<it.current().getOldVersion(0).getTitre()<<"\n";
         }
       m.save();

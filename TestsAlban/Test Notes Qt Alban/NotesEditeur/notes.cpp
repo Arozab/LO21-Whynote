@@ -124,8 +124,8 @@ void NotesManager::addTaches(Tache* a){
     nbTaches++;
 }
 
-Tache& NotesManager::getNewTache(const QString& id,const QString& ti,const QString& ac,const QString& pr,const Date& d,statutTache t){
-    Tache* n=new Tache(id,ti,ac,pr,d,t);
+Tache& NotesManager::getNewTache(const QString& id,const QString& ti,const QString& ac,const QString& pr,const QString& t){
+    Tache* n=new Tache(id,ti,ac,pr,t);
     addNotes(n);
     return *n;
 }
@@ -191,6 +191,20 @@ void NotesManager::save() const {
             NoteAvecFichier& a1 = dynamic_cast<NoteAvecFichier&>(*n);
             stream.writeTextElement("description",a1.getDescription());
             stream.writeTextElement("file",a1.getFile());
+            stream.writeEndElement();
+        }
+        if(it.current().getType()=="5Tache"){
+            stream.writeStartElement("tache");
+            stream.writeTextElement("id",it.current().getId());
+            stream.writeTextElement("titre",it.current().getTitre());
+            stream.writeTextElement("dateCrea",it.current().getDateCrea());
+            stream.writeTextElement("dateModif",it.current().getDateModif());
+            Notes* n=it.current().clone();
+            Tache& a1 = dynamic_cast<Tache&>(*n);
+            stream.writeTextElement("action",a1.getAction());
+            stream.writeTextElement("priorite",a1.getPriorite());
+            stream.writeTextElement("dateEch",a1.getDateEch());
+            stream.writeTextElement("statut",a1.getStatut());
             stream.writeEndElement();
         }
         
@@ -362,6 +376,97 @@ void NotesManager::load(const QString& f) {
                //FenPricipale.liste->addItem(titre);
             }
 
+            if(xml.name() == "tache") {
+                qDebug()<<"new tache\n";
+                QString id;
+                QString titre;
+                QString d1;
+                QString d2;
+                QString action;
+                QString priorite;
+                QString d3;
+                QString statut;
+                QXmlStreamAttributes attributes = xml.attributes();
+                xml.readNext();
+                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "tache")) {
+                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                        // We've found identificteur.
+                        if(xml.name() == "id") {
+                            xml.readNext(); id=xml.text().toString();
+                            qDebug()<<"id="<<id<<"\n";
+                        }
+                        // We've found titre.
+                        if(xml.name() == "titre") {
+                            xml.readNext(); titre=xml.text().toString();
+                            qDebug()<<"titre="<<titre<<"\n";
+                        }
+                        if(xml.name() == "dateCrea") {
+                            xml.readNext();
+                            d1=xml.text().toString();
+                            qDebug()<<"dateCrea="<<d1<<"\n";
+                        }
+                        if(xml.name() == "dateModif") {
+                            xml.readNext();
+                            d2=xml.text().toString();
+                            qDebug()<<"dateModif="<<d2<<"\n";
+                        }                        
+                        if(xml.name() == "action") {
+                            xml.readNext();
+                            action=xml.text().toString();
+                            qDebug()<<"action="<<action<<"\n";
+                        }
+                        if(xml.name() == "priorite") {
+                            xml.readNext();
+                            priorite=xml.text().toString();
+                            qDebug()<<"priorite="<<priorite<<"\n";
+                        }
+                        if(xml.name() == "dateEch") {
+                            xml.readNext();
+                            d3=xml.text().toString();
+                            qDebug()<<"dateEch="<<d3<<"\n";
+                        }
+                        if(xml.name() == "statut") {
+                            xml.readNext();
+                            statut=xml.text().toString();
+                            qDebug()<<"statut="<<statut<<"\n";
+                        }
+                    }
+                    // ...and next...
+                    xml.readNext();
+                }
+                qDebug()<<"ajout tache "<<id<<"\n";
+                Tache& a=getNewTache(id,titre,action,priorite,statut);
+
+                QString strJ=d1.mid(0,2);
+                int j=strJ.toInt();
+                QString strM=d1.mid(3,2);
+                int m=strM.toInt();
+                QString strA=d1.mid(6,4);
+                int an=strA.toInt();
+                Date dateCrea=Date(j,m,an);
+                a.setDateCrea(dateCrea);
+
+                QString str2J=d2.mid(0,2);
+                int j2=str2J.toInt();
+                QString str2M=d2.mid(3,2);
+                int m2=str2M.toInt();
+                QString str2A=d2.mid(6,4);
+                int an2=str2A.toInt();
+                Date dateModif=Date(j2,m2,an2);
+                a.setDateModif(dateModif);
+
+                QString str3J=d3.mid(0,2);
+                int j3=str3J.toInt();
+                QString str3M=d3.mid(3,2);
+                int m3=str3M.toInt();
+                QString str3A=d3.mid(6,4);
+                int an3=str3A.toInt();
+                Date dateEch=Date(j3,m3,an3);
+                a.setDateEch(dateEch);
+
+               //FenPricipale.liste->addItem(titre);
+            }
+
 
         }
     }
@@ -455,7 +560,7 @@ NoteAvecFichier* NoteAvecFichier::editer(){
 }
 
 //--------------------TACHE------------------------//
-Tache::Tache(const QString& i, const QString& ti,const QString& a,const QString& pr,const Date& d, statutTache t):Notes(i,ti),action(a),priorite(pr),dateEch(d),statut(t){}
+Tache::Tache(const QString& i, const QString& ti,const QString& a,const QString& pr, const QString& t):Notes(i,ti),action(a),priorite(pr),statut(t){}
 
 void Tache::setAction(const QString& a){
 
@@ -472,7 +577,7 @@ void Tache::setDateEch(const Date& d){
     dateEch=d;
 }
 
-void Tache::setStatutTache(statutTache t){
+void Tache::setStatut(QString t){
 
     statut=t;
 }
