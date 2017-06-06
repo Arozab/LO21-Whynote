@@ -6,24 +6,62 @@ FenPrincipale::FenPrincipale(NotesManager& m)
     zoneCentrale = new QWidget;
 
     menuFichier = menuBar()->addMenu("Fichier");
+
         actionQuitter = new QAction("&Quitter", this);
         menuFichier->addAction(actionQuitter);
         connect(actionQuitter, SIGNAL(triggered()), qApp, SLOT(quit()));
 
+        /*actionAjouter = new QAction("&Ajouter une note", this);
+        menuFichier->addAction(actionAjouter);
+        connect(actionAjouter, SIGNAL(triggered()), qApp, SLOT(quit()));*/
+
     dock = new QDockWidget(tr("Liste de Notes"));
     dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 
-    liste = new QListWidget(dock);
+    //Liste de l'ensemble des notes
+
+    listeNote = new QListWidget(dock);
     for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
         QString str=it.current().getTitre();
         //str.append(" ");
         //str.append(it.current().getTitre());
         //liste->addItem(it.current().getTitre());
-        liste->addItem(str);
+        listeNote->addItem(str);
     }
-    dock->setWidget(liste);
+    dock->setWidget(listeNote);
     addDockWidget(Qt::LeftDockWidgetArea, dock);
 
+    //Liste des taches
+
+    dock = new QDockWidget(tr("Todo List"));
+    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+
+    listeTache = new QListWidget(dock);
+    for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
+        if (typeid(it.current()).name()=="tache"){
+        QString str=it.current().getTitre();
+        //str.append(" ");
+        //str.append(it.current().getTitre());
+        //liste->addItem(it.current().getTitre());
+        listeNote->addItem(str);}
+    }
+    dock->setWidget(listeTache);
+    addDockWidget(Qt::LeftDockWidgetArea, dock);
+
+    //Liste des archives
+
+    dock = new QDockWidget(tr("Notes Archivées"));
+    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+
+    listeArchive = new QListWidget(dock);
+    dock->setWidget(listeArchive);
+    addDockWidget(Qt::LeftDockWidgetArea, dock);
+
+    //Liste des versions
+
+    listeVersion = new QComboBox();
+    listeVersion->addItem(tr("Afrique"));
+    listeVersion->addItem(tr("Amerique du Nord"));
 
 
 
@@ -81,6 +119,7 @@ FenPrincipale::FenPrincipale(NotesManager& m)
     statutEdit->setHidden(true);
     editer=new QPushButton("Editer",this);
     sauver=new QPushButton("Sauver",this);
+	restaurer=new QPushButton("Restaurer une ancienne version",this);
 
 
     ctext = new QHBoxLayout;
@@ -119,18 +158,23 @@ FenPrincipale::FenPrincipale(NotesManager& m)
     cboutons = new QHBoxLayout;
     cboutons->addWidget(editer);
     cboutons->addWidget(sauver);
+	cboutonRestauration = new QVBoxLayout;
+    cboutonRestauration->addWidget(restaurer);
+    cboutonRestauration->addWidget(listeVersion);
     ccentral = new QVBoxLayout;
     ccentral->addLayout(cid);
     ccentral->addLayout(ctitre);
     ccentral->addLayout(cdateCrea);
     ccentral->addLayout(cdateModif);
     ccentral->addLayout(cboutons);
+    ccentral->addLayout(cboutonRestauration);
     zoneCentrale->setLayout(ccentral);
     setCentralWidget(zoneCentrale);
 
     QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
-    QObject::connect(liste, SIGNAL(itemDoubleClicked(QListWidgetItem*)),this, SLOT(afficheNote(QListWidgetItem*)));
+    QObject::connect(listeNote, SIGNAL(itemDoubleClicked(QListWidgetItem*)),this, SLOT(afficheNote(QListWidgetItem*)));
     QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
+	QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
 
     QObject::connect(titreEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver(QString)));
     QObject::connect(dateCreaEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver(QString)));
@@ -145,6 +189,7 @@ FenPrincipale::FenPrincipale(NotesManager& m)
 
 
     sauver->setDisabled(true);
+	restaurer->setDisabled(true);
 
 
 }
@@ -255,6 +300,7 @@ void FenPrincipale::afficheNote(QListWidgetItem* item){
 }
 
  void FenPrincipale::activerEditer(){
+	 restaurer->setDisabled(false);
      titreEdit->setDisabled(false);
      dateCreaEdit->setDisabled(false);
      dateModifEdit->setDisabled(false);
@@ -392,13 +438,13 @@ void FenPrincipale::afficheNote(QListWidgetItem* item){
           qDebug()<<it.current().getOldVersion(0).getTitre()<<"\n";
         }
       m.save();
-      liste = new QListWidget(dock);
+      listeNote = new QListWidget(dock);
       for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
           QString str=it.current().getTitre();
-          liste->addItem(str);
+          listeNote->addItem(str);
       }
-      dock->setWidget(liste);
-      QObject::connect(liste, SIGNAL(itemDoubleClicked(QListWidgetItem*)),this, SLOT(afficheNote(QListWidgetItem*)));
+      dock->setWidget(listeNote);
+      QObject::connect(listeNote, SIGNAL(itemDoubleClicked(QListWidgetItem*)),this, SLOT(afficheNote(QListWidgetItem*)));
 
   }
 

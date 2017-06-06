@@ -41,6 +41,7 @@ class FenPrincipale : public QMainWindow
         QWidget *zoneCentrale;
         QMenu *menuFichier;
         QAction *actionQuitter;
+        QAction *actionAjouter;
         QListWidget *listeNote;
         QListWidget *listeTache;
         QListWidget *listeArchive;
@@ -51,44 +52,26 @@ class FenPrincipale : public QMainWindow
         QLabel* titrelabel;
         QLabel* dateCrealabel;
         QLabel* dateModiflabel;
-        QLabel* textlabel;
-        QLabel* descriptionlabel;
-        QLabel* filelabel;
-        QLabel* actionlabel;
-        QLabel* prioritelabel;
-        QLabel* dateEchlabel;
-        QLabel* statutlabel;
+        QLabel* textlabel=NULL;
         QHBoxLayout* cid;
         QHBoxLayout* ctitre;
         QHBoxLayout* cdateCrea;
         QHBoxLayout* cdateModif;
-        QHBoxLayout* ctext;
-        QHBoxLayout* cdescription;
-        QHBoxLayout* cfile;
+        QHBoxLayout* ctext=NULL;
         QHBoxLayout* cboutons;
-        QHBoxLayout* caction;
-        QHBoxLayout* cpriorite;
-        QHBoxLayout* cdateEch;
-        QHBoxLayout* cstatut;
+        QVBoxLayout* cboutonRestauration;
+
         QVBoxLayout* ccentral;
-		QVBoxLayout* cboutonRestauration;
         QDockWidget* dock;
         QLineEdit* idEdit;
         QLineEdit* titreEdit;
         QLineEdit* dateCreaEdit;
         QLineEdit* dateModifEdit;
-        QTextEdit* textEdit;
-        QTextEdit* descritionEdit;
-        QLineEdit* fileEdit;
-        QLineEdit* actionEdit;
-        QLineEdit* prioriteEdit;
-        QLineEdit* dateEchEdit;
-        QLineEdit* statutEdit;
+        QTextEdit* textEdit=NULL;
         QString titre;
         QPushButton* editer;
         QPushButton* sauver;
-		QPushButton* restaurer;
-
+        QPushButton* restaurer;
         //Article* article;
 
 
