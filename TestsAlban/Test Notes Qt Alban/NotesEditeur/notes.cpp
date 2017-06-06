@@ -160,33 +160,46 @@ NotesManager::~NotesManager(){
     fout.close();
 }*/
 
-/*void NotesManager::load(const QString& f) {
-    //if (filename!=f) save();
-    filename=f;
-    ifstream fin(filename); // open file
-    if (!fin) throw NotesException("Erreur, le fichier n'existe pas");
-    while(!fin.eof()&&fin.good()){
-        char tmp[1000];
-        fin.getline(tmp,1000); // get id on the first line
-        if (fin.bad()) throw NotesException("Erreur de lecture de l'id");
-        QString id=tmp;
-        fin.getline(tmp,1000); // get title on the next line
-        if (fin.bad()) throw NotesException("Erreur de lecture du titre");
-        QString titre=tmp;
-
-        //fin.getline(tmp,1000); // get text on the next line
-        //if (fin.bad()) throw NotesException("error reading note text on file");
-        //Date dateCrea=tmp;
-        //fin.getline(tmp,1000); // get text on the next line
-       // if (fin.bad()) throw NotesException("error reading note text on file");
-       // Date dateModif=tmp;
-        //		Notes* n=new Notes(id,titre);
-        //addNote(n);
-        if (fin.peek()=='\r') fin.ignore();
-        if (fin.peek()=='\n') fin.ignore();
+void NotesManager::save() const {
+    NotesManager& m=recupererInstance();
+    QFile newfile(m.getFilename());
+    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+        throw NotesException(QString("erreur sauvegarde notes : ouverture fichier xml"));
+    QXmlStreamWriter stream(&newfile);
+    stream.setAutoFormatting(true);
+    stream.writeStartDocument();
+    stream.writeStartElement("notes");
+    for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
+        if(it.current().getType()=="7Article"){
+            stream.writeStartElement("article");
+            stream.writeTextElement("id",it.current().getId());
+            stream.writeTextElement("titre",it.current().getTitre());
+            stream.writeTextElement("dateCrea",it.current().getDateCrea());
+            stream.writeTextElement("dateModif",it.current().getDateModif());
+            Notes* n=it.current().clone();
+            Article& a1 = dynamic_cast<Article&>(*n);
+            stream.writeTextElement("text",a1.getText());
+            stream.writeEndElement();
+        }
+        if(it.current().getType()=="15NoteAvecFichier"){
+            stream.writeStartElement("noteAvecFichier");
+            stream.writeTextElement("id",it.current().getId());
+            stream.writeTextElement("titre",it.current().getTitre());
+            stream.writeTextElement("dateCrea",it.current().getDateCrea());
+            stream.writeTextElement("dateModif",it.current().getDateModif());
+            Notes* n=it.current().clone();
+            NoteAvecFichier& a1 = dynamic_cast<NoteAvecFichier&>(*n);
+            stream.writeTextElement("description",a1.getDescription());
+            stream.writeTextElement("file",a1.getFile());
+            stream.writeEndElement();
+        }
+        
     }
-    fin.close(); // close file
-}*/
+    stream.writeEndElement();
+    stream.writeEndDocument();
+    newfile.close();
+}
+
 
 void NotesManager::load(const QString& f) {
      filename=f;
@@ -276,6 +289,80 @@ void NotesManager::load(const QString& f) {
 
                //FenPricipale.liste->addItem(titre);
             }
+
+            if(xml.name() == "noteAvecFichier") {
+                qDebug()<<"new NoteAvecFichier\n";
+                QString id;
+                QString titre;
+                QString d1;
+                QString d2;
+                QString description;
+                QString file;
+                QXmlStreamAttributes attributes = xml.attributes();
+                xml.readNext();
+                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "noteAvecFichier")) {
+                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                        // We've found identificteur.
+                        if(xml.name() == "id") {
+                            xml.readNext(); id=xml.text().toString();
+                            qDebug()<<"id="<<id<<"\n";
+                        }
+
+                        // We've found titre.
+                        if(xml.name() == "titre") {
+                            xml.readNext(); titre=xml.text().toString();
+                            qDebug()<<"titre="<<titre<<"\n";
+                        }
+                        if(xml.name() == "dateCrea") {
+                            xml.readNext();
+                            d1=xml.text().toString();
+                            qDebug()<<"dateCrea="<<d1<<"\n";
+                        }
+                        if(xml.name() == "dateModif") {
+                            xml.readNext();
+                            d2=xml.text().toString();
+                            qDebug()<<"dateModif="<<d2<<"\n";
+                        }
+                        // We've found text
+                        if(xml.name() == "description") {
+                            xml.readNext();
+                            description=xml.text().toString();
+                            qDebug()<<"description="<<description<<"\n";
+                        }
+                        if(xml.name() == "file") {
+                            xml.readNext();
+                            file=xml.text().toString();
+                            qDebug()<<"file="<<file<<"\n";
+                        }
+                    }
+                    // ...and next...
+                    xml.readNext();
+                }
+                qDebug()<<"ajout note "<<id<<"\n";
+                NoteAvecFichier& a=getNewNoteAvecFichier(id,titre,description,file);
+
+                QString strJ=d1.mid(0,2);
+                int j=strJ.toInt();
+                QString strM=d1.mid(3,2);
+                int m=strM.toInt();
+                QString strA=d1.mid(6,4);
+                int an=strA.toInt();
+                Date dateCrea=Date(j,m,an);
+                a.setDateCrea(dateCrea);
+
+                QString str2J=d2.mid(0,2);
+                int j2=str2J.toInt();
+                QString str2M=d2.mid(3,2);
+                int m2=str2M.toInt();
+                QString str2A=d2.mid(6,4);
+                int an2=str2A.toInt();
+                Date dateModif=Date(j2,m2,an2);
+                a.setDateModif(dateModif);
+
+               //FenPricipale.liste->addItem(titre);
+            }
+
+
         }
     }
     // Error handling.

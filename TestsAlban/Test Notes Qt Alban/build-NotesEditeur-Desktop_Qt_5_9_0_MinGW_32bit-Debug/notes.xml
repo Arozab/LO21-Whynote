@@ -3,15 +3,23 @@
     <article>
         <id>1</id>
         <titre>ArticleTest</titre>
-        <dateCrea>03/06/2017</dateCrea>
+        <dateCrea>03/07/2017</dateCrea>
         <dateModif>03/06/2017</dateModif>
-        <text>Bonjour je m'appelle jean</text>
+        <text>Bonjour je m'appelle jean-pierre DUpuis</text>
     </article>
     <article>
         <id>2</id>
         <titre>Test2</titre>
-        <dateCrea>02/03/2017</dateCrea>
-        <dateModif>03/06/2017</dateModif>
+        <dateCrea>03/06/2016</dateCrea>
+        <dateModif>02/03/2017</dateModif>
         <text>Salut moi c pascal</text>
     </article>
+    <noteAvecFichier>
+        <id>3</id>
+        <titre>NoteAvecFichierTestDeMort1</titre>
+        <dateCrea>04/12/2013</dateCrea>
+        <dateModif>13/01/2015</dateModif>
+        <description>Fichier audio representant toi meme okey</description>
+        <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\build-NotesEditeur-Desktop_Qt_5_9_0_MinGW_32bit-Debug\notes.xml</file>
+    </noteAvecFichier>
 </notes>

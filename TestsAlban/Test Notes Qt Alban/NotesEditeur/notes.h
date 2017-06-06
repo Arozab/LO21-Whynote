@@ -4,6 +4,7 @@
 #include <QString>
 #include <iostream>
 #include <vector>
+#include <typeinfo>
 #include "timing.h"
 using namespace std;
 class Article;
@@ -55,6 +56,13 @@ class Notes {
         //virtual void afficher(ostream& f=cout) const;
 		virtual Notes* editer()=0;	//ajout de l'adresse de n dans le tableau ancienneVersion de n, et on clone n et on l'ouvre
 
+        virtual QString getType(){
+            QString t=typeid(*this).name();
+            return t;
+            //QString string(text);
+            //return typeid(*this).name();
+        }
+
         void setTitre(const QString& t);		//Mis à part son identificateur qui ne pourra jamais être édité,
         void setDateModif(const Date& d); 	//tous les éléments d’une note sont modifiables.
         void setDateCrea(const Date& d);
@@ -86,6 +94,7 @@ class NotesManager{
 
         QString filename;	//pour le fichier contenant les notes
 
+
 		NotesManager();
 		~NotesManager();
 		NotesManager(const NotesManager& m);
@@ -103,6 +112,9 @@ class NotesManager{
 		static Handler handler;	//le destructeur sera appelé automatiquement à la fin du programme pour cet objet
 
 	public:
+
+        QString getFilename()const{return filename;}
+        void setFilename(QString f){filename=f;}
 
         Article& getNewArticle(const QString& id,const QString& ti,const QString& te);
         Article& getArticle(const QString& id);
@@ -167,14 +179,14 @@ class Article: public Notes {
         QString getText() const {return text;}
 		void afficher(ostream& f=cout) const;
         void setText(const QString& t);
+        //QString getType(){return typeid(*this).name();}
 };
 
 
 class NoteAvecFichier: public Notes {
 
 	private:
-        void setDescription(const QString& t);
-        void setFile(const QString& t);
+
         QString description;
         QString file;
         NoteAvecFichier(const QString& i, const QString& ti, const QString& des, const QString& fi);
@@ -186,6 +198,9 @@ class NoteAvecFichier: public Notes {
         QString getDescription() const {return description;}
         QString getFile() const {return file;}
 		void afficher(ostream& f=cout) const;
+		//NoteAvecFichier* getType(){return this;}
+        void setDescription(const QString& t);
+        void setFile(const QString& t);
 };
 
 
@@ -211,6 +226,7 @@ class Tache: public Notes {
         QString getDateEch() const {return dateEch.afficher();}
 		statutTache getStatutTache() const {return statut;}
 		void afficher(ostream& f=cout) const;
+		//Tache* getType(){return this;}
 };
 
 #endif

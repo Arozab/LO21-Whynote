@@ -575,6 +575,7 @@ debug/moc_fenprincipale.cpp: C:/Qt/5.9/mingw53_32/include/QtWidgets/QtWidgets \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QDockWidget \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QMenu \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.9/mingw53_32/include/QtWidgets/QListWidgetItem \
 		../NotesEditeur/notes.h \
 		../NotesEditeur/timing.h \
 		../NotesEditeur/fenprincipale.h \
@@ -1066,6 +1067,7 @@ debug/main.o: ../NotesEditeur/main.cpp C:/Qt/5.9/mingw53_32/include/QtWidgets/QA
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QDockWidget \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QMenu \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.9/mingw53_32/include/QtWidgets/QListWidgetItem \
 		../NotesEditeur/notes.h \
 		../NotesEditeur/timing.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/main.o ../NotesEditeur/main.cpp
@@ -1537,6 +1539,7 @@ debug/fenprincipale.o: ../NotesEditeur/fenprincipale.cpp ../NotesEditeur/FenPrin
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QDockWidget \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QMenu \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.9/mingw53_32/include/QtWidgets/QListWidgetItem \
 		../NotesEditeur/notes.h \
 		../NotesEditeur/timing.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/fenprincipale.o ../NotesEditeur/fenprincipale.cpp

@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
     QString fichier = QFileDialog::getOpenFileName();
     NotesManager& m=NotesManager::getInstance();
     m.load(fichier);
+    m.setFilename(fichier);
     FenPrincipale fenetre(m);
     fenetre.show();
 
