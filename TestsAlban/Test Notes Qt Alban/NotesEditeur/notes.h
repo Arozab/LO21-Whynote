@@ -76,7 +76,6 @@ class NotesManager{
 		vector<Article*> tabArticles;
 		unsigned int nbArticles;
 		unsigned int nbMaxArticles;
-		void addArticles(Article* a);
 
 		vector<NoteAvecFichier*> tabNoteAvecFichier;
 		unsigned int nbNoteAvecFichier;
@@ -94,6 +93,7 @@ class NotesManager{
 
         QString filename;	//pour le fichier contenant les notes
 
+        friend class QMainWindow;
 
 		NotesManager();
 		~NotesManager();
@@ -112,10 +112,10 @@ class NotesManager{
 		static Handler handler;	//le destructeur sera appelé automatiquement à la fin du programme pour cet objet
 
 	public:
-
         QString getFilename()const{return filename;}
         void setFilename(QString f){filename=f;}
 
+        void addArticles(Article* a);
         Article& getNewArticle(const QString& id,const QString& ti,const QString& te);
         Article& getArticle(const QString& id);
 
@@ -136,6 +136,7 @@ class NotesManager{
 
         Notes* getNotes(unsigned int i)const{return notes[i];}
         //Notes& getNotes(const QString& id);
+        QString& genereId();
 
         class Iterator{
 		private:

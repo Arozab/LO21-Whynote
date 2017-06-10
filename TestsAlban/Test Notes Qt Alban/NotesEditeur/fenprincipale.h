@@ -19,6 +19,7 @@
 #include <QLineEdit>
 #include <QListWidgetItem>
 #include "notes.h"
+#include "fenetrenewnote.h"
 
 
 class FenPrincipale : public QMainWindow
@@ -26,14 +27,23 @@ class FenPrincipale : public QMainWindow
     Q_OBJECT
 
     public:
-        FenPrincipale(NotesManager& m);
+        FenPrincipale(NotesManager& m);     
         //void load(QString f);
-
+        void afficherCreerNote();
+        void afficherStandard();
+        
     public slots:
         //void ouvrirDialogue();
         void afficheNote(QListWidgetItem* item);
         void activerEditer();
         void sauverNote();
+        void afficherCreerArticle();
+        void afficherCreerTache();
+        void afficherCreerNoteFichier();
+        void creerArticle();
+        void creerTache();
+        void creerNoteFichier();
+
     private slots:
         void activerSauver(QString str="");
 
@@ -41,6 +51,12 @@ class FenPrincipale : public QMainWindow
         QWidget *zoneCentrale;
         QMenu *menuFichier;
         QAction *actionQuitter;
+
+        QMenu *menuNouveau;
+        QAction *ajouterArticle;
+        QAction *ajouterTache;
+        QAction *ajouterNoteFichier;
+
         QListWidget *listeNote;
         QListWidget *listeTache;
         QListWidget *listeArchive;
@@ -88,6 +104,12 @@ class FenPrincipale : public QMainWindow
         QPushButton* editer;
         QPushButton* sauver;
 		QPushButton* restaurer;
+        QPushButton* ajouter;
+        QPushButton* ajoutTache;
+        QPushButton* ajoutNoteFichier;
+        QHBoxLayout* cboutonAjouter;
+        QHBoxLayout* cboutonAjouterNoteFichier;
+        QHBoxLayout* cboutonAjouterTache;
 
         //Article* article;
 

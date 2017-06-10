@@ -32,4 +32,25 @@
         <dateEch>21/12/2016</dateEch>
         <statut>1</statut>
     </tache>
+    <article>
+        <id>5</id>
+        <titre>smeal</titre>
+        <dateCrea>09/06/2017</dateCrea>
+        <dateModif>09/06/2017</dateModif>
+        <text>zert</text>
+    </article>
+    <article>
+        <id>6</id>
+        <titre>smeal2</titre>
+        <dateCrea>09/06/2017</dateCrea>
+        <dateModif>09/06/2017</dateModif>
+        <text>fjtgf</text>
+    </article>
+    <article>
+        <id>7</id>
+        <titre>Bravo nils</titre>
+        <dateCrea>10/06/2017</dateCrea>
+        <dateModif>10/06/2017</dateModif>
+        <text>appareil photo</text>
+    </article>
 </notes>

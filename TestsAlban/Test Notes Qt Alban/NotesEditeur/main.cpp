@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QtWidgets>
+#include "fenetrenewnote.h"
 #include "FenPrincipale.h"
 #include "notes.h"
 

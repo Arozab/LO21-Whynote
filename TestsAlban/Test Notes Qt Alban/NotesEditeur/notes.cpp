@@ -517,6 +517,24 @@ Notes& NotesManager::edition(Notes* n){
     return *notes[i];
 }
 
+//QString& NotesManager::genereId() {
+//    NotesManager& m=recupererInstance();
+//    Iterator it=m.getIterator();
+//    QString id;
+//    int intid;
+//    if (m.getnbNotes()==0) id="1";
+//    else {
+//          while(!it.isDone()){
+//              it.next();
+//          }
+//          it.previous();
+//          intid=it.current().getId().toInt();
+//          intid++;
+//          id=QString::number(intid);
+//    }
+//    return id;
+//}
+
 //--------------------ARTICLE------------------------//
 Article::Article(const QString& i, const QString& ti, const QString& t):Notes(i,ti),text(t){}
 void Article::setText(const QString& t){
