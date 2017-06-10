@@ -13,36 +13,58 @@ class Tache;
 
 typedef enum{en_attente=1,en_cours=2,terminee=3}statutTache;
 
-
+/*! \class NotesException
+   * \brief Classe gérant les erreurs liées aux notes
+*/
 class NotesException{
 
 	private:
-        QString info;
+        QString info;	/*!< Chaine de caractères contenant l'erreur*/
 
 	public:
+		/*!
+	     *  \brief Constructeur
+	     *
+	     *  Constructeur de la classe NotesException
+	     *
+	     *  \param message : message
+	     */
         NotesException(const QString& message):info(message){}
+        /*!
+	     *  \brief Affiche les exceptions
+	     *
+	     *  Methode qui permet d'afficher l'exception
+	     *
+	     * 	\return Un \e QString représentant l'erreur obtenue.
+	     */
         QString getInfo()const{return info;}
 };
 
 
+/*! \class Notes
+   * \brief Classe mère abstraite contenant les attributs et méthodes de base d'une note
+*/
 class Notes {
 
 	private:
-
+		/*!<
+	     *  \brief Opérateur d'affectation
+	     *
+	     *  Methode qui permet d'affecter les valeurs d'un objet à un autre objet
+	     *
+	     *	\param n : reference constante vers une Note
+	     *
+	     * 	\return Une reference vers \e Notes qui renvoie la nouvelle note.
+	     */
 		Notes& operator=(const Notes& n);
-		//~Notes();
-		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
+		friend class NotesManager; 
 
 	protected:
-        const QString id;
-        QString titre;
-		Date dateCrea;
-		Date dateModif;
-        vector<Notes*> ancienneVersion;
-
-
-
-		//Empecher la duplication
+        const QString id;	/*!< Chaine de caractères représentant la note de façon unique*/
+        QString titre;		/*!< Chaine de caractères indiquant le titre de la note*/
+		Date dateCrea;		/*!< Date la création de la note*/
+		Date dateModif;		/*!< Date la dernière modification de la note*/
+        vector<Notes*> ancienneVersion;	/*!< Vecteur de pointeur sur note qui stocke les anciennes versions de la note*/
 
 	public:
 
