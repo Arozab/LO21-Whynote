@@ -20,7 +20,59 @@
 #include <QListWidgetItem>
 #include "notes.h"
 
-class FenetreNewArticle : public QWidget {
+
+class FenetreNewNote : public QWidget {
+    Q_OBJECT
+private:
+    QLineEdit* typeEdit;
+    // ---- Label -----
+    QLabel* idlabel;
+    QLabel* titrelabel;
+    QLabel* textlabel;
+    QLabel* descriptionlabel;
+    QLabel* filelabel;
+    QLabel* actionlabel;
+    QLabel* prioritelabel;
+    QLabel* dateEchlabel;
+    QLabel* statutlabel;
+    // ---- Edit ---- 
+    QLineEdit* idEdit;
+    QLineEdit* titreEdit;
+    QTextEdit* textEdit;
+    QTextEdit* descriptionEdit;
+    QLineEdit* fileEdit;
+    QLineEdit* actionEdit;
+    QLineEdit* prioriteEdit;
+    QDateTimeEdit* dateEchEdit;
+    QLineEdit* statutEdit;    
+    // ---- Bouton ----
+    QPushButton* valider;
+    QPushButton* annuler;
+    // --- Layout --- 
+    QHBoxLayout* ctype;
+    QHBoxLayout* cid;
+    QHBoxLayout* ctitre;
+    QHBoxLayout* ctext;
+    QHBoxLayout* cdescription;
+    QHBoxLayout* cfile;
+    QHBoxLayout* caction;
+    QHBoxLayout* cpriorite;
+    QHBoxLayout* cdateEch;
+    QHBoxLayout* cstatut;
+    QHBoxLayout* cboutons;
+    QVBoxLayout* zone;
+
+public:
+    FenetreNewNote(QString type, QWidget* parent=0);
+    //QString getId() { return id->text(); }
+
+public slots:
+    //QString createNote(QString type);
+    void creerNote();
+
+};
+
+/*class FenetreNewArticle : public QWidget {
 
     Q_OBJECT
     public:
@@ -56,5 +108,5 @@ class FenetreNewNoteFichier : public QWidget {
     public:
     explicit FenetreNewNoteFichier(QWidget* parent=0);
 
-};
+};*/
 #endif // FENETRENEWNOTE_H

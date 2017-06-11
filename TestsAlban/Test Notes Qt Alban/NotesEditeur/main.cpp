@@ -1,8 +1,9 @@
 #include <QApplication>
 #include <QtWidgets>
 #include "fenetrenewnote.h"
-#include "FenPrincipale.h"
+#include "fenetreprincipale.h"
 #include "notes.h"
+#include "notemanager.h"
 
 
 
@@ -13,7 +14,7 @@ int main(int argc, char *argv[])
     NotesManager& m=NotesManager::getInstance();
     m.load(fichier);
     m.setFilename(fichier);
-    FenPrincipale fenetre(m);
+    FenPrincipale& fenetre=FenPrincipale::getInstance();
     fenetre.show();
 
     return app.exec();
