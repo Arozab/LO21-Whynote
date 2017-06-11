@@ -37,6 +37,10 @@ public:
     FenetreNewNote* getFenNewNote() { return fenNewNote;}
     void setFenNewNote(FenetreNewNote* fen) { fenNewNote=fen;}
 
+    void actualiserNote();
+    //void actualiserTache();
+    //void actualiserArchive();
+
     //void afficherStandard();
 
 private:
@@ -62,9 +66,6 @@ private:
         QAction *actionQuitter;
         QAction* supprimer;
         QAction* restaurer;
-        //QAction* editer;
-        //QAction* 
-        //QAction *ajouterNote;
         QAction *ajouterArticle;
         QAction *ajouterTache;
         QAction *ajouterNoteFichier;
@@ -81,139 +82,14 @@ private:
 public slots:
         //void ouvrirDialogue();
         void afficheNote(QListWidgetItem* item);
-        //void creerNote();
-        //void creerArticle();
-        //void creerTache();
-        //void creerNoteFichier();
         void afficherNewArticle();
         void afficherNewTache();
         void afficherNewNoteFichier();
-
-        //void actualiserNote();
-        //void actualiserTache();
-        //void actualiserArchive();
 
         //void supprimerNote();
         //void archiverNote();
         //void viderCorbeille() { NotesManager::recupererInstance().viderCorbeille(); }
         //void quitter(); // demande si vider corbeille puis quitte
-
-
-
-/*      QLabel* idlabel;
-        QLabel* titrelabel;
-        QLabel* dateCrealabel;
-        QLabel* dateModiflabel;
-        QLabel* textlabel;
-        QLabel* descriptionlabel;
-        QLabel* filelabel;
-        QLabel* actionlabel;
-        QLabel* prioritelabel;
-        QLabel* dateEchlabel;
-        QLabel* statutlabel;
-
-        QHBoxLayout* cid;
-        QHBoxLayout* ctitre;
-        QHBoxLayout* cdateCrea;
-        QHBoxLayout* cdateModif;
-        QHBoxLayout* ctext;
-        QHBoxLayout* cdescription;
-        QHBoxLayout* cfile;
-        QHBoxLayout* cboutons;
-        QHBoxLayout* caction;
-        QHBoxLayout* cpriorite;
-        QHBoxLayout* cdateEch;
-        QHBoxLayout* cstatut;*/
-
-/*        QVBoxLayout* ccentral;
-        QVBoxLayout* cboutonRestauration;
-
-        QLineEdit* idEdit;
-        QLineEdit* titreEdit;
-        QLineEdit* dateCreaEdit;
-        QLineEdit* dateModifEdit;
-        QTextEdit* textEdit;
-        QTextEdit* descritionEdit;
-        QLineEdit* fileEdit;
-        QLineEdit* actionEdit;
-        QLineEdit* prioriteEdit;
-        QLineEdit* dateEchEdit;
-        QLineEdit* statutEdit;
-        QString titre;
-
-        QPushButton* editer;
-        QPushButton* sauver;
-		QPushButton* restaurer;
-        QPushButton* ajouter;
-        QPushButton* ajoutTache;
-        QPushButton* ajoutNoteFichier;
-        QHBoxLayout* cboutonAjouter;
-        QHBoxLayout* cboutonAjouterNoteFichier;
-        QHBoxLayout* cboutonAjouterTache;*/
-
-        //Article* article;
-
-
 };
-
-/*class afficheCreerNote() : public QWidget {
-    QLineEdit *id;
-    QLineEdit *titre;
-    QDateTimeEdit *dateCrea;
-public:
-    void afficheCreerNote();
-    QString getId() { return id->Text(); }
-};
-
-class CreerNote() : public QWidget {
-private:
-    // ---- Label -----
-    QLabel* idlabel;
-    QLabel* titrelabel;
-    QLabel* textlabel;
-    QLabel* descriptionlabel;
-    QLabel* filelabel;
-    QLabel* actionlabel;
-    QLabel* prioritelabel;
-    QLabel* dateEchlabel;
-    QLabel* statutlabel;
-    QLabel* typelabel;
-    // ---- Edit ---- 
-    QLineEdit* idEdit;
-    QLineEdit* titreEdit;
-    QTextEdit* textEdit;
-    QTextEdit* descritionEdit;
-    QLineEdit* fileEdit;
-    QLineEdit* actionEdit;
-    QLineEdit* prioriteEdit;
-    QDateTimeEdit* dateEchEdit;
-    QLineEdit* statutEdit;    
-    QComboBox* typeEdit;
-    // ---- Bouton ----
-    QPushButton* valider;
-    QPushButton* annuler;
-    // --- Layout --- 
-    QHBoxLayout* cid;
-    QHBoxLayout* ctitre;
-    QHBoxLayout* ctext;
-    QHBoxLayout* cdescription;
-    QHBoxLayout* cfile;
-    QHBoxLayout* caction;
-    QHBoxLayout* cpriorite;
-    QHBoxLayout* cdateEch;
-    QHBoxLayout* cstatut;
-    QHBoxLayout* ctype;
-    QHBoxLayout* cboutons;
-    QVBoxLayout* zone;
-
-public:
-    CreerNote();
-    QString getId() { return id->text(); }
-
-public slots:
-    QString createNote(QString type);
-    void createContenuNote(QString type);
-
-}*/
 
 #endif

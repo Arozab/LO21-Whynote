@@ -1,6 +1,7 @@
 #include "notes.h"
 #include "notemanager.h"
 #include "fenetrenewnote.h"
+#include "fenetreprincipale.h"
 
 
 FenetreNewNote::FenetreNewNote(QString type, QWidget* parent) : QWidget(parent) {
@@ -111,7 +112,15 @@ FenetreNewNote::FenetreNewNote(QString type, QWidget* parent) : QWidget(parent) 
 
 void FenetreNewNote::creerNote() {
     NotesManager& m=NotesManager::recupererInstance();
-    if(idEdit->text()!="") {
+    FenPrincipale& fp=FenPrincipale::getInstance();
+    NotesManager::Iterator it=m.getIterator();
+    while(!it.isDone() && it.current().getId()!=idEdit->text()){
+        it.next();
+    }
+    if (!it.isDone()) { // si on trouve un id deja existant
+        QMessageBox::information(this, "Erreur", "Id deja existant");
+    }
+    else if(idEdit->text()!="") {
         try
         {
             if (typeEdit->text() == "article")
@@ -119,6 +128,7 @@ void FenetreNewNote::creerNote() {
                 Article a=m.getNewArticle(idEdit->text(),titreEdit->text(),textEdit->toPlainText());
                 QMessageBox::information(this,"Ajouter","Article ajouté !");
                 m.save();
+                fp.actualiserNote();
                 close();
             }
             else
@@ -127,6 +137,7 @@ void FenetreNewNote::creerNote() {
                     Tache a=m.getNewTache(idEdit->text(),titreEdit->text(),statutEdit->text(),actionEdit->text(),prioriteEdit->text()/*,DateEch*/);
                     QMessageBox::information(this,"Ajouter","Tache ajoutée !");
                     m.save();
+                    fp.actualiserNote();
                     close();
                 }
                 else  
@@ -135,6 +146,7 @@ void FenetreNewNote::creerNote() {
                         NoteAvecFichier a=m.getNewNoteAvecFichier(idEdit->text(),titreEdit->text(),descriptionEdit->toPlainText(),fileEdit->text());
                         QMessageBox::information(this,"Ajouter","NoteFichier ajoutée !");
                         m.save();
+                        fp.actualiserNote();
                         close();
                     }
         }

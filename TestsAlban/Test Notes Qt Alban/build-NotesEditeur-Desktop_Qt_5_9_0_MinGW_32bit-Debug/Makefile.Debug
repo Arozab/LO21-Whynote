@@ -2783,7 +2783,11 @@ debug/fenetrenewnote.o: ../NotesEditeur/fenetrenewnote.cpp ../NotesEditeur/notes
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QDockWidget \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QMenu \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QLineEdit \
-		C:/Qt/5.9/mingw53_32/include/QtWidgets/QListWidgetItem
+		C:/Qt/5.9/mingw53_32/include/QtWidgets/QListWidgetItem \
+		../NotesEditeur/fenetreprincipale.h \
+		../NotesEditeur/editeurnote.h \
+		C:/Qt/5.9/mingw53_32/include/QtWidgets/QComboBox \
+		C:/Qt/5.9/mingw53_32/include/QtWidgets/QGridLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\fenetrenewnote.o ..\NotesEditeur\fenetrenewnote.cpp
 
 debug/notemanager.o: ../NotesEditeur/notemanager.cpp ../NotesEditeur/notes.h \
@@ -3965,7 +3969,11 @@ debug/editeurnote.o: ../NotesEditeur/editeurnote.cpp ../NotesEditeur/notes.h \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QDockWidget \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QMenu \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QLineEdit \
-		C:/Qt/5.9/mingw53_32/include/QtWidgets/QListWidgetItem
+		C:/Qt/5.9/mingw53_32/include/QtWidgets/QListWidgetItem \
+		../NotesEditeur/fenetreprincipale.h \
+		../NotesEditeur/fenetrenewnote.h \
+		C:/Qt/5.9/mingw53_32/include/QtWidgets/QComboBox \
+		C:/Qt/5.9/mingw53_32/include/QtWidgets/QGridLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\editeurnote.o ..\NotesEditeur\editeurnote.cpp
 
 debug/editeurnotefactory.o: ../NotesEditeur/editeurnotefactory.cpp ../NotesEditeur/editeurnotefactory.h \

@@ -39,4 +39,27 @@
         <dateModif>09/06/2017</dateModif>
         <text>zert</text>
     </article>
+    <article>
+        <id>10</id>
+        <titre>test</titre>
+        <dateCrea>11/06/2017</dateCrea>
+        <dateModif>11/06/2017</dateModif>
+        <text>voir si id 1 marche</text>
+    </article>
+    <article>
+        <id>9</id>
+        <titre>Test Actualisation</titre>
+        <dateCrea>11/06/2017</dateCrea>
+        <dateModif>11/06/2017</dateModif>
+        <text>en cours
+Yes ça marche !!!</text>
+    </article>
+    <article>
+        <id>6</id>
+        <titre>test Actualisation 2</titre>
+        <dateCrea>12/06/2017</dateCrea>
+        <dateModif>12/06/2017</dateModif>
+        <text>REUSSI ?
+REUSSI !!!</text>
+    </article>
 </notes>

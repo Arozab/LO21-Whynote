@@ -290,115 +290,6 @@ void FenPrincipale::afficheNote(QListWidgetItem* item){
      }
 }
 
-//            idEdit->setText(it.current().getId());
-//            titreEdit->setText(it.current().getTitre());
-//            dateCreaEdit->setText(it.current().getDateCrea());
-//            dateModifEdit->setText(it.current().getDateModif());
-
-//            idEdit->setDisabled(true);
-//            titreEdit->setDisabled(true);
-//            dateCreaEdit->setDisabled(true);
-//            dateModifEdit->setDisabled(true);
-
-//            qDebug()<<"type : "<<it.current().getType()<<"\n";
-//            if(it.current().getType()=="7Article"){
-//                actionlabel->setHidden(true);
-//                actionEdit->setHidden(true);
-//                prioritelabel->setHidden(true);
-//                prioriteEdit->setHidden(true);
-//                dateEchlabel->setHidden(true);
-//                dateEchEdit->setHidden(true);
-//                statutlabel->setHidden(true);
-//                statutEdit->setHidden(true);
-//                descriptionlabel->setHidden(true);
-//                descritionEdit->setHidden(true);
-//                filelabel->setHidden(true);
-//                fileEdit->setHidden(true);
-//                textEdit->setHidden(false);
-//                textlabel->setHidden(false);
-//                ccentral->insertLayout(4,ctext);
-//                Notes* n=it.current().clone();
-//                Article& a1 = dynamic_cast<Article&>(*n);
-//                textEdit->setText(a1.getText());
-//                textEdit->setDisabled(true);
-
-//            }
-//            if(it.current().getType()=="15NoteAvecFichier"){
-//                actionlabel->setHidden(true);
-//                actionEdit->setHidden(true);
-//                prioritelabel->setHidden(true);
-//                prioriteEdit->setHidden(true);
-//                dateEchlabel->setHidden(true);
-//                dateEchEdit->setHidden(true);
-//                statutlabel->setHidden(true);
-//                statutEdit->setHidden(true);
-//                textEdit->setHidden(true);
-//                textlabel->setHidden(true);
-//                descritionEdit->setHidden(false);
-//                descriptionlabel->setHidden(false);
-//                fileEdit->setHidden(false);
-//                filelabel->setHidden(false);
-//                ccentral->insertLayout(4,cdescription);
-//                ccentral->insertLayout(5,cfile);
-//                Notes* n=it.current().clone();
-//                NoteAvecFichier& a1 = dynamic_cast<NoteAvecFichier&>(*n);
-//                descritionEdit->setText(a1.getDescription());
-//                descritionEdit->setDisabled(true);
-//                fileEdit->setText(a1.getFile());
-//                fileEdit->setDisabled(true);
-//            }
-//            if(it.current().getType()=="5Tache"){
-//                textEdit->setHidden(true);
-//                textlabel->setHidden(true);
-//                descritionEdit->setHidden(true);
-//                descriptionlabel->setHidden(true);
-//                fileEdit->setHidden(true);
-//                filelabel->setHidden(true);
-//                actionlabel->setHidden(false);
-//                actionEdit->setHidden(false);
-//                prioritelabel->setHidden(false);
-//                prioriteEdit->setHidden(false);
-//                dateEchlabel->setHidden(false);
-//                dateEchEdit->setHidden(false);
-//                statutlabel->setHidden(false);
-//                statutEdit->setHidden(false);
-//                ccentral->insertLayout(4,caction);
-//                ccentral->insertLayout(5,cpriorite);
-//                ccentral->insertLayout(6,cdateEch);
-//                ccentral->insertLayout(7,cstatut);
-//                Notes* n=it.current().clone();
-//                Tache& a1 = dynamic_cast<Tache&>(*n);
-//                actionEdit->setText(a1.getAction());
-//                actionEdit->setDisabled(true);
-//                prioriteEdit->setText(a1.getPriorite());
-//                prioriteEdit->setDisabled(true);
-//                dateEchEdit->setText(a1.getDateEch());
-//                dateEchEdit->setDisabled(true);
-//                statutEdit->setText(a1.getStatut());
-//                statutEdit->setDisabled(true);
-//            }
-//        }
-//    }
-//    sauver->setDisabled(true);
-//}
-
-// void FenPrincipale::activerEditer(){
-//	 restaurer->setDisabled(false);
-//     titreEdit->setDisabled(false);
-//     dateCreaEdit->setDisabled(false);
-//     dateModifEdit->setDisabled(false);
-//     textEdit->setDisabled(false);
-//     descritionEdit->setDisabled(false);
-//     fileEdit->setDisabled(false);
-//     actionEdit->setDisabled(false);
-//     prioriteEdit->setDisabled(false);
-//     dateEchEdit->setDisabled(false);
-//     statutEdit->setDisabled(false);
-// }
-
-//  void FenPrincipale::activerSauver(QString str){
-//      sauver->setEnabled(true);
-//  }
 
 //  void FenPrincipale::sauverNote(){
 //      NotesManager& m=NotesManager::recupererInstance();
@@ -550,47 +441,19 @@ void FenPrincipale::afficherNewNoteFichier() {
       fenNewNote = fe;
       setCentralWidget(fenNewNote);
       fenNewNote->show();
-  }
+}
 
-  // --- Interface Commune ---
+void FenPrincipale::actualiserNote() {
+    NotesManager& m=NotesManager::recupererInstance();
+    listeNote->clear();
+    for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
+        QString str=it.current().getTitre();
+        listeNote->addItem(str);
+    }
+}
 
-  /*void FenPrincipale::afficherCreerNote() {
-      idEdit->setDisabled(true);
-      dateCreaEdit->setDisabled(true);
-      dateModifEdit->setDisabled(true);
-      idEdit->setHidden(true);
-      idlabel->setHidden(true);
-      titreEdit->setDisabled(false);
 
-      titrelabel->setHidden(false);
-      titreEdit->setHidden(false);
-      dateCrealabel->setHidden(true);
-      dateCreaEdit->setHidden(true);
-      dateModiflabel->setHidden(true);
-      dateModifEdit->setHidden(true);
-      descriptionlabel->setHidden(true);
-      descritionEdit->setHidden(true);
-      filelabel->setHidden(true);
-      fileEdit->setHidden(true);
-      actionlabel->setHidden(true);
-      actionEdit->setHidden(true);
-      prioritelabel->setHidden(true);
-      prioriteEdit->setHidden(true);
-      dateEchlabel->setHidden(true);
-      dateEchEdit->setHidden(true);
-      statutlabel->setHidden(true);
-      statutEdit->setHidden(true);
-      textEdit->setHidden(true);
-      textlabel->setHidden(true);
-
-      editer->setHidden(true);
-      sauver->setHidden(true);
-      restaurer->setHidden(true);
-      listeVersion->setHidden(true);
-      titreEdit->clear();
-  }
-
-  void FenPrincipale::afficherStandard() {
+  /*void FenPrincipale::afficherStandard() {
       idEdit->setDisabled(true);
       titreEdit->setDisabled(true);
       dateCreaEdit->setDisabled(true);
@@ -638,163 +501,9 @@ void FenPrincipale::afficherNewNoteFichier() {
       ajoutTache->setHidden(true);
       ajoutNoteFichier->setHidden(true);
       listeVersion->setHidden(false);
-  }
-
-  // --  Interface Nouvel Article -----
-  void FenPrincipale::afficherCreerArticle() {
-      this->afficherCreerNote();
-      textEdit->setDisabled(false);
-
-      textEdit->setHidden(false);
-      textlabel->setHidden(false);
-      ccentral->insertLayout(4,ctext);
-      ccentral->insertLayout(9,cboutonAjouter);
-      ajouter->setHidden(false);
-      ajouter->setDisabled(false);
-      textEdit->clear();
-  }
-
-
-  void FenPrincipale::creerArticle() {
-      const QString ti=titreEdit->text();
-      const QString te= textEdit->toPlainText();
-      NotesManager& m=NotesManager::recupererInstance();
-      NotesManager::Iterator it=m.getIterator();
-      QString id;
-      int intid;
-      if (m.getnbNotes()==0) id="1";
-      else {
-          while(!it.isDone()){
-             it.next();
-          }
-          it.previous();
-          intid=it.current().getId().toInt();
-          intid++;
-          id=QString::number(intid);
-      }
-      //id=m.genereId();
-      qDebug()<<id<<"\n";
-      Article a=m.getNewArticle(id,ti,te);
-      QMessageBox::information(this,"Ajouter","Article ajouté !");
-      m.save();
-
-      this->afficherStandard();
-
-      QString titre=a.getTitre();
-      listeNote->addItem(titre);
-  }
-
-  // --- Interface Tache --- 
-
-  void FenPrincipale::afficherCreerTache() {
-    afficherCreerNote();
-    actionEdit->setDisabled(false);
-    prioriteEdit->setDisabled(false);
-    dateEchEdit->setDisabled(false);
-    statutEdit->setDisabled(false);
-
-    actionlabel->setHidden(false);
-    actionEdit->setHidden(false);
-    prioritelabel->setHidden(false);
-    prioriteEdit->setHidden(false);
-    dateEchlabel->setHidden(false);
-    dateEchEdit->setHidden(false);
-    statutlabel->setHidden(false);
-    statutEdit->setHidden(false);
-    ccentral->insertLayout(4,caction);
-    ccentral->insertLayout(5,cpriorite);
-    ccentral->insertLayout(6,cdateEch);
-    ccentral->insertLayout(7,cstatut);
-    ccentral->insertLayout(9,cboutonAjouterTache);
-    ajoutTache->setHidden(false);
-    ajoutTache->setDisabled(false);
-
-    actionEdit->clear();
-    prioriteEdit->clear();
-    dateEchEdit->clear();
-    statutEdit->clear();    
-
-  }
-
-  void FenPrincipale::creerTache() {
-      const QString ti=titreEdit->text();
-      const QString ac= actionEdit->text();
-      const QString pr=prioriteEdit->text();
-      const QString st= statutEdit->text();
-      const QString d= dateEchEdit->text();
-      NotesManager& m=NotesManager::recupererInstance();
-      NotesManager::Iterator it=m.getIterator();
-      QString id;
-      int intid;
-      if (m.getnbNotes()==0) id="1";
-      else {
-          while(!it.isDone()){
-             it.next();
-          }
-          it.previous();
-          intid=it.current().getId().toInt();
-          intid++;
-          id=QString::number(intid);
-      }
-      Tache a=m.getNewTache(id,ti,ac,pr,st);
-      QMessageBox::information(this,"Ajouter","Tache ajoutée !");
-      m.save();
-
-      this->afficherStandard();
-
-      QString titre=a.getTitre();
-      listeNote->addItem(titre);
-  }
-
-  // --- Interface NoteFichier ---- 
-
-  void FenPrincipale::afficherCreerNoteFichier() {
-    this->afficherCreerNote();
-    descritionEdit->setDisabled(false);
-    fileEdit->setDisabled(false);
-
-    descriptionlabel->setHidden(false);
-    descritionEdit->setHidden(false);
-    filelabel->setHidden(false);
-    fileEdit->setHidden(false);
-    ccentral->insertLayout(4,cdescription);
-    ccentral->insertLayout(5,cfile);
-    ccentral->insertLayout(9,cboutonAjouterNoteFichier);
-    ajoutNoteFichier->setHidden(false);
-    ajoutNoteFichier->setDisabled(false);
-
-    descritionEdit->clear();
-    fileEdit->clear();
-  }
-
-  void FenPrincipale::creerNoteFichier() {
-      const QString ti=titreEdit->text();
-      const QString de=descritionEdit->toPlainText();
-      const QString f=fileEdit->text();
-      NotesManager& m=NotesManager::recupererInstance();
-      NotesManager::Iterator it=m.getIterator();
-      QString id;
-      int intid;
-      if (m.getnbNotes()==0) id="1";
-      else {
-          while(!it.isDone()){
-             it.next();
-          }
-          it.previous();
-          intid=it.current().getId().toInt();
-          intid++;
-          id=QString::number(intid);
-      }
-      qDebug()<<id<<"\n";
-      NoteAvecFichier a=m.getNewNoteAvecFichier(id,ti,de,f);
-      QMessageBox::information(this,"Ajouter","NoteFichier ajouté !");
-      m.save();
-
-      this->afficherStandard();
-
-      QString titre=a.getTitre();
-      listeNote->addItem(titre);
   }*/
+
+
 
 /*void FenPrincipale::ouvrirDialogue()
 {
