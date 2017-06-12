@@ -68,7 +68,6 @@ private:
         QMenu *menuNouveau;
 
         QAction *actionQuitter;
-        QAction* supprimer;
         QAction* restaurer;
         QAction *ajouterArticle;
         QAction *ajouterTache;

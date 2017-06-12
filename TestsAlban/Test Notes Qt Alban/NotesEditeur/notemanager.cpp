@@ -460,7 +460,19 @@ NotesManager& NotesManager::recupererInstance(){
     else return *handler.instance;
 }
 
-void NotesManager::supprimerNote(Notes* n) {
-    qDebug("supprime une note");
+void NotesManager::supprimerNote(QString id) {
+   for (unsigned int i=0;i<notes.size();i++)
+   {
+      if (notes[i]->getId()==id) {
+          qDebug()<<"on supprime l'id "<<notes[i]->getId()<<"\n";
+          notes.erase(notes.begin()+i);
+      }
+
+   }
+      qDebug("supprime une note");
+}
+
+void NotesManager::supprimerNotedefinitivement(Notes* n) {
+    delete n;
 }
 

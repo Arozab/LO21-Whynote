@@ -63,7 +63,8 @@ class NotesManager{
         static NotesManager& getInstance();
         static void libererInstance();
         static NotesManager& recupererInstance();
-        void supprimerNote(Notes* n);
+        void supprimerNote(QString id);
+        void supprimerNotedefinitivement(Notes* n);
 
         unsigned int getnbNotes() const {return nbNotes;}
         Notes& edition(Notes* n);

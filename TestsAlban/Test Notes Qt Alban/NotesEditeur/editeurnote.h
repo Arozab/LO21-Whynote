@@ -40,6 +40,8 @@ protected :
     QPushButton* editer;
     QPushButton* sauver;
     QPushButton* restaurer;
+    QPushButton* supprimer;
+    QPushButton* annuler;
     // --- Layout ---
     QHBoxLayout* ctype;
     QHBoxLayout* cid;
@@ -47,7 +49,7 @@ protected :
     QHBoxLayout* cdateModif;
     QHBoxLayout* ctitre;
     QHBoxLayout* cboutons;
-    QVBoxLayout* cboutonRestauration;
+    QHBoxLayout* cboutonEdition;
     QVBoxLayout* zone;
 
     //OldVersionsWindow* ovw;
@@ -70,6 +72,8 @@ public slots :
 //    void updateTaskManager();
 //    void setEmptyCentralWidget();
     virtual void activerEditer();
+    virtual void annuleEdition();
+    virtual void supprime();
     virtual void sauverNote()=0;
     //void editerNote();
     //void restaurerNote();
@@ -96,6 +100,7 @@ public:
 public slots:
     void sauverNote();
     void activerEditer();
+    void annuleEdition();
 
 };
 
@@ -124,6 +129,7 @@ public:
 public slots:
     void sauverNote();
     void activerEditer();
+    void annuleEdition();
 };
 
 class NoteFichierEditeur : public EditeurNote {
@@ -145,6 +151,7 @@ public:
 public slots:
     void sauverNote();
     void activerEditer();
+    void annuleEdition();
 
 };
 

@@ -17,13 +17,15 @@ EditeurNote::EditeurNote(Notes *n, QWidget* parent) {
             sauver = new QPushButton("Sauver");
             editer = new QPushButton("Editer");
             restaurer = new QPushButton("Restaurer");
+            supprimer = new QPushButton("Supprimer");
+            annuler = new QPushButton("Annuler");
 
             cid = new QHBoxLayout();
             ctitre = new QHBoxLayout();
             cdateCrea = new QHBoxLayout();
             cdateModif = new QHBoxLayout();
             cboutons = new QHBoxLayout();
-            cboutonRestauration = new QVBoxLayout();
+            cboutonEdition = new QHBoxLayout();
             zone = new QVBoxLayout();
 
             cid->addWidget(idlabel);
@@ -35,8 +37,11 @@ EditeurNote::EditeurNote(Notes *n, QWidget* parent) {
             cdateModif->addWidget(dateModiflabel);
             cdateModif->addWidget(dateModifEdit);
             cboutons->addWidget(sauver);
-            cboutons->addWidget(editer);
+            cboutons->addWidget(annuler);
             cboutons->addWidget(restaurer);
+
+            cboutonEdition->addWidget(editer);
+            cboutonEdition->addWidget(supprimer);
 
             zone->addLayout(cid);
             zone->addLayout(ctitre);
@@ -55,15 +60,35 @@ EditeurNote::EditeurNote(Notes *n, QWidget* parent) {
 
             sauver->setDisabled(true);
             restaurer->setDisabled(true);
+            annuler->setDisabled(true);
 }
 
 void EditeurNote::activerEditer(){
     restaurer->setDisabled(false);
     titreEdit->setDisabled(false);
+    annuler->setDisabled(false);
+    supprimer->setDisabled(true);
 }
 
 void EditeurNote::activerSauver(){
     sauver->setEnabled(true);
+}
+
+void EditeurNote::supprime(){
+    NotesManager& m=NotesManager::recupererInstance();
+    FenPrincipale& fp = FenPrincipale::getInstance();
+    m.supprimerNote(idEdit->text());
+    m.save();
+    fp.actualiserNote();
+    this->close();
+}
+
+void EditeurNote::annuleEdition() {
+    restaurer->setDisabled(true);
+    titreEdit->setDisabled(true);
+    annuler->setDisabled(true);
+    supprimer->setDisabled(false);
+    sauver->setDisabled(true);
 }
 
 ArticleEditeur::ArticleEditeur(Article *a,QWidget* parent) : EditeurNote(a,parent), article(a) {
@@ -89,8 +114,11 @@ ArticleEditeur::ArticleEditeur(Article *a,QWidget* parent) : EditeurNote(a,paren
                 QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
                 QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
                 QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
+                //QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprime()));
+                QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annuleEdition()));
 
                 zone->addLayout(cboutons);
+                zone->addLayout(cboutonEdition);
                 this->setLayout(zone);
 }
 
@@ -98,6 +126,17 @@ void ArticleEditeur::activerEditer() {
     restaurer->setDisabled(false);
     titreEdit->setDisabled(false);
     textEdit->setDisabled(false);
+    supprimer->setDisabled(true);
+    annuler->setDisabled(false);
+}
+
+void ArticleEditeur::annuleEdition() {
+    restaurer->setDisabled(true);
+    titreEdit->setDisabled(true);
+    textEdit->setDisabled(true);
+    supprimer->setDisabled(false);
+    annuler->setDisabled(true);
+    sauver->setDisabled(true);
 }
 
 void ArticleEditeur::sauverNote() {
@@ -202,8 +241,11 @@ TacheEditeur::TacheEditeur(Tache *a,QWidget* parent) : EditeurNote(a,parent), ta
     QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
     QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
     QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
+    //QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprime()));
+    QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annuleEdition()));
 
     zone->addLayout(cboutons);
+    zone->addLayout(cboutonEdition);
     this->setLayout(zone);
 }
 
@@ -214,7 +256,22 @@ void TacheEditeur::activerEditer() {
     prioriteEdit->setDisabled(false);
     dateEchEdit->setDisabled(false);
     statutEdit->setDisabled(false);
+    supprimer->setDisabled(true);
+    annuler->setDisabled(false);
 }
+
+void TacheEditeur::annuleEdition() {
+    restaurer->setDisabled(true);
+    titreEdit->setDisabled(true);
+    actionEdit->setDisabled(true);
+    prioriteEdit->setDisabled(true);
+    dateEchEdit->setDisabled(true);
+    statutEdit->setDisabled(true);
+    supprimer->setDisabled(false);
+    annuler->setDisabled(true);
+    sauver->setDisabled(true);
+}
+
 
 void TacheEditeur::sauverNote() {
     NotesManager& m=NotesManager::recupererInstance();
@@ -314,16 +371,31 @@ NoteFichierEditeur::NoteFichierEditeur(NoteAvecFichier *a,QWidget* parent) : Edi
     QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
     QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
     QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
+    //QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprime()));
+    QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annuleEdition()));
 
     zone->addLayout(cboutons);
+    zone->addLayout(cboutonEdition);
     this->setLayout(zone);
 }
 
-void NoteFichierEditeur::activerEditer() {
+    void NoteFichierEditeur::activerEditer() {
     restaurer->setDisabled(false);
     titreEdit->setDisabled(false);
     descriptionEdit->setDisabled(false);
     fileEdit->setDisabled(false);
+    supprimer->setDisabled(true);
+    annuler->setDisabled(false);
+}
+
+void NoteFichierEditeur::annuleEdition() {
+    restaurer->setDisabled(true);
+    titreEdit->setDisabled(true);
+    descriptionEdit->setDisabled(true);
+    fileEdit->setDisabled(true);
+    supprimer->setDisabled(false);
+    annuler->setDisabled(true);
+    sauver->setDisabled(true);
 }
 
 void NoteFichierEditeur::sauverNote() {

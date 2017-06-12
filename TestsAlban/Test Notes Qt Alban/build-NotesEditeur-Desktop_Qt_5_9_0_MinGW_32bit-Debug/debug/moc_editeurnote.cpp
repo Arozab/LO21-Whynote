@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_EditeurNote_t {
-    QByteArrayData data[5];
-    char stringdata0[52];
+    QByteArrayData data[7];
+    char stringdata0[75];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,12 +34,14 @@ static const qt_meta_stringdata_EditeurNote_t qt_meta_stringdata_EditeurNote = {
 QT_MOC_LITERAL(0, 0, 11), // "EditeurNote"
 QT_MOC_LITERAL(1, 12, 13), // "activerEditer"
 QT_MOC_LITERAL(2, 26, 0), // ""
-QT_MOC_LITERAL(3, 27, 10), // "sauverNote"
-QT_MOC_LITERAL(4, 38, 13) // "activerSauver"
+QT_MOC_LITERAL(3, 27, 13), // "annuleEdition"
+QT_MOC_LITERAL(4, 41, 8), // "supprime"
+QT_MOC_LITERAL(5, 50, 10), // "sauverNote"
+QT_MOC_LITERAL(6, 61, 13) // "activerSauver"
 
     },
-    "EditeurNote\0activerEditer\0\0sauverNote\0"
-    "activerSauver"
+    "EditeurNote\0activerEditer\0\0annuleEdition\0"
+    "supprime\0sauverNote\0activerSauver"
 };
 #undef QT_MOC_LITERAL
 
@@ -49,7 +51,7 @@ static const uint qt_meta_data_EditeurNote[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -57,11 +59,15 @@ static const uint qt_meta_data_EditeurNote[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x0a /* Public */,
-       3,    0,   30,    2, 0x0a /* Public */,
-       4,    0,   31,    2, 0x08 /* Private */,
+       1,    0,   39,    2, 0x0a /* Public */,
+       3,    0,   40,    2, 0x0a /* Public */,
+       4,    0,   41,    2, 0x0a /* Public */,
+       5,    0,   42,    2, 0x0a /* Public */,
+       6,    0,   43,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -76,8 +82,10 @@ void EditeurNote::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->activerEditer(); break;
-        case 1: _t->sauverNote(); break;
-        case 2: _t->activerSauver(); break;
+        case 1: _t->annuleEdition(); break;
+        case 2: _t->supprime(); break;
+        case 3: _t->sauverNote(); break;
+        case 4: _t->activerSauver(); break;
         default: ;
         }
     }
@@ -109,19 +117,19 @@ int EditeurNote::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 5;
     }
     return _id;
 }
 struct qt_meta_stringdata_ArticleEditeur_t {
-    QByteArrayData data[4];
-    char stringdata0[41];
+    QByteArrayData data[5];
+    char stringdata0[55];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -133,10 +141,12 @@ static const qt_meta_stringdata_ArticleEditeur_t qt_meta_stringdata_ArticleEdite
 QT_MOC_LITERAL(0, 0, 14), // "ArticleEditeur"
 QT_MOC_LITERAL(1, 15, 10), // "sauverNote"
 QT_MOC_LITERAL(2, 26, 0), // ""
-QT_MOC_LITERAL(3, 27, 13) // "activerEditer"
+QT_MOC_LITERAL(3, 27, 13), // "activerEditer"
+QT_MOC_LITERAL(4, 41, 13) // "annuleEdition"
 
     },
-    "ArticleEditeur\0sauverNote\0\0activerEditer"
+    "ArticleEditeur\0sauverNote\0\0activerEditer\0"
+    "annuleEdition"
 };
 #undef QT_MOC_LITERAL
 
@@ -146,7 +156,7 @@ static const uint qt_meta_data_ArticleEditeur[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -154,10 +164,12 @@ static const uint qt_meta_data_ArticleEditeur[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x0a /* Public */,
-       3,    0,   25,    2, 0x0a /* Public */,
+       1,    0,   29,    2, 0x0a /* Public */,
+       3,    0,   30,    2, 0x0a /* Public */,
+       4,    0,   31,    2, 0x0a /* Public */,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -172,6 +184,7 @@ void ArticleEditeur::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         switch (_id) {
         case 0: _t->sauverNote(); break;
         case 1: _t->activerEditer(); break;
+        case 2: _t->annuleEdition(); break;
         default: ;
         }
     }
@@ -203,19 +216,19 @@ int ArticleEditeur::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
 struct qt_meta_stringdata_TacheEditeur_t {
-    QByteArrayData data[4];
-    char stringdata0[39];
+    QByteArrayData data[5];
+    char stringdata0[53];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -227,10 +240,12 @@ static const qt_meta_stringdata_TacheEditeur_t qt_meta_stringdata_TacheEditeur =
 QT_MOC_LITERAL(0, 0, 12), // "TacheEditeur"
 QT_MOC_LITERAL(1, 13, 10), // "sauverNote"
 QT_MOC_LITERAL(2, 24, 0), // ""
-QT_MOC_LITERAL(3, 25, 13) // "activerEditer"
+QT_MOC_LITERAL(3, 25, 13), // "activerEditer"
+QT_MOC_LITERAL(4, 39, 13) // "annuleEdition"
 
     },
-    "TacheEditeur\0sauverNote\0\0activerEditer"
+    "TacheEditeur\0sauverNote\0\0activerEditer\0"
+    "annuleEdition"
 };
 #undef QT_MOC_LITERAL
 
@@ -240,7 +255,7 @@ static const uint qt_meta_data_TacheEditeur[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -248,10 +263,12 @@ static const uint qt_meta_data_TacheEditeur[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x0a /* Public */,
-       3,    0,   25,    2, 0x0a /* Public */,
+       1,    0,   29,    2, 0x0a /* Public */,
+       3,    0,   30,    2, 0x0a /* Public */,
+       4,    0,   31,    2, 0x0a /* Public */,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -266,6 +283,7 @@ void TacheEditeur::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         switch (_id) {
         case 0: _t->sauverNote(); break;
         case 1: _t->activerEditer(); break;
+        case 2: _t->annuleEdition(); break;
         default: ;
         }
     }
@@ -297,19 +315,19 @@ int TacheEditeur::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
 struct qt_meta_stringdata_NoteFichierEditeur_t {
-    QByteArrayData data[4];
-    char stringdata0[45];
+    QByteArrayData data[5];
+    char stringdata0[59];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -321,11 +339,12 @@ static const qt_meta_stringdata_NoteFichierEditeur_t qt_meta_stringdata_NoteFich
 QT_MOC_LITERAL(0, 0, 18), // "NoteFichierEditeur"
 QT_MOC_LITERAL(1, 19, 10), // "sauverNote"
 QT_MOC_LITERAL(2, 30, 0), // ""
-QT_MOC_LITERAL(3, 31, 13) // "activerEditer"
+QT_MOC_LITERAL(3, 31, 13), // "activerEditer"
+QT_MOC_LITERAL(4, 45, 13) // "annuleEdition"
 
     },
     "NoteFichierEditeur\0sauverNote\0\0"
-    "activerEditer"
+    "activerEditer\0annuleEdition"
 };
 #undef QT_MOC_LITERAL
 
@@ -335,7 +354,7 @@ static const uint qt_meta_data_NoteFichierEditeur[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -343,10 +362,12 @@ static const uint qt_meta_data_NoteFichierEditeur[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x0a /* Public */,
-       3,    0,   25,    2, 0x0a /* Public */,
+       1,    0,   29,    2, 0x0a /* Public */,
+       3,    0,   30,    2, 0x0a /* Public */,
+       4,    0,   31,    2, 0x0a /* Public */,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -361,6 +382,7 @@ void NoteFichierEditeur::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         switch (_id) {
         case 0: _t->sauverNote(); break;
         case 1: _t->activerEditer(); break;
+        case 2: _t->annuleEdition(); break;
         default: ;
         }
     }
@@ -392,13 +414,13 @@ int NoteFichierEditeur::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
