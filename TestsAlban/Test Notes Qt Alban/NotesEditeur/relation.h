@@ -1,54 +1,53 @@
 #ifndef RELATION_H_INCLUDED
 #define RELATION_H_INCLUDED
 
-#include <string>
+#include <QString>
 #include <iostream>
 #include <vector>
 #include "notes.h"
-#include "timing.h"
+//#include "couplemanager.h"
 using namespace std;
 
 class couple{
 
 	private:
-		string label;
-		Notes* note1;
-		Notes* note2;
-		void setLabel(const string& l);
-		couple();
-		couple(const string& l,Notes& n1,Notes& n2):label(l),note1(&n1),note2(&n2){}
-        ~couple();
-		friend class relation;
+		QString label;
+		int note1;
+		int note2;
+		void setLabel(const QString& l);
+		couple(const QString& l,int n1,int n2):label(l),note1(n1),note2(n2){}
+       
+		friend class CoupleManager;
 
 	public:
-		string getLabel() const { return label;}
-		Notes* getNotes1() { return note1;}
-		Notes* getNotes2() { return note2;}
+		//~couple();
+		QString getLabel() const { return label;}
+        int getNotes1() { return note1;}
+        int getNotes2() { return note2;}
 };
 
 
-class relation{
+/*class relation{
 
 	private:
-		string titre;
-		string description;
+		QString titre;
+		QString description;
 		vector<couple*> ensemble_couple;
+		int orientation; // 0 pour non orientée, 1 pour orienter dans le sens de note1 vers note2, 2 dans l'autre sens, erreur sinon
 
 	public:
-		string getTitre()const{return titre;}
-		string getDescription()const{return description;}
-		void setTitre(const string& t) {titre=t;}
-		void setDescription(const string d) {description=d;}
-		virtual bool existe_relation(Notes& n1,Notes& n2);
-		void addCouple(string l, Notes& n1, Notes& n2);
+		QString getTitre()const{return titre;}
+		QString getDescription()const{return description;}
+		void setTitre(const QString& t) {titre=t;}
+		void setDescription(const QString d) {description=d;}
+		bool existe_relation(Notes& n1,Notes& n2);
+        void addCouple(QString l, int n1, int n2);
 		void removeCouple(Notes& n1, Notes& n2);
 		relation();
 		~relation();
-};
+		int getOrientation()const{return orientation;}
+};*/
 
-class relationNoOriente : public relation {
-	public :
-	bool existe_relation(Notes& n1, Notes& n2);
-};
+
 
 #endif // RELATION_H_INCLUDED

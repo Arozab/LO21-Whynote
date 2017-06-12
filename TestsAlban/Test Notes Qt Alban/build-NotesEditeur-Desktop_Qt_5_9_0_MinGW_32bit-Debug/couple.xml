@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<couple>
+    <label>Couple test</label>  
+    <note1>2</note1>
+    <note2>3</note2>  
+</couple>
+<couple>
+    <label>Couple test2</label>  
+    <note1>1</note1>
+    <note2>4</note2>  
+</couple>

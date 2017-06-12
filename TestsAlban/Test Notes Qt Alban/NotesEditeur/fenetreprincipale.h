@@ -56,7 +56,9 @@ private:
         QDockWidget* dockNote;
         QDockWidget* dockTache;
         QDockWidget* dockArchive;
+        QDockWidget* dockCouple;
         QListWidget *listeNote;
+        QListWidget *listeCouple;
         QListWidget *listeTache;
         QListWidget *listeArchive;
         QComboBox *listeVersion;

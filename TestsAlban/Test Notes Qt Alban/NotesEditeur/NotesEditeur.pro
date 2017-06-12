@@ -8,7 +8,9 @@ SOURCES += \
     notemanager.cpp \
     fenetreprincipale.cpp \
     editeurnote.cpp \
-    editeurnotefactory.cpp
+    editeurnotefactory.cpp \
+    couplemanager.cpp \
+    relation.cpp
 
 HEADERS += \
     notes.h \
@@ -17,4 +19,6 @@ HEADERS += \
     notemanager.h \
     fenetreprincipale.h \
     editeurnote.h \
-    editeurnotefactory.h
+    editeurnotefactory.h \
+    couplemanager.h \
+    relation.h

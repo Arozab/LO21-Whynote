@@ -2,7 +2,7 @@
 using namespace std;
 
 
-void relation::addCouple(string l, Notes& n1, Notes& n2) {
+/*void relation::addCouple(string l, int n1, int n2) {
     if (!existe_relation(n1,n2)) {
         ensemble_couple.push_back(new couple(l,n1,n2));
     }
@@ -22,4 +22,4 @@ void relation::removeCouple(Notes& n1, Notes& n2) {
         }
         ensemble_couple.erase(ensemble_couple.begin()+indice);
     }
-}
+}*/

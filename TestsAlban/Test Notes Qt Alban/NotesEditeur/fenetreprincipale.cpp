@@ -4,6 +4,8 @@
 #include "fenetreprincipale.h"
 #include "editeurnote.h"
 #include "editeurnotefactory.h"
+#include "couplemanager.h"
+#include "relation.h"
 
 FenPrincipale::FenPHandler FenPrincipale::fenP_handler=FenPHandler();
 
@@ -27,6 +29,7 @@ void FenPrincipale::libererInstance() {
 FenPrincipale::FenPrincipale()
 {
     NotesManager& m=NotesManager::recupererInstance();
+    CoupleManager& c=CoupleManager::recupererInstance();
     setWindowTitle("PluriNotes");
 
 // ************ Bar des Taches **********
@@ -55,7 +58,7 @@ FenPrincipale::FenPrincipale()
 //  ************ Zone Gauche **********
 
     dockNote = new QDockWidget(tr("Liste de Notes"));
-    dockNote->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    dockNote->setAllowedAreas(Qt::LeftDockWidgetArea);
 
     // --- Liste de l'ensemble des notes
 
@@ -73,7 +76,7 @@ FenPrincipale::FenPrincipale()
     // --- Liste des taches
 
     dockTache = new QDockWidget(tr("Todo List"));
-    dockTache->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    dockTache->setAllowedAreas(Qt::LeftDockWidgetArea);
 
     listeTache = new QListWidget(dockTache);
     for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
@@ -90,7 +93,7 @@ FenPrincipale::FenPrincipale()
     // --- Liste des archives
 
     dockArchive = new QDockWidget(tr("Notes Archivées"));
-    dockArchive->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    dockArchive->setAllowedAreas(Qt::LeftDockWidgetArea);
 
     listeArchive = new QListWidget(dockArchive);
     dockArchive->setWidget(listeArchive);
@@ -111,6 +114,21 @@ FenPrincipale::FenPrincipale()
     setCentralWidget(zoneCentrale);
     //ccentral = new QGridLayout;
     //zoneCentrale->setLayout(ccentral);
+
+
+// **********  Zone Droite *********** 
+    dockCouple = new QDockWidget(tr("Couples"));
+    dockTache->setAllowedAreas(Qt::RightDockWidgetArea);
+
+    listeCouple = new QListWidget(dockCouple);
+    for(CoupleManager::Iterator it=c.getIterator();!it.isDone();it.next()){
+        QString str=it.current().getLabel();
+        listeCouple->addItem(str);
+    }
+    dockCouple->setWidget(listeCouple);
+    addDockWidget(Qt::RightDockWidgetArea, dockCouple);
+    
+
 }
 
 void FenPrincipale::afficheNote(QListWidgetItem* item){

@@ -7,6 +7,8 @@ INPUT(
 ./release/fenetreprincipale.o
 ./release/editeurnote.o
 ./release/editeurnotefactory.o
+./release/couplemanager.o
+./release/relation.o
 ./release/moc_fenetrenewnote.o
 ./release/moc_fenetreprincipale.o
 ./release/moc_editeurnote.o

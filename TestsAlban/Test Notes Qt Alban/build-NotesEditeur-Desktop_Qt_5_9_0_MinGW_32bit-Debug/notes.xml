@@ -12,11 +12,7 @@
         <titre>NoteAvecFichierTestDeMort1</titre>
         <dateCrea>13/01/2015</dateCrea>
         <dateModif>04/12/2013</dateModif>
-<<<<<<< HEAD
         <description>Fichier audio representant toi meme okey &lt;3</description>
-=======
-        <description>Fichier audio representant toi meme okey</description>
->>>>>>> Update notesmanager + Update editeurnote + Update fenetrenewnote
         <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
     </noteAvecFichier>
     <article>
@@ -65,17 +61,17 @@ Yes ça marche !!!</text>
         <dateModif>12/06/2017</dateModif>
         <action>1</action>
         <priorite>oui</priorite>
-        <dateEch>01/01/0</dateEch>
+        <dateEch>12/03/2017</dateEch>
         <statut>importante</statut>
     </tache>
-    <tache>
+    <!--<tache>
         <id>13</id>
         <titre>kfuy</titre>
         <dateCrea>12/06/2017</dateCrea>
         <dateModif>12/06/2017</dateModif>
         <action>stb</action>
         <priorite>sv</priorite>
-        <dateEch>01/01/0</dateEch>
+        <dateEch>12/03/2017</dateEch>
         <statut>teryv</statut>
     </tache>
     <article>
@@ -92,7 +88,7 @@ Yes ça marche !!!</text>
         <dateModif>12/06/2017</dateModif>
         <action>en_cours</action>
         <priorite>go farm mid</priorite>
-        <dateEch>01/01/0</dateEch>
+        <dateEch>12/03/2017</dateEch>
         <statut>important</statut>
-    </tache>
+    </tache> -->
 </notes>
