@@ -2,6 +2,8 @@
 #include "notemanager.h"
 #include "fenetrenewnote.h"
 #include "fenetreprincipale.h"
+#include "editeurnote.h"
+#include "editeurnotefactory.h"
 
 
 FenetreNewNote::FenetreNewNote(QString type, QWidget* parent) : QWidget(parent) {
@@ -53,13 +55,14 @@ FenetreNewNote::FenetreNewNote(QString type, QWidget* parent) : QWidget(parent) 
             statutlabel = new QLabel("Statut :");
             actionlabel = new QLabel("Action :");
             prioritelabel = new QLabel("Priorite :");
-            dateEchlabel = new QLabel("Date d'echeance' :");
+            dateEchlabel = new QLabel("Date d'echeance :");
 
             statutEdit = new QLineEdit();
             actionEdit = new QLineEdit();
             prioriteEdit = new QLineEdit();
             dateEchEdit = new QLineEdit();
             dateEchEdit->setText("jj/mm/aaaa");
+
             cstatut = new QHBoxLayout();
             caction = new QHBoxLayout();
             cpriorite = new QHBoxLayout();
@@ -126,10 +129,16 @@ void FenetreNewNote::creerNote() {
             if (typeEdit->text() == "article")
             {
                 Article a=m.getNewArticle(idEdit->text(),titreEdit->text(),textEdit->toPlainText());
+                Article* pta=&a;
                 QMessageBox::information(this,"Ajouter","Article ajouté !");
                 m.save();
                 fp.actualiserNote();
-                close();
+
+                idEdit->setDisabled(true);
+                titreEdit->setDisabled(true);
+                textEdit->setDisabled(true);
+                valider->setDisabled(true);
+                annuler->setDisabled(true);
             }
             else
                 if (typeEdit->text() == "tache")
@@ -142,12 +151,21 @@ void FenetreNewNote::creerNote() {
                     QString strA=d5.mid(6,4);
                     int an=strA.toInt();
                     Date dateEch=Date(j,mo,an);
+
                     Tache a=m.getNewTache(idEdit->text(),titreEdit->text(),statutEdit->text(),actionEdit->text(),prioriteEdit->text());
                     a.setDateEch(dateEch);
                     QMessageBox::information(this,"Ajouter","Tache ajoutée !");
                     m.save();
                     fp.actualiserNote();
-                    close();
+
+                    idEdit->setDisabled(true);
+                    titreEdit->setDisabled(true);
+                    statutEdit->setDisabled(true);
+                    actionEdit->setDisabled(true);
+                    prioriteEdit->setDisabled(true);
+                    dateEchEdit->setDisabled(true);
+                    valider->setDisabled(true);
+                    annuler->setDisabled(true);
                 }
                 else  
                     if(typeEdit->text() == "noteFichier")
@@ -156,7 +174,14 @@ void FenetreNewNote::creerNote() {
                         QMessageBox::information(this,"Ajouter","NoteFichier ajoutée !");
                         m.save();
                         fp.actualiserNote();
-                        close();
+
+                        idEdit->setDisabled(true);
+                        titreEdit->setDisabled(true);
+                        descriptionEdit->setDisabled(true);
+                        fileEdit->setDisabled(true);
+                        valider->setDisabled(true);
+                        annuler->setDisabled(true);
+
                     }
         }
         catch (NotesException& e)
@@ -167,35 +192,5 @@ void FenetreNewNote::creerNote() {
     else
         QMessageBox::information(this, "Erreur", "Vous devez entrer un id !");
 }
-
-
-
-
-
-//FenetreNewArticle::FenetreNewArticle(QWidget* parent): QWidget(parent) {
-//    titrelabel=new QLabel("titre",this);
-//    textlabel=new QLabel("texte",this);
-//    titreEdit=new QLineEdit(this);
-//    textEdit=new QTextEdit(this);
-
-//    ctext = new QHBoxLayout;
-//    ctext->addWidget(textlabel);
-//    ctext->addWidget(textEdit);
-//    ctitre = new QHBoxLayout;
-//    ctitre->addWidget(titrelabel);
-//    ctitre->addWidget(titreEdit);
-
-//    ajouter=new QPushButton("Ajouter",this);
-//    cboutons = new QHBoxLayout;
-//    cboutons->addWidget(ajouter);
-
-//    ccentral= new QVBoxLayout;
-//    ccentral->addLayout(ctitre);
-//    ccentral->addLayout(ctext);
-//    ccentral->addLayout(cboutons);
-//    setLayout(ccentral);
-
-//    QObject::connect(ajouter,SIGNAL(clicked()),pere,SLOT(creerArticle()));
-//}
 
 

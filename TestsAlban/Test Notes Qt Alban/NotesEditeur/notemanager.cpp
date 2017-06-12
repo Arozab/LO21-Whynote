@@ -29,11 +29,11 @@ void NotesManager::addNotes(Notes* n) {
 
 
 void NotesManager::addArticles(Article* a){
-    for(unsigned int i=0; i<nbArticles; i++){
-        if (tabArticles[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
+    for(unsigned int i=0; i<nbNotes; i++){
+        if (notes[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
     }
-    tabArticles.push_back(a);
-    nbArticles++;
+    notes.push_back(a);
+    nbNotes++;
 }
 
 Article& NotesManager::getNewArticle(const QString& id,const QString& ti,const QString& te){
@@ -44,19 +44,20 @@ Article& NotesManager::getNewArticle(const QString& id,const QString& ti,const Q
 
 
 Article& NotesManager::getArticle(const QString& id){
-    for(unsigned int i=0;i<nbArticles;i++){
-        if(tabArticles[i]->getId()==id) return *tabArticles[i];
+    for(unsigned int i=0;i<nbNotes;i++){
+        Article& a=dynamic_cast<Article&>(*notes[i]);
+        if(notes[i]->getId()==id) return a ;
     }
     throw NotesException("Erreur, l'Article n'existe pas");
 }
 
 
 void NotesManager::addNoteAvecFichier(NoteAvecFichier* a){
-    for(unsigned int i=0; i<nbNoteAvecFichier; i++){
-        if (tabNoteAvecFichier[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
+    for(unsigned int i=0; i<nbNotes; i++){
+        if (notes[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
     }
-    tabNoteAvecFichier.push_back(a);
-    nbNoteAvecFichier++;
+    notes.push_back(a);
+    nbNotes++;
 }
 
 NoteAvecFichier& NotesManager::getNewNoteAvecFichier(const QString& id,const QString& ti,const QString& de,const QString& fi){
@@ -66,19 +67,20 @@ NoteAvecFichier& NotesManager::getNewNoteAvecFichier(const QString& id,const QSt
 }
 
 NoteAvecFichier& NotesManager::getNoteAvecFichier(const QString& id){
-    for(unsigned int i=0;i<nbNoteAvecFichier;i++){
-        if(tabNoteAvecFichier[i]->getId()==id) return *tabNoteAvecFichier[i];
+    for(unsigned int i=0;i<nbNotes;i++){
+        NoteAvecFichier& a=dynamic_cast<NoteAvecFichier&>(*notes[i]);
+        if(notes[i]->getId()==id) return a;
     }
     throw NotesException("Erreur, la note n'existe pas");
 }
 
 
 void NotesManager::addTaches(Tache* a){
-    for(unsigned int i=0; i<nbTaches; i++){
-        if (tabTaches[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
+    for(unsigned int i=0; i<nbNotes; i++){
+        if (notes[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
     }
-    tabTaches.push_back(a);
-    nbTaches++;
+    notes.push_back(a);
+    nbNotes++;
 }
 
 Tache& NotesManager::getNewTache(const QString& id,const QString& ti,const QString& ac,const QString& pr,const QString& t){
@@ -88,8 +90,9 @@ Tache& NotesManager::getNewTache(const QString& id,const QString& ti,const QStri
 }
 
 Tache& NotesManager::getTache(const QString& id){
-    for(unsigned int i=0;i<nbTaches;i++){
-        if(tabTaches[i]->getId()==id) return *tabTaches[i];
+    for(unsigned int i=0;i<nbNotes;i++){
+        Tache& a=dynamic_cast<Tache&>(*notes[i]);
+        if(notes[i]->getId()==id) return a;
     }
     throw NotesException("Erreur, la tache n'existe pas");
 }
@@ -100,13 +103,10 @@ NotesManager::NotesManager():nbArticles(0),filename(""),nbNoteAvecFichier(0){}
 
 NotesManager::~NotesManager(){
     //save();
-    for(auto element : tabArticles) delete element;
+    for(auto element : notes) delete element;
     // on vide le tableau
-    tabArticles.clear();
-    for(auto element : tabNoteAvecFichier) delete element;
-    tabNoteAvecFichier.clear();
-    for(auto element : tabTaches) delete element;
-    tabTaches.clear();
+    notes.clear();
+
 }
 
 /*void NotesManager::save()const{
@@ -460,34 +460,7 @@ NotesManager& NotesManager::recupererInstance(){
     else return *handler.instance;
 }
 
-Notes& NotesManager::edition(Notes* n){
-    unsigned int i=0;
-    while(notes[i]->getId()!=n->getId()){
-        i++;
-    }
-    notes[i]=n->editer();
-    time_t seconds = time(NULL);
-    struct tm * timeinfo = localtime(&seconds);
-    notes[i]->setDateModif(Date((timeinfo->tm_mday),(timeinfo->tm_mon+1),(1900+timeinfo->tm_year)));
-    notes[i]->setTitre("Grosse BITE");
-    notes[i]->ancienneVersion.push_back(n);
-    return *notes[i];
+void NotesManager::supprimerNote(Notes* n) {
+    qDebug("supprime une note");
 }
 
-//QString& NotesManager::genereId() {
-//    NotesManager& m=recupererInstance();
-//    Iterator it=m.getIterator();
-//    QString id;
-//    int intid;
-//    if (m.getnbNotes()==0) id="1";
-//    else {
-//          while(!it.isDone()){
-//              it.next();
-//          }
-//          it.previous();
-//          intid=it.current().getId().toInt();
-//          intid++;
-//          id=QString::number(intid);
-//    }
-//    return id;
-//}

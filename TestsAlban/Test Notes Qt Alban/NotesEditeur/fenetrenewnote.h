@@ -71,42 +71,4 @@ public slots:
     void creerNote();
 
 };
-
-/*class FenetreNewArticle : public QWidget {
-
-    Q_OBJECT
-    public:
-    explicit FenetreNewArticle(QWidget* parent=0);
-    QPushButton* getBouton() { return ajouter;}
-private:
-    QWidget* pere;
-    QVBoxLayout* ccentral;
-    QPushButton* ajouter;
-    QHBoxLayout* cboutons;
-    QLabel* titrelabel;
-    QLabel* textlabel;
-    QHBoxLayout* ctitre;
-    QHBoxLayout* ctext;
-    QLineEdit* titreEdit;
-    QTextEdit* textEdit;
-public slots:
-};
-
-class FenetreNewTask : public QWidget {
-
-    Q_OBJECT
-    public:
-    explicit FenetreNewTask(QWidget* parent=0);
-private:
-    QPushButton* ajouter;
-
-};
-
-class FenetreNewNoteFichier : public QWidget {
-
-    Q_OBJECT
-    public:
-    explicit FenetreNewNoteFichier(QWidget* parent=0);
-
-};*/
 #endif // FENETRENEWNOTE_H

@@ -2787,8 +2787,14 @@ debug/fenetrenewnote.o: ../NotesEditeur/fenetrenewnote.cpp ../NotesEditeur/notes
 		../NotesEditeur/fenetreprincipale.h \
 		../NotesEditeur/editeurnote.h \
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QComboBox \
+<<<<<<< HEAD
 		C:/Qt/5.9/mingw53_32/include/QtWidgets/QGridLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/fenetrenewnote.o ../NotesEditeur/fenetrenewnote.cpp
+=======
+		C:/Qt/5.9/mingw53_32/include/QtWidgets/QGridLayout \
+		../NotesEditeur/editeurnotefactory.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\fenetrenewnote.o ..\NotesEditeur\fenetrenewnote.cpp
+>>>>>>> Update notesmanager + Update editeurnote + Update fenetrenewnote
 
 debug/notemanager.o: ../NotesEditeur/notemanager.cpp ../NotesEditeur/notes.h \
 		C:/Qt/5.9/mingw53_32/include/QtCore/QString \

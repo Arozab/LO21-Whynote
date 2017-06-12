@@ -13,21 +13,16 @@ using namespace std;
 class NotesManager{
 
     private:
-        vector<Article*> tabArticles;
         unsigned int nbArticles;
-
-        vector<NoteAvecFichier*> tabNoteAvecFichier;
         unsigned int nbNoteAvecFichier;
-        void addNoteAvecFichier(NoteAvecFichier* a);
-
-        vector<Tache*> tabTaches;
         unsigned int nbTaches;
+
+        void addNoteAvecFichier(NoteAvecFichier* a);
         void addTaches(Tache* a);
+        void addNotes(Notes* n);
 
         vector<Notes*> notes;
-        void addNotes(Notes* n);
         unsigned int nbNotes;
-
         QString filename;	//pour le fichier contenant les notes
 
         friend class QMainWindow;
@@ -68,13 +63,13 @@ class NotesManager{
         static NotesManager& getInstance();
         static void libererInstance();
         static NotesManager& recupererInstance();
+        void supprimerNote(Notes* n);
 
         unsigned int getnbNotes() const {return nbNotes;}
         Notes& edition(Notes* n);
 
         Notes* getNotes(unsigned int i)const{return notes[i];}
         //Notes& getNotes(const QString& id);
-        QString& genereId();
 
         class Iterator{
         private:

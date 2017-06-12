@@ -12,7 +12,11 @@
         <titre>NoteAvecFichierTestDeMort1</titre>
         <dateCrea>13/01/2015</dateCrea>
         <dateModif>04/12/2013</dateModif>
+<<<<<<< HEAD
         <description>Fichier audio representant toi meme okey &lt;3</description>
+=======
+        <description>Fichier audio representant toi meme okey</description>
+>>>>>>> Update notesmanager + Update editeurnote + Update fenetrenewnote
         <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
     </noteAvecFichier>
     <article>
@@ -54,13 +58,32 @@
         <text>en cours
 Yes ça marche !!!</text>
     </article>
-    <article>
-        <id>6</id>
-        <titre>test Actualisation 2</titre>
+    <tache>
+        <id>12</id>
+        <titre>test date echeance</titre>
         <dateCrea>12/06/2017</dateCrea>
         <dateModif>12/06/2017</dateModif>
-        <text>REUSSI ?
-REUSSI !!!</text>
+        <action>1</action>
+        <priorite>oui</priorite>
+        <dateEch>01/01/0</dateEch>
+        <statut>importante</statut>
+    </tache>
+    <tache>
+        <id>13</id>
+        <titre>kfuy</titre>
+        <dateCrea>12/06/2017</dateCrea>
+        <dateModif>12/06/2017</dateModif>
+        <action>stb</action>
+        <priorite>sv</priorite>
+        <dateEch>01/01/0</dateEch>
+        <statut>teryv</statut>
+    </tache>
+    <article>
+        <id>15</id>
+        <titre>super nils</titre>
+        <dateCrea>12/06/2017</dateCrea>
+        <dateModif>12/06/2017</dateModif>
+        <text>yes</text>
     </article>
     <tache>
         <id>12</id>

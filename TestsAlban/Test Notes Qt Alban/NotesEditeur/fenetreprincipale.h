@@ -36,6 +36,8 @@ public:
     void afficherCreerNote(FenetreNewNote* fen);
     FenetreNewNote* getFenNewNote() { return fenNewNote;}
     void setFenNewNote(FenetreNewNote* fen) { fenNewNote=fen;}
+    EditeurNote* getEditeurNote() { return editnote;}
+    void setEditeurNote(EditeurNote* fen) { editnote=fen;}
 
     void actualiserNote();
     //void actualiserTache();
