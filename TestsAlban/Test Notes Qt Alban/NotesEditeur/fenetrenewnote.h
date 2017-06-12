@@ -43,7 +43,7 @@ private:
     QLineEdit* fileEdit;
     QLineEdit* actionEdit;
     QLineEdit* prioriteEdit;
-    QDateTimeEdit* dateEchEdit;
+    QLineEdit* dateEchEdit;
     QLineEdit* statutEdit;    
     // ---- Bouton ----
     QPushButton* valider;

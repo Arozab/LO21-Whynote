@@ -58,8 +58,8 @@ FenetreNewNote::FenetreNewNote(QString type, QWidget* parent) : QWidget(parent) 
             statutEdit = new QLineEdit();
             actionEdit = new QLineEdit();
             prioriteEdit = new QLineEdit();
-            dateEchEdit = new QDateTimeEdit();
-
+            dateEchEdit = new QLineEdit();
+            dateEchEdit->setText("jj/mm/aaaa");
             cstatut = new QHBoxLayout();
             caction = new QHBoxLayout();
             cpriorite = new QHBoxLayout();
@@ -134,7 +134,16 @@ void FenetreNewNote::creerNote() {
             else
                 if (typeEdit->text() == "tache")
                 {
-                    Tache a=m.getNewTache(idEdit->text(),titreEdit->text(),statutEdit->text(),actionEdit->text(),prioriteEdit->text()/*,DateEch*/);
+                    QString d5=dateEchEdit->text();
+                    QString strJ=d5.mid(0,2);
+                    int j=strJ.toInt();
+                    QString strM=d5.mid(3,2);
+                    int mo=strM.toInt();
+                    QString strA=d5.mid(6,4);
+                    int an=strA.toInt();
+                    Date dateEch=Date(j,mo,an);
+                    Tache a=m.getNewTache(idEdit->text(),titreEdit->text(),statutEdit->text(),actionEdit->text(),prioriteEdit->text());
+                    a.setDateEch(dateEch);
                     QMessageBox::information(this,"Ajouter","Tache ajoutée !");
                     m.save();
                     fp.actualiserNote();
