@@ -21,17 +21,11 @@ class NotesException{
 	public:
 		/*!
 	     *  \brief Constructeur
-	     *
-	     *  Constructeur de la classe NotesException
-	     *
 	     *  \param message : message
 	     */
         NotesException(const QString& message):info(message){}
         /*!
 	     *  \brief Affiche les exceptions
-	     *
-	     *  Methode qui permet d'afficher l'exception
-	     *
 	     * 	\return Un \e QString représentant l'erreur obtenue.
 	     */
         QString getInfo()const{return info;}
@@ -46,11 +40,7 @@ class Notes {
 	private:
 		/*!<
 	     *  \brief Opérateur d'affectation
-	     *
-	     *  Methode qui permet d'affecter les valeurs d'un objet à un autre objet
-	     *
 	     *	\param n : reference constante vers une Note
-	     *
 	     * 	\return Une reference vers \e Notes qui renvoie la nouvelle note.
 	     */
 		Notes& operator=(const Notes& n);
