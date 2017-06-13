@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['vider',['vider',['../class_corbeille.html#a63c8bc67cb814ff1fe82697aa8295185',1,'Corbeille']]],
-  ['vidercorbeille',['viderCorbeille',['../class_fenetre_corbeille.html#ab4445227ec6aab6d91d38fa89f2b21c1',1,'FenetreCorbeille']]]
+  ['tache',['Tache',['../class_tache.html',1,'']]],
+  ['tacheediteur',['TacheEditeur',['../class_tache_editeur.html',1,'']]],
+  ['tacheediteurfactory',['TacheEditeurFactory',['../class_tache_editeur_factory.html',1,'']]],
+  ['timeexception',['TimeException',['../class_time_exception.html',1,'TimeException'],['../class_time_exception.html#ab2a55f0dbda8bb7cb44256d77e31d9b4',1,'TimeException::TimeException()']]],
+  ['titre',['titre',['../class_notes.html#a265eb78a66b9d11ed16a448ca54c2f61',1,'Notes']]]
 ];

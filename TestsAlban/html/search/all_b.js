@@ -1,8 +1,21 @@
 var searchData=
 [
-  ['tache',['Tache',['../class_tache.html',1,'']]],
-  ['tacheediteur',['TacheEditeur',['../class_tache_editeur.html',1,'']]],
-  ['tacheediteurfactory',['TacheEditeurFactory',['../class_tache_editeur_factory.html',1,'']]],
-  ['timeexception',['TimeException',['../class_time_exception.html',1,'TimeException'],['../class_time_exception.html#ab2a55f0dbda8bb7cb44256d77e31d9b4',1,'TimeException::TimeException()']]],
-  ['titre',['titre',['../class_notes.html#a265eb78a66b9d11ed16a448ca54c2f61',1,'Notes']]]
+  ['save',['save',['../class_notes_manager.html#ad271bd7f8079b01b04a32b886b498bac',1,'NotesManager']]],
+  ['setaction',['setAction',['../class_tache.html#a8b7080efc2f5075567118e22853282b3',1,'Tache']]],
+  ['setancienneversion',['setAncienneVersion',['../class_notes.html#a8fcf75f30b3490a456f1216ed5becc8e',1,'Notes']]],
+  ['setdate',['setDate',['../class_date.html#a7419902750e61b9473ab05ccd5ced33d',1,'Date']]],
+  ['setdatecrea',['setDateCrea',['../class_notes.html#a197647cfc80c9baf10d577fdf43de600',1,'Notes']]],
+  ['setdateech',['setDateEch',['../class_tache.html#aa1de71c5ba41d92b4f97a8013eb566b7',1,'Tache']]],
+  ['setdatemodif',['setDateModif',['../class_notes.html#a969b6aa6b81eb6b9e0e4928f47b1deb4',1,'Notes']]],
+  ['setdescription',['setDescription',['../class_note_avec_fichier.html#adff203f11d5c5fcba8fcef1e3c9a791a',1,'NoteAvecFichier']]],
+  ['setediteurnote',['setEditeurNote',['../class_fen_principale.html#ab72a1eafc4df0e3cd9ca5915c572ccd4',1,'FenPrincipale']]],
+  ['setfennewnote',['setFenNewNote',['../class_fen_principale.html#a4fa224a6f86a327579b16f37005baf9d',1,'FenPrincipale']]],
+  ['setfile',['setFile',['../class_note_avec_fichier.html#a47edc85e4f6808d2dcc33fbabc505b10',1,'NoteAvecFichier']]],
+  ['setfilename',['setFilename',['../class_notes_manager.html#afbe15f51ce773c54aa12cf38c5964f0e',1,'NotesManager']]],
+  ['setpriorite',['setPriorite',['../class_tache.html#a250e906614e2ccfddbcad42b6b40b1a3',1,'Tache']]],
+  ['setstatut',['setStatut',['../class_tache.html#a0538ff21740b4b2a8f12a984e029d98c',1,'Tache']]],
+  ['settext',['setText',['../class_article.html#a7144942027b1761cfcbd21761dd5cee8',1,'Article']]],
+  ['settitre',['setTitre',['../class_notes.html#af490a80e1efc2b43a107aea300ecfa13',1,'Notes']]],
+  ['supprimernote',['supprimerNote',['../class_corbeille.html#a63d367a07fa5f9cee8d7c3f1ab333d0e',1,'Corbeille::supprimerNote()'],['../class_fenetre_corbeille.html#a25d90cdd4d3c617bb407e1a8124a606a',1,'FenetreCorbeille::supprimerNote()'],['../class_notes_manager.html#ac1d1cf028ffd776ec5cad4519dfb15d8',1,'NotesManager::supprimerNote()']]],
+  ['supprimernotedefinitivement',['supprimerNotedefinitivement',['../class_notes_manager.html#a95bf72623f20bbe37f1baab842d08d8e',1,'NotesManager']]]
 ];

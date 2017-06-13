@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['restaurernote',['restaurerNote',['../class_corbeille.html#aafe3d53264001942df4986c81c4f1fec',1,'Corbeille::restaurerNote()'],['../class_fenetre_corbeille.html#a81cc54ef297be3a43087efeaaee20463',1,'FenetreCorbeille::restaurerNote()']]]
+  ['previous',['previous',['../class_couple_manager_1_1_iterator.html#a76c756cb7ad0c5c728afd4aa95152b2b',1,'CoupleManager::Iterator::previous()'],['../class_notes_manager_1_1_iterator.html#ab2e31d77916d60018a4d9be47ee3207a',1,'NotesManager::Iterator::previous()']]]
 ];

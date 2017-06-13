@@ -20,22 +20,6 @@ void NotesManager::addNotes(Notes* n) {
     nbNotes++;
 }
 
-/*Notes& NotesManager::getNotes(const QString& id){
-    for(unsigned int i=0;i<nbNotes;i++){
-        if(notes[i]->getId()==id) return *notes[i];
-    }
-    throw NotesException("Erreur, l'Article n'existe pas");
-}*/
-
-
-void NotesManager::addArticles(Article* a){
-    for(unsigned int i=0; i<nbNotes; i++){
-        if (notes[i]->getId()==a->getId()) throw NotesException("Erreur, creation d'une note deja existante");
-    }
-    notes.push_back(a);
-    nbNotes++;
-}
-
 Article& NotesManager::getNewArticle(const QString& id,const QString& ti,const QString& te){
     Article* n=new Article(id,ti,te);
     addNotes(n);
@@ -109,13 +93,6 @@ NotesManager::~NotesManager(){
 
 }
 
-/*void NotesManager::save()const{
-    ofstream fout(filename);
-    for(unsigned int i=0; i<nbNotes; i++){
-        fout<<*tabNotes[i];
-    }
-    fout.close();
-}*/
 
 void NotesManager::save() const {
     NotesManager& m=recupererInstance();

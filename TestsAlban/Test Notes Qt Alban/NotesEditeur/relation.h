@@ -5,9 +5,12 @@
 #include <iostream>
 #include <vector>
 #include "notes.h"
-//#include "couplemanager.h"
+
 using namespace std;
 
+/*! \class couple
+   * \brief Classe gérant les couples de notes
+*/
 class couple{
 
 	private:
@@ -20,9 +23,22 @@ class couple{
 		friend class CoupleManager;
 
 	public:
-		//~couple();
+		/*!
+	     *  \brief Retourne le label du couple
+	     * 	\return Un QString correspondant au label
+	     */
 		QString getLabel() const { return label;}
+
+		/*!
+	     *  \brief Retourne l'id de la première note du couple
+	     * 	\return Un entier correspondant à l'id de la note concernée
+	     */
         int getNotes1() { return note1;}
+
+        /*!
+	     *  \brief Retourne l'id de la deuxième note du couple
+	     * 	\return Un entier correspondant à l'id de la note concernée
+	     */
         int getNotes2() { return note2;}
 };
 

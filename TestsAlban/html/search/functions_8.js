@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['setdate',['setDate',['../class_date.html#a7419902750e61b9473ab05ccd5ced33d',1,'Date']]],
-  ['supprimernote',['supprimerNote',['../class_corbeille.html#a63d367a07fa5f9cee8d7c3f1ab333d0e',1,'Corbeille::supprimerNote()'],['../class_fenetre_corbeille.html#a25d90cdd4d3c617bb407e1a8124a606a',1,'FenetreCorbeille::supprimerNote()']]]
+  ['previous',['previous',['../class_couple_manager_1_1_iterator.html#a76c756cb7ad0c5c728afd4aa95152b2b',1,'CoupleManager::Iterator::previous()'],['../class_notes_manager_1_1_iterator.html#ab2e31d77916d60018a4d9be47ee3207a',1,'NotesManager::Iterator::previous()']]]
 ];
