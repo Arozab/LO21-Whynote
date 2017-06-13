@@ -20,7 +20,9 @@
 #include <QListWidgetItem>
 #include "notes.h"
 
-
+/*! \class FenetreNewNote
+   * \brief Classe gérant l'affichage de la création d'une nouvelle note
+*/
 class FenetreNewNote : public QWidget {
     Q_OBJECT
 private:
@@ -63,11 +65,17 @@ private:
     QVBoxLayout* zone;
 
 public:
+    /*!
+     *  \brief Constructeur
+     *  \param type : QString
+     *  \param parent : QWidget*
+     */
     FenetreNewNote(QString type, QWidget* parent=0);
-    //QString getId() { return id->text(); }
 
 public slots:
-    //QString createNote(QString type);
+    /*!
+     *  \brief Creer une nouvelle note
+     */
     void creerNote();
 
 };
