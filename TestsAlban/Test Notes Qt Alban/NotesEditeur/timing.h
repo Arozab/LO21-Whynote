@@ -7,18 +7,25 @@
 #include <QString>
 #include <time.h>
 
+/*! \class TimeException
+   * \brief Classe gérant les erreurs liées aux Dates
+*/
 class TimeException{
 public:
-	//! Constructeur à partir d'une string
+	/*!
+     *  \brief Constructeur de la classe, on lui oasse une chaine de caractères contenant l'erreur en paramètre
+     *	\param m : reference constante vers un QString
+	*/
     TimeException(const QString & m):info(m){}
-    const QString& GetInfo() const { return info; } //<! Retourne l'information stockée dans la classe
+
+    /*!
+     *  \brief Retourne l'erreur
+     * 	\return Une référence const QString
+	*/
+    const QString& GetInfo() const { return info; }
 private:
     QString info;
 };
-
-
-
-
 
 
 /*! \class Date
@@ -28,11 +35,12 @@ private:
 */
 class Date {
 public:
-	//! Constructeur à partir d'un jour, mois, année
-	/*! \param j jour avec 1<=j<=31
-		\param m mois avec 1<=m<=12
-		\param a année avec a>=0
-		*/
+	/*! 
+	 *	\brief Constructeur à partir d'un jour, mois, année
+	 *	\param j jour avec 1<=j<=31
+	 *	\param m mois avec 1<=m<=12
+	 *	\param a année avec a>=0
+	*/
 	Date(unsigned int short j=1, unsigned int short m=1, unsigned int a=0):jour(1),mois(1),annee(0){ setDate(j,m,a); }
 	// méthodes
 	unsigned short int  getJour() const { return jour; } //<! Retourne le jour de la date
@@ -52,12 +60,6 @@ private:
 	unsigned int annee;
 };
 
-
-
-
-//std::ostream& operator<<(std::ostream&, const TIME::Date&);
-
-//std::istream& operator>>(std::istream&, TIME::Date&); // lecture format JJ/MM/AAAA
 
 #endif
 

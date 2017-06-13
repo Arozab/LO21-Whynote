@@ -26,20 +26,62 @@
 #include <QComboBox>
 #include <QGridLayout>
 
-
+/*! \class FenPrincipale
+   * \brief Classe qui gère tous les éléments de l'affichage principal
+*/
 class FenPrincipale : public QMainWindow
 {
     Q_OBJECT
-public:   
+public: 
+
+    /*!
+         *  \brief On récupère l'unique instance de fenêtre principale
+         *  \return Une reference vers FenPrincpale
+         */  
     static FenPrincipale& getInstance();
+
+    /*!
+     *  \brief Libère l'unique instance de la fenêtre principale
+     *  \return void
+    */
     static void libererInstance();
-    //void load(QString f);
+    /*!
+     *  \brief On construit la fenêtre de création d'une nouvelle note
+     *  \param fen : pointeur vers FenetreNewNote
+     *  \return void
+     */
     void afficherCreerNote(FenetreNewNote* fen);
+
+    /*!
+     *  \brief On récupère la fenêtre de création d'une nouvelle note
+     *  \return FenetreNewNote*
+     */
     FenetreNewNote* getFenNewNote() { return fenNewNote;}
+
+    /*!
+     *  \brief Permet la modification de la fenêtre de création d'une nouvelle note
+     *  \param fen : pointeur vers FenetreNewNote
+     *  \return void
+     */
     void setFenNewNote(FenetreNewNote* fen) { fenNewNote=fen;}
+
+    /*!
+     *  \brief Permet de récupérer l'éditeur de notes
+     *  \return EditeurNote*
+     */
     EditeurNote* getEditeurNote() { return editnote;}
+
+    /*!
+     *  \brief Permet de modifier l'éditeur de notes
+     *  \param fen : EditeurNote*
+     *  \return void
+     */
     void setEditeurNote(EditeurNote* fen) { editnote=fen;}
 
+    /*!
+     *  \brief Actualise la note
+     *  \return void
+     */
     void actualiserNote();
     //void actualiserTache();
     //void actualiserArchive();
@@ -86,17 +128,42 @@ private:
     static FenPHandler fenP_handler;
 
 public slots:
-        //void ouvrirDialogue();
-        void afficheNote(QListWidgetItem* item);
-        void afficherNewArticle();
-        void afficherNewTache();
-        void afficherNewNoteFichier();
-        void afficherCorbeille();
+        
+    /*!
+     *  \brief Met en place l'affichage pour une note
+     *  \param item : QListWidgetItem* (widget à modifier)
+     *  \return void
+     */
+    void afficheNote(QListWidgetItem* item);
 
-        //void supprimerNote();
-        //void archiverNote();
-        //void viderCorbeille() { NotesManager::recupererInstance().viderCorbeille(); }
-        //void quitter(); // demande si vider corbeille puis quitte
+    /*!
+     *  \brief Met en place l'affichage pour un nouvel article
+     *  \return void
+     */
+    void afficherNewArticle();
+
+    /*!
+     *  \brief Met en place l'affichage pour une nouvelle tache
+     *  \return void
+     */
+    void afficherNewTache();
+
+    /*!
+     *  \brief Met en place l'affichage pour une nouvelle note avec fichier
+     *  \return void
+     */
+    void afficherNewNoteFichier();
+
+    /*!
+     *  \brief Met en place l'affichage pour la corbeille
+     *  \return void
+     */
+    void afficherCorbeille();
+
+    //void supprimerNote();
+    //void archiverNote();
+    //void viderCorbeille() { NotesManager::recupererInstance().viderCorbeille(); }
+    //void quitter(); // demande si vider corbeille puis quitte
 };
 
 #endif
