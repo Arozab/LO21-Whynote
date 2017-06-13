@@ -10,7 +10,9 @@ SOURCES += \
     editeurnote.cpp \
     editeurnotefactory.cpp \
     couplemanager.cpp \
-    relation.cpp
+    relation.cpp \
+    corbeille.cpp \
+    fenetrecorbeille.cpp
 
 HEADERS += \
     notes.h \
@@ -21,4 +23,6 @@ HEADERS += \
     editeurnote.h \
     editeurnotefactory.h \
     couplemanager.h \
-    relation.h
+    relation.h \
+    corbeille.h \
+    fenetrecorbeille.h

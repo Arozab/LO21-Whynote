@@ -445,7 +445,7 @@ NotesManager& NotesManager::getInstance(){
         return *handler.instance;
     }
     else{
-        throw NotesException("Erreur, on a deja un note manager");
+        //throw NotesException("Erreur, on a deja un note manager");
         return *handler.instance;
     }
 }
@@ -461,15 +461,15 @@ NotesManager& NotesManager::recupererInstance(){
 }
 
 void NotesManager::supprimerNote(QString id) {
-   for (unsigned int i=0;i<notes.size();i++)
-   {
-      if (notes[i]->getId()==id) {
-          qDebug()<<"on supprime l'id "<<notes[i]->getId()<<"\n";
-          notes.erase(notes.begin()+i);
-      }
-
-   }
-      qDebug("supprime une note");
+        qDebug()<<id<<"\n";
+        for (unsigned int i=0;notes.size();i++) {
+            if (notes[i]->getId()==id) {
+                qDebug()<<notes[i]->getId()<<"\n";
+                notes.erase(notes.begin()+i);
+                nbNotes--;
+                return;
+            }
+        }
 }
 
 void NotesManager::supprimerNotedefinitivement(Notes* n) {

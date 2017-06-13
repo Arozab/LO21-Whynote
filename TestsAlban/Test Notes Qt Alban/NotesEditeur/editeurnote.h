@@ -10,6 +10,7 @@
 #include <QString>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDebug>
 #include <QXmlStreamReader>
 #include <QFile>
 #include <QLabel>
@@ -73,7 +74,8 @@ public slots :
 //    void setEmptyCentralWidget();
     virtual void activerEditer();
     virtual void annuleEdition();
-    virtual void supprime();
+    virtual void supprime()=0;
+    virtual void supprimeNote();
     virtual void sauverNote()=0;
     //void editerNote();
     //void restaurerNote();
@@ -97,6 +99,7 @@ private:
 public:
     explicit ArticleEditeur(Article* a,QWidget* parent=0);
     ~ArticleEditeur(){};
+    void supprime();
 public slots:
     void sauverNote();
     void activerEditer();
@@ -126,6 +129,7 @@ private:
 public:
     explicit TacheEditeur(Tache* a,QWidget* parent=0);
     ~TacheEditeur(){};
+    void supprime();
 public slots:
     void sauverNote();
     void activerEditer();
@@ -148,6 +152,7 @@ private:
 public:
     explicit NoteFichierEditeur(NoteAvecFichier* a,QWidget* parent=0);
     ~NoteFichierEditeur(){};
+    void supprime();
 public slots:
     void sauverNote();
     void activerEditer();

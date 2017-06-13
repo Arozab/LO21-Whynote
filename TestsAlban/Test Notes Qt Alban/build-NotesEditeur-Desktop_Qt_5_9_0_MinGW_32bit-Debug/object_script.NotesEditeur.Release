@@ -9,7 +9,10 @@ INPUT(
 ./release\editeurnotefactory.o
 ./release\couplemanager.o
 ./release\relation.o
+./release\corbeille.o
+./release\fenetrecorbeille.o
 ./release\moc_fenetrenewnote.o
 ./release\moc_fenetreprincipale.o
 ./release\moc_editeurnote.o
+./release\moc_fenetrecorbeille.o
 );

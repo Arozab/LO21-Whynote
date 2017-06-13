@@ -37,22 +37,26 @@ FenPrincipale::FenPrincipale()
     menuFichier = menuBar()->addMenu("&Fichier");
     menuNote = menuBar()->addMenu("&Note");
     menuNouveau = menuNote->addMenu("&Nouveau");
+    menuCorbeille = menuBar()->addMenu("&Corbeille");
 
     actionQuitter = new QAction("&Quitter", this);
     ajouterArticle = new QAction("&Article",this);
     ajouterTache = new QAction("&Tache",this);
     ajouterNoteFichier = new QAction("&NoteFichier",this);
+    montrerCorbeille = new QAction("&Afficher",this);
 
     menuFichier->addAction(actionQuitter);
     menuNouveau->addAction(ajouterArticle);
     menuNouveau->addAction(ajouterTache);
     menuNouveau->addAction(ajouterNoteFichier);
+    menuCorbeille->addAction(montrerCorbeille);
 
     QObject::connect(actionQuitter, SIGNAL(triggered()), this, SLOT(quitter()));
 
     QObject::connect(ajouterArticle, SIGNAL(triggered()), this, SLOT(afficherNewArticle()));
     QObject::connect(ajouterTache, SIGNAL(triggered()), this, SLOT(afficherNewTache()));
     QObject::connect(ajouterNoteFichier, SIGNAL(triggered()), this, SLOT(afficherNewNoteFichier()));
+    QObject::connect(montrerCorbeille,SIGNAL(triggered()),this,SLOT(afficherCorbeille()));
 
 
 //  ************ Zone Gauche **********
@@ -186,6 +190,13 @@ void FenPrincipale::actualiserNote() {
         QString str=it.current().getTitre();
         listeNote->addItem(str);
     }
+}
+
+void FenPrincipale::afficherCorbeille() {
+    FenetreCorbeille* fc= new FenetreCorbeille(this);
+    corbeil = fc;
+    setCentralWidget(corbeil);
+    corbeil->show();
 }
 
 /*void FenPrincipale::ouvrirDialogue()

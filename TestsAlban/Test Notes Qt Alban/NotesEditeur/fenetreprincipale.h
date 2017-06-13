@@ -21,6 +21,7 @@
 #include "notes.h"
 #include "fenetrenewnote.h"
 #include "editeurnote.h"
+#include "fenetrecorbeille.h"
 
 #include <QComboBox>
 #include <QGridLayout>
@@ -50,7 +51,7 @@ private:
         QGridLayout* ccentral;
         FenetreNewNote* fenNewNote;
         EditeurNote* editnote;
-        // ... 
+        FenetreCorbeille* corbeil;
         /// ... puis toutes les autres type de fenetre
 
         QDockWidget* dockNote;
@@ -66,12 +67,14 @@ private:
         QMenu *menuFichier;
         QMenu* menuNote;
         QMenu *menuNouveau;
+        QMenu* menuCorbeille;
 
         QAction *actionQuitter;
         QAction* restaurer;
         QAction *ajouterArticle;
         QAction *ajouterTache;
         QAction *ajouterNoteFichier;
+        QAction* montrerCorbeille;
 
         FenPrincipale();
     ///La structure Handler permet de gérer les appels de l'instance unique du singleton ainsi que sa destruction
@@ -88,6 +91,7 @@ public slots:
         void afficherNewArticle();
         void afficherNewTache();
         void afficherNewNoteFichier();
+        void afficherCorbeille();
 
         //void supprimerNote();
         //void archiverNote();

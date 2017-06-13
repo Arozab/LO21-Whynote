@@ -2,6 +2,7 @@
 #include "notemanager.h"
 #include "editeurnote.h"
 #include "fenetreprincipale.h"
+#include "corbeille.h"
 
 EditeurNote::EditeurNote(Notes *n, QWidget* parent) {
             idlabel = new QLabel("ID : ");
@@ -74,13 +75,19 @@ void EditeurNote::activerSauver(){
     sauver->setEnabled(true);
 }
 
-void EditeurNote::supprime(){
-    NotesManager& m=NotesManager::recupererInstance();
-    FenPrincipale& fp = FenPrincipale::getInstance();
-    m.supprimerNote(idEdit->text());
-    m.save();
-    fp.actualiserNote();
-    this->close();
+void EditeurNote::supprimeNote() {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Supprimer Note");
+    msgBox.setText("Voulez-vous vraiment supprimer cette note ?");
+    msgBox.setStandardButtons(QMessageBox::Yes);
+    msgBox.addButton(QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    if(msgBox.exec() == QMessageBox::Yes){
+      msgBox.close();
+      this->supprime();
+    }else {
+      msgBox.close();
+    }
 }
 
 void EditeurNote::annuleEdition() {
@@ -114,7 +121,7 @@ ArticleEditeur::ArticleEditeur(Article *a,QWidget* parent) : EditeurNote(a,paren
                 QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
                 QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
                 QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
-                //QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprime()));
+                QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprimeNote()));
                 QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annuleEdition()));
 
                 zone->addLayout(cboutons);
@@ -190,6 +197,21 @@ void ArticleEditeur::sauverNote() {
 
 }
 
+void ArticleEditeur::supprime(){
+    NotesManager& m=NotesManager::recupererInstance();
+    FenPrincipale& fp = FenPrincipale::getInstance();
+    Corbeille& c=Corbeille::getInstance();
+    qDebug()<<article->getTitre()<<"\n";
+    c.addNote(article);
+    m.supprimerNote(idEdit->text());
+    this->close();
+    QWidget* zone= new QWidget;
+    fp.setCentralWidget(zone);
+    m.save();
+    //le placer dans une corbeille
+    fp.actualiserNote();
+}
+
 TacheEditeur::TacheEditeur(Tache *a,QWidget* parent) : EditeurNote(a,parent), tache(a) {
     statutlabel = new QLabel("Statut :");
     actionlabel = new QLabel("Action :");
@@ -241,7 +263,7 @@ TacheEditeur::TacheEditeur(Tache *a,QWidget* parent) : EditeurNote(a,parent), ta
     QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
     QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
     QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
-    //QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprime()));
+    QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprimeNote()));
     QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annuleEdition()));
 
     zone->addLayout(cboutons);
@@ -339,6 +361,19 @@ void TacheEditeur::sauverNote() {
     }
 }
 
+void TacheEditeur::supprime(){
+    NotesManager& m=NotesManager::recupererInstance();
+    FenPrincipale& fp = FenPrincipale::getInstance();
+    Corbeille::getInstance().addNote(tache);
+    m.supprimerNote(idEdit->text());
+    this->close();
+    QWidget* zone= new QWidget;
+    fp.setCentralWidget(zone);
+    m.save();
+    //le placer dans une corbeille
+    fp.actualiserNote();
+}
+
 NoteFichierEditeur::NoteFichierEditeur(NoteAvecFichier *a,QWidget* parent) : EditeurNote(a,parent), noteFichier(a) {
     descriptionlabel = new QLabel("descrption :");
     filelabel= new QLabel("file : ");
@@ -371,7 +406,7 @@ NoteFichierEditeur::NoteFichierEditeur(NoteAvecFichier *a,QWidget* parent) : Edi
     QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
     QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
     QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
-    //QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprime()));
+    QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprimeNote()));
     QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annuleEdition()));
 
     zone->addLayout(cboutons);
@@ -447,5 +482,18 @@ void NoteFichierEditeur::sauverNote() {
 
     sauver->setDisabled(true);
     }
+}
+
+void NoteFichierEditeur::supprime(){
+    NotesManager& m=NotesManager::recupererInstance();
+    FenPrincipale& fp = FenPrincipale::getInstance();
+    Corbeille::getInstance().addNote(noteFichier);
+    m.supprimerNote(idEdit->text());
+    this->close();
+    QWidget* zone= new QWidget;
+    fp.setCentralWidget(zone);
+    m.save();
+    //le placer dans une corbeille
+    fp.actualiserNote();
 }
 

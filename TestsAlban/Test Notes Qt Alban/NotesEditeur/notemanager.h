@@ -19,7 +19,6 @@ class NotesManager{
 
         void addNoteAvecFichier(NoteAvecFichier* a);
         void addTaches(Tache* a);
-        void addNotes(Notes* n);
 
         vector<Notes*> notes;
         unsigned int nbNotes;
@@ -58,6 +57,7 @@ class NotesManager{
         Tache& getNewTache(const QString& id,const QString& ti,const QString& ac,const QString& pr,const QString& t);
         Tache& getTache(const QString& id);
 
+        void addNotes(Notes* n);
         void load(const QString& f);
         void save()const;	//on ajoute la note modifiée dans le tableau notes de notesManager (si elle existe deja, remplacer l'ancienne version)
         static NotesManager& getInstance();

@@ -9,7 +9,10 @@ INPUT(
 ./debug\editeurnotefactory.o
 ./debug\couplemanager.o
 ./debug\relation.o
+./debug\corbeille.o
+./debug\fenetrecorbeille.o
 ./debug\moc_fenetrenewnote.o
 ./debug\moc_fenetreprincipale.o
 ./debug\moc_editeurnote.o
+./debug\moc_fenetrecorbeille.o
 );

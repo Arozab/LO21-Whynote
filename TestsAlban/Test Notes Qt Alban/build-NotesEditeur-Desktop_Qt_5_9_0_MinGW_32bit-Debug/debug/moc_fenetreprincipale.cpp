@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_FenPrincipale_t {
-    QByteArrayData data[8];
-    char stringdata0[108];
+    QByteArrayData data[9];
+    char stringdata0[126];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,12 +38,13 @@ QT_MOC_LITERAL(3, 27, 16), // "QListWidgetItem*"
 QT_MOC_LITERAL(4, 44, 4), // "item"
 QT_MOC_LITERAL(5, 49, 18), // "afficherNewArticle"
 QT_MOC_LITERAL(6, 68, 16), // "afficherNewTache"
-QT_MOC_LITERAL(7, 85, 22) // "afficherNewNoteFichier"
+QT_MOC_LITERAL(7, 85, 22), // "afficherNewNoteFichier"
+QT_MOC_LITERAL(8, 108, 17) // "afficherCorbeille"
 
     },
     "FenPrincipale\0afficheNote\0\0QListWidgetItem*\0"
     "item\0afficherNewArticle\0afficherNewTache\0"
-    "afficherNewNoteFichier"
+    "afficherNewNoteFichier\0afficherCorbeille"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,7 +54,7 @@ static const uint qt_meta_data_FenPrincipale[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -61,13 +62,15 @@ static const uint qt_meta_data_FenPrincipale[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   34,    2, 0x0a /* Public */,
-       5,    0,   37,    2, 0x0a /* Public */,
-       6,    0,   38,    2, 0x0a /* Public */,
-       7,    0,   39,    2, 0x0a /* Public */,
+       1,    1,   39,    2, 0x0a /* Public */,
+       5,    0,   42,    2, 0x0a /* Public */,
+       6,    0,   43,    2, 0x0a /* Public */,
+       7,    0,   44,    2, 0x0a /* Public */,
+       8,    0,   45,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -85,6 +88,7 @@ void FenPrincipale::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 1: _t->afficherNewArticle(); break;
         case 2: _t->afficherNewTache(); break;
         case 3: _t->afficherNewNoteFichier(); break;
+        case 4: _t->afficherCorbeille(); break;
         default: ;
         }
     }
@@ -115,13 +119,13 @@ int FenPrincipale::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }
