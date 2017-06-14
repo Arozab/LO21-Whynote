@@ -1,8 +1,9 @@
-#include "notes.h"
+﻿#include "notes.h"
 #include "notemanager.h"
 #include "editeurnote.h"
 #include "fenetreprincipale.h"
 #include "corbeille.h"
+#include "versions.h"
 
 EditeurNote::EditeurNote(Notes *n, QWidget* parent) {
             idlabel = new QLabel("ID : ");
@@ -21,11 +22,17 @@ EditeurNote::EditeurNote(Notes *n, QWidget* parent) {
             supprimer = new QPushButton("Supprimer");
             annuler = new QPushButton("Annuler");
 
+            // -- Liste des versions
+
+            listeVersion = new QComboBox();
+
+
             cid = new QHBoxLayout();
             ctitre = new QHBoxLayout();
             cdateCrea = new QHBoxLayout();
             cdateModif = new QHBoxLayout();
             cboutons = new QHBoxLayout();
+            crestaurer = new QVBoxLayout();
             cboutonEdition = new QHBoxLayout();
             zone = new QVBoxLayout();
 
@@ -40,6 +47,8 @@ EditeurNote::EditeurNote(Notes *n, QWidget* parent) {
             cboutons->addWidget(sauver);
             cboutons->addWidget(annuler);
             cboutons->addWidget(restaurer);
+            cboutons->addWidget(listeVersion);
+
 
             cboutonEdition->addWidget(editer);
             cboutonEdition->addWidget(supprimer);
@@ -69,6 +78,9 @@ void EditeurNote::activerEditer(){
     titreEdit->setDisabled(false);
     annuler->setDisabled(false);
     supprimer->setDisabled(true);
+
+
+
 }
 
 void EditeurNote::activerSauver(){
@@ -89,6 +101,22 @@ void EditeurNote::supprimeNote() {
       msgBox.close();
     }
 }
+
+void EditeurNote::restaureNote() {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Supprimer Note");
+    msgBox.setText("Voulez-vous vraiment restaurer cette version ?");
+    msgBox.setStandardButtons(QMessageBox::Yes);
+    msgBox.addButton(QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    if(msgBox.exec() == QMessageBox::Yes){
+      msgBox.close();
+      this->restaure();
+    }else {
+      msgBox.close();
+    }
+}
+
 
 void EditeurNote::annuleEdition() {
     restaurer->setDisabled(true);
@@ -120,9 +148,10 @@ ArticleEditeur::ArticleEditeur(Article *a,QWidget* parent) : EditeurNote(a,paren
                 QObject::connect(titreEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver()));
                 QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
                 QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
-                QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
+                QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(restaureNote()));
                 QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprimeNote()));
                 QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annuleEdition()));
+
 
                 zone->addLayout(cboutons);
                 zone->addLayout(cboutonEdition);
@@ -262,7 +291,7 @@ TacheEditeur::TacheEditeur(Tache *a,QWidget* parent) : EditeurNote(a,parent), ta
     QObject::connect(titreEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver()));
     QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
     QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
-    QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
+    QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(restaureNote()));
     QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprimeNote()));
     QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annuleEdition()));
 
@@ -405,7 +434,7 @@ NoteFichierEditeur::NoteFichierEditeur(NoteAvecFichier *a,QWidget* parent) : Edi
     QObject::connect(titreEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver()));
     QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
     QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
-    QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
+    QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(restaureNote()));
     QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprimeNote()));
     QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annuleEdition()));
 
@@ -497,3 +526,14 @@ void NoteFichierEditeur::supprime(){
     fp.actualiserNote();
 }
 
+void EditeurNote::restaure() {
+    NotesManager& m=NotesManager::recupererInstance();
+    FenPrincipale& fp = FenPrincipale::getInstance();
+
+    VersionsManager& v= VersionsManager::recupererInstance();
+
+    v.updateComboBox(listeVersion);
+    fp.actualiserNote();
+    QMessageBox::information(this,"Restaurer","Article restauré !");
+
+    }

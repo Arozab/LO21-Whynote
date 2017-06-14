@@ -1,4 +1,4 @@
-#include "notes.h"
+﻿#include "notes.h"
 #include <fstream>
 #include <QFile>
 #include <QTextCodec>
@@ -36,7 +36,6 @@ void Notes::setAncienneVersion(Notes* n){
 }
 
 /*void Notes::afficher(ostream& f)const{
-
     f << "ID : "<<getId()<<"\nTitre : "<<getTitre();//<<", Date de creation : "<<getDateCrea()<<", Date de modification : "<<getDateModif();
     f<<"\nDate de creation : ";
     getDateCrea();
@@ -58,7 +57,6 @@ void Article::setText(const QString& t){
 }
 
 /*void Article::afficher(ostream& f) const{
-
     Notes::afficher(f);
     f<<"\nTexte : "<<getText()<<endl<<endl<<endl;
 }*/
@@ -82,7 +80,6 @@ void NoteAvecFichier::setFile(const QString& t){
 }
 
 /*void NoteAvecFichier::afficher(ostream& f)const{
-
     Notes::afficher(f);
     f<<"\nDescription : "<<getDescription()<<"\nLien du fichier : "<<getFile()<<endl<<endl<<endl;
 }*/
@@ -116,7 +113,6 @@ void Tache::setStatut(QString t){
 }
 
 /*void Tache::afficher(ostream& f)const{
-
     Notes::afficher(f);
     f<<"\nAction : "<<getAction()<<"\nPriorite : "<<getPriorite()<<"\nDate d'echeance : ";
     getDateEch();

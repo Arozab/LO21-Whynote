@@ -1,4 +1,4 @@
-#ifndef NOTES_h
+﻿#ifndef NOTES_h
 #define NOTES_h
 
 #include <QString>
@@ -15,25 +15,25 @@ typedef enum{en_attente=1,en_cours=2,terminee=3}statutTache;
 */
 class NotesException{
 
-	private:
+    private:
         QString info;	/*!< Chaine de caractères contenant l'erreur*/
 
-	public:
-		/*!
-	     *  \brief Constructeur
-	     *
-	     *  Constructeur de la classe NotesException
-	     *
-	     *  \param message : message
-	     */
+    public:
+        /*!
+         *  \brief Constructeur
+         *
+         *  Constructeur de la classe NotesException
+         *
+         *  \param message : message
+         */
         NotesException(const QString& message):info(message){}
         /*!
-	     *  \brief Affiche les exceptions
-	     *
-	     *  Methode qui permet d'afficher l'exception
-	     *
-	     * 	\return Un \e QString représentant l'erreur obtenue.
-	     */
+         *  \brief Affiche les exceptions
+         *
+         *  Methode qui permet d'afficher l'exception
+         *
+         * 	\return Un \e QString représentant l'erreur obtenue.
+         */
         QString getInfo()const{return info;}
 };
 
@@ -43,37 +43,38 @@ class NotesException{
 */
 class Notes {
 
-	private:
-		/*!<
-	     *  \brief Opérateur d'affectation
-	     *
-	     *  Methode qui permet d'affecter les valeurs d'un objet à un autre objet
-	     *
-	     *	\param n : reference constante vers une Note
-	     *
-	     * 	\return Une reference vers \e Notes qui renvoie la nouvelle note.
-	     */
-		Notes& operator=(const Notes& n);
-		friend class NotesManager; 
+    private:
+        /*!<
+         *  \brief Opérateur d'affectation
+         *
+         *  Methode qui permet d'affecter les valeurs d'un objet à un autre objet
+         *
+         *	\param n : reference constante vers une Note
+         *
+         * 	\return Une reference vers \e Notes qui renvoie la nouvelle note.
+         */
+        Notes& operator=(const Notes& n);
+        friend class NotesManager;
+        friend class VersionsManager;
 
-	protected:
+    protected:
         const QString id;	/*!< Chaine de caractères représentant la note de façon unique*/
         QString titre;		/*!< Chaine de caractères indiquant le titre de la note*/
-		Date dateCrea;		/*!< Date la création de la note*/
-		Date dateModif;		/*!< Date la dernière modification de la note*/
+        Date dateCrea;		/*!< Date la création de la note*/
+        Date dateModif;		/*!< Date la dernière modification de la note*/
         vector<Notes*> ancienneVersion;	/*!< Vecteur de pointeur sur note qui stocke les anciennes versions de la note*/
 
-	public:
+    public:
 
         Notes(const QString& i, const QString& ti);
         QString getId() const { return id; }
         QString getTitre() const { return titre; }
         QString getDateCrea() const { return dateCrea.afficher();}
         QString getDateModif() const { return dateModif.afficher();}
-		Notes& getOldVersion(unsigned int i)const{return *ancienneVersion[i];}
-		virtual Notes* clone()const=0;
+        Notes& getOldVersion(unsigned int i)const{return *ancienneVersion[i];}
+        virtual Notes* clone()const=0;
         //virtual void afficher(ostream& f=cout) const;
-		virtual Notes* editer()=0;	//ajout de l'adresse de n dans le tableau ancienneVersion de n, et on clone n et on l'ouvre
+        virtual Notes* editer()=0;	//ajout de l'adresse de n dans le tableau ancienneVersion de n, et on clone n et on l'ouvre
 
         virtual QString getType(){
             QString t=typeid(*this).name();
@@ -90,17 +91,18 @@ class Notes {
 
 class Article: public Notes {
 
-	private:
+    private:
 
         QString text;
         Article(const QString& i, const QString& ti, const QString& t);
         Article* clone()const{return new Article(*this);}
-		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
+        friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
+        friend class VersionsManager; //permission au VersionsManager d'utiliser le constructeur et destructeur
 
-	public:
+    public:
         Article* editer();
         QString getText() const {return text;}
-		void afficher(ostream& f=cout) const;
+        void afficher(ostream& f=cout) const;
         void setText(const QString& t);
         //QString getType(){return typeid(*this).name();}
 };
@@ -108,20 +110,21 @@ class Article: public Notes {
 
 class NoteAvecFichier: public Notes {
 
-	private:
+    private:
 
         QString description;
         QString file;
         NoteAvecFichier(const QString& i, const QString& ti, const QString& des, const QString& fi);
-	 	NoteAvecFichier* clone()const{return new NoteAvecFichier(*this);}
-		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
+        NoteAvecFichier* clone()const{return new NoteAvecFichier(*this);}
+        friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
+        friend class VersionsManager; //permission au VersionsManager d'utiliser le constructeur et destructeur
 
-	public:
-		NoteAvecFichier* editer();
+    public:
+        NoteAvecFichier* editer();
         QString getDescription() const {return description;}
         QString getFile() const {return file;}
-		void afficher(ostream& f=cout) const;
-		//NoteAvecFichier* getType(){return this;}
+        void afficher(ostream& f=cout) const;
+        //NoteAvecFichier* getType(){return this;}
         void setDescription(const QString& t);
         void setFile(const QString& t);
 };
@@ -129,28 +132,29 @@ class NoteAvecFichier: public Notes {
 
 class Tache: public Notes {
 
-	private:
-      
+    private:
+
         QString action;
         QString priorite;
-		Date dateEch;
-		QString statut;
+        Date dateEch;
+        QString statut;
         Tache(const QString& i, const QString& ti,const QString& a,const QString& pr, const QString& t);
-		Tache* clone()const{return new Tache(*this);}
-		friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
+        Tache* clone()const{return new Tache(*this);}
+        friend class NotesManager; //permission au NotesManager d'utiliser le constructeur et destructeur
+        friend class VersionsManager; //permission au VersionsManager d'utiliser le constructeur et destructeur
 
-	public:
-		Tache* editer();
+    public:
+        Tache* editer();
         QString getAction() const {return action;}
         QString getPriorite() const {return priorite;}
         QString getDateEch() const {return dateEch.afficher();}
         QString getStatut() const {return statut;}
-		void afficher(ostream& f=cout) const;
-		//Tache* getType(){return this;}
-		void setAction(const QString& a);
+        void afficher(ostream& f=cout) const;
+        //Tache* getType(){return this;}
+        void setAction(const QString& a);
         void setPriorite(const QString& pr);
-		void setDateEch(const Date& d);
-		void setStatut(QString t);
+        void setDateEch(const Date& d);
+        void setStatut(QString t);
 };
 
 #endif

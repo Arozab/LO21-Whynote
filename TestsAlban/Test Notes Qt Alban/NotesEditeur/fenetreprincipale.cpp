@@ -1,4 +1,4 @@
-#include "notes.h"
+﻿#include "notes.h"
 #include "notemanager.h"
 #include "fenetrenewnote.h"
 #include "fenetreprincipale.h"
@@ -103,13 +103,6 @@ FenPrincipale::FenPrincipale()
     dockArchive->setWidget(listeArchive);
     addDockWidget(Qt::LeftDockWidgetArea, dockArchive);
 
-    // -- Liste des versions
-
-    listeVersion = new QComboBox();
-    listeVersion->addItem(tr("Afrique"));
-    listeVersion->addItem(tr("Amerique du Nord"));
-    
-    QObject::connect(listeNote, SIGNAL(itemDoubleClicked(QListWidgetItem*)),this, SLOT(afficheNote(QListWidgetItem*)));
 
 
 //  **********  Zone Centrale *********** 

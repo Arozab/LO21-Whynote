@@ -12,11 +12,11 @@ SOURCES += \
     couplemanager.cpp \
     relation.cpp \
     corbeille.cpp \
-    fenetrecorbeille.cpp
+    fenetrecorbeille.cpp \
+    versions.cpp
 
 HEADERS += \
     notes.h \
-    timing.h \
     fenetrenewnote.h \
     notemanager.h \
     fenetreprincipale.h \
@@ -25,4 +25,6 @@ HEADERS += \
     couplemanager.h \
     relation.h \
     corbeille.h \
-    fenetrecorbeille.h
+    fenetrecorbeille.h \
+    versions.h \
+    timing.h

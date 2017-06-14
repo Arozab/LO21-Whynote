@@ -1,4 +1,4 @@
-#ifndef EDITEURNOTE_H
+﻿#ifndef EDITEURNOTE_H
 #define EDITEURNOTE_H
 
 #include <QtWidgets>
@@ -41,6 +41,7 @@ protected :
     QPushButton* editer;
     QPushButton* sauver;
     QPushButton* restaurer;
+    QComboBox* listeVersion;
     QPushButton* supprimer;
     QPushButton* annuler;
     // --- Layout ---
@@ -50,6 +51,7 @@ protected :
     QHBoxLayout* cdateModif;
     QHBoxLayout* ctitre;
     QHBoxLayout* cboutons;
+    QVBoxLayout* crestaurer;
     QHBoxLayout* cboutonEdition;
     QVBoxLayout* zone;
 
@@ -76,9 +78,10 @@ public slots :
     virtual void annuleEdition();
     virtual void supprime()=0;
     virtual void supprimeNote();
+    virtual void restaureNote();
     virtual void sauverNote()=0;
     //void editerNote();
-    //void restaurerNote();
+    void restaure();
     //virtual void actualiserNote() = 0;
     //virtual void actualiserTache()=0;
     //virtual void actualiserArchive()=0;
