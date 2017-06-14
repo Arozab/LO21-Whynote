@@ -51,7 +51,7 @@ FenPrincipale::FenPrincipale()
     menuNouveau->addAction(ajouterNoteFichier);
     menuCorbeille->addAction(montrerCorbeille);
 
-    QObject::connect(actionQuitter, SIGNAL(triggered()), this, SLOT(quitter()));
+    //QObject::connect(actionQuitter, SIGNAL(triggered()), this, SLOT(quitter()));
 
     QObject::connect(ajouterArticle, SIGNAL(triggered()), this, SLOT(afficherNewArticle()));
     QObject::connect(ajouterTache, SIGNAL(triggered()), this, SLOT(afficherNewTache()));

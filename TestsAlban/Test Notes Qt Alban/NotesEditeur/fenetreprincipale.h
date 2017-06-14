@@ -1,4 +1,4 @@
-#ifndef HEADER_FENPRINCIPALE
+﻿#ifndef HEADER_FENPRINCIPALE
 #define HEADER_FENPRINCIPALE
 
 #include <QtWidgets>
@@ -30,7 +30,7 @@
 class FenPrincipale : public QMainWindow
 {
     Q_OBJECT
-public:   
+public:
     static FenPrincipale& getInstance();
     static void libererInstance();
     //void load(QString f);
