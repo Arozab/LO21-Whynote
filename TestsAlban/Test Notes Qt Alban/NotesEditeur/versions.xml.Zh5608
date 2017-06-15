@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <versions>
-	<id key=2>
+        <id key="2">
 		<noteAvecFichier>
 				<version>
 					<titre>Nouvel enregistrement video</titre>
@@ -18,7 +18,7 @@
 				</version>
 		</noteAvecFichier>
         </id>
-	<id key=3>
+        <id key="3">
 		<article>
 			<version>
 				<titre>Mon article de blog</titre>
@@ -29,7 +29,7 @@
 		</article>
 	</id>
 	
-	<id key=4>
+        <id key="4">
 		<tache>
 			<version>
 				<id>4</id>
@@ -44,7 +44,7 @@
 		</tache>
 	</id>
 	
-	<id key=5>
+        <id key="5">
 		<version>
 			<tache>
 				<id>5</id>
@@ -57,5 +57,6 @@
 				<statut>1</statut>
 			</tache>
 		</version>
+         </id>
 
 </versions>
