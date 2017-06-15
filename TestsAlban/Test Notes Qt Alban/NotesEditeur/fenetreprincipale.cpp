@@ -84,7 +84,7 @@ FenPrincipale::FenPrincipale()
 
     listeTache = new QListWidget(dockTache);
     for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
-        if (typeid(it.current()).name()=="tache"){
+        if (typeid(it.current()).name()=="5Tache"){
         QString str=it.current().getTitre();
         //str.append(" ");
         //str.append(it.current().getTitre());
@@ -103,7 +103,7 @@ FenPrincipale::FenPrincipale()
     dockArchive->setWidget(listeArchive);
     addDockWidget(Qt::LeftDockWidgetArea, dockArchive);
 
-
+    QObject::connect(listeNote, SIGNAL(itemDoubleClicked(QListWidgetItem*)),this, SLOT(afficheNote(QListWidgetItem*)));
 
 //  **********  Zone Centrale *********** 
 
@@ -137,6 +137,7 @@ void FenPrincipale::afficheNote(QListWidgetItem* item){
     }
     else{
         NotesManager& m=NotesManager::recupererInstance();
+
         NotesManager::Iterator it=m.getIterator();
         while(!it.isDone() && it.current().getTitre()!=titre){
             it.next();

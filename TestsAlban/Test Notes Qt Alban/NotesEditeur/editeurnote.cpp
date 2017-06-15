@@ -25,6 +25,8 @@ EditeurNote::EditeurNote(Notes *n, QWidget* parent) {
             // -- Liste des versions
 
             listeVersion = new QComboBox();
+            VersionsManager& v=VersionsManager::recupererInstance();
+            v.updateComboBox(listeVersion,n->getId());
 
 
             cid = new QHBoxLayout();
@@ -323,7 +325,6 @@ void TacheEditeur::annuleEdition() {
     sauver->setDisabled(true);
 }
 
-
 void TacheEditeur::sauverNote() {
     NotesManager& m=NotesManager::recupererInstance();
     FenPrincipale& fp = FenPrincipale::getInstance();
@@ -532,7 +533,14 @@ void EditeurNote::restaure() {
 
     VersionsManager& v= VersionsManager::recupererInstance();
 
-    v.updateComboBox(listeVersion);
+    //v.updateComboBox(listeVersion);
+    //q
+    //int index=listeVersion->getSelectedItem()->currentIndex;
+    QVariant itemData = listeVersion->itemData(listeVersion->currentIndex());
+    int index=itemData.toInt();
+    qDebug()<<"TYPE "<<typeid(index).name();
+    qDebug()<<"TEST";
+    v.restoreVersion(index);
     fp.actualiserNote();
     QMessageBox::information(this,"Restaurer","Article restauré !");
 

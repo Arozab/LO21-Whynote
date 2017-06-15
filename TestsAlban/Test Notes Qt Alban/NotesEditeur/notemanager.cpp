@@ -20,6 +20,20 @@ void NotesManager::addNotes(Notes* n) {
     nbNotes++;
 }
 
+Notes& NotesManager::getNote(QString id, QString type){
+
+    if(type==(QString) "7Article") {
+        return getArticle(id);
+    }
+    else if(type==(QString) "5Tache") {
+        return getTache(id);
+    }
+    else if(type==(QString) "15NoteAvecFichier") {
+        return  getNoteAvecFichier(id);
+    }
+
+}
+
 Article& NotesManager::getNewArticle(const QString& id,const QString& ti,const QString& te){
     Article* n=new Article(id,ti,te);
     addNotes(n);

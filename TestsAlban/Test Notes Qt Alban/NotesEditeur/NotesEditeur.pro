@@ -28,3 +28,6 @@ HEADERS += \
     fenetrecorbeille.h \
     versions.h \
     timing.h
+
+DISTFILES += \
+    versions.xml

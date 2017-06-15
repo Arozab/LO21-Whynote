@@ -68,91 +68,40 @@ void VersionsManager::addVersion( Notes* n,QString& id)
 	}
 
 void VersionsManager::loadVersion(const QString& idSearch) {
+    qDebug()<<"ON EN EST LA !";
     versions.clear();
+    qDebug()<<"ON EN EST LA !";
     nbVersions=0;//On vide le vecteur du VersionsManager
-    QFile fin(VersionsManager::vFile);
+    qDebug()<<"ON EN EST LA !";
     vId=idSearch; //Le chargement met automatiquement la valeur de l'id du VersionsManager à jour
 
-    if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) { // Erreur d'ouverture
-        throw NotesException("Erreur ouverture fichier versions");
-    }
+    QDomDocument doc;
+        QFile file(VersionsManager::vFile);
+        if (!file.open(QIODevice::ReadOnly) || !doc.setContent(&file))
+            throw NotesException("Erreur ouverture fichier versions");
+    qDebug()<<"ON EN EST LA !";
 
-    QXmlStreamReader xml(&fin);//Chargement du XML dans le parser
-    while(!xml.atEnd()  && !xml.hasError()) { //On vient parser tout le document versions.xml à la recherche de l'id
-        QXmlStreamReader::TokenType token = xml.readNext();
-        if(token == QXmlStreamReader::StartDocument) continue;
-        if(token == QXmlStreamReader::StartElement) {
-            if(xml.name() == "versions") continue;
-            QXmlStreamAttributes attributes= xml.attributes();
-            if (xml.name()=="id" && attributes.value("key").toString()==idSearch){ //Si on trouve l'id recherché, on récupère les versions quitte la boucle while
-                if(xml.name() == "article") {loadArticleFromXML(versions, xml,idSearch);}
-                if(xml.name() == "noteAvecFichier") {loadFichierFromXML(versions, xml,idSearch);}
-                if(xml.name() == "tache") {loadTacheFromXML(versions, xml,idSearch);}break;}}}
 
-    if(xml.hasError()) {//Erreur d'écriture du fichier
-        throw NotesException("Erreur lecteur fichier notes, parser xml");
-    }
-    xml.clear();//Nettoyage du parser
+    qDebug()<<"CHARGEMENTDANSLEPARSER";
+    QDomElement node=doc.elementById("versions");
+    QDomNodeList ids = doc.elementsByTagName("id");
+    for (int i = 0; i < ids.size(); i++) {
+            QDomNode domnode = ids.item(i);
+            QDomElement note=domnode.toElement();
+            if (note.attributeNode("key").value()==idSearch){ qDebug()<<"JE T'AI TROUVE ENCULE";//Si on trouve l'id recherché, on récupère les versions quitte la boucle while
+                QDomElement type=domnode.firstChild().toElement();
+                if(type.tagName() == "article") {loadArticleFromXML( type,idSearch);}
+                if(type.tagName() == "noteAvecFichier") {loadFichierFromXML(type,idSearch);}
+                if(type.tagName() == "tache") {loadTacheFromXML( type,idSearch);}}}
+
+
+    qDebug()<<"ON A FINI !";
 }
 
-void VersionsManager::loadArticleFromXML(vector<Notes*> versions, QXmlStreamReader& xml,const QString& idSearch){
-                QString titre;
-                QString d1;
-                QString d2;
-                QString text;
-                xml.readNext();
-                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "version")) {
-                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
-
-                        // We've found titre.
-                        if(xml.name() == "titre") {
-                            xml.readNext(); titre=xml.text().toString();
-                            qDebug()<<"titre="<<titre<<"\n";
-                        }
-                        if(xml.name() == "dateCrea") {
-                            xml.readNext();
-                            d1=xml.text().toString();
-                            qDebug()<<"dateCrea="<<d1<<"\n";
-                        }
-                        if(xml.name() == "dateModif") {
-                            xml.readNext();
-                            d2=xml.text().toString();
-                            qDebug()<<"dateModif="<<d2<<"\n";
-                        }
-                        // We've found text
-                        if(xml.name() == "text") {
-                            xml.readNext();
-                            text=xml.text().toString();
-                            qDebug()<<"text="<<text<<"\n";
-                        }
-                    }
-                    // ...and next...
-                    xml.readNext();
+void VersionsManager::loadArticleFromXML( QDomElement& xml,const QString& idSearch){
                 }
-                Article* a=new Article(idSearch,titre,text);
 
-                QString strJ=d1.mid(0,2);
-                int j=strJ.toInt();
-                QString strM=d1.mid(3,2);
-                int m=strM.toInt();
-                QString strA=d1.mid(6,4);
-                int an=strA.toInt();
-                Date dateCrea=Date(j,m,an);
-                a->setDateCrea(dateCrea);
-
-                QString str2J=d2.mid(0,2);
-                int j2=str2J.toInt();
-                QString str2M=d2.mid(3,2);
-                int m2=str2M.toInt();
-                QString str2A=d2.mid(6,4);
-                int an2=str2A.toInt();
-                Date dateModif=Date(j2,m2,an2);
-                a->setDateModif(dateModif);
-
-                versions.push_back(a);
-            }
-
-void VersionsManager::loadFichierFromXML(vector<Notes*> versions, QXmlStreamReader& xml,const QString& idSearch){
+void VersionsManager::loadFichierFromXML(QDomElement& xml,const QString& idSearch) {
 
 
                 QString id;
@@ -161,43 +110,22 @@ void VersionsManager::loadFichierFromXML(vector<Notes*> versions, QXmlStreamRead
                 QString d2;
                 QString description;
                 QString file;
-                xml.readNext();
-                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "version")) {
-                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                QDomElement xmlelement=xml.toElement();
+                QDomNodeList versions = xmlelement.elementsByTagName("version");
+                    for (int i = 0; i < versions.size(); i++) {
+                        QDomNode n = versions.item(i);
+                        QString titre = n.firstChildElement("titre").text();
+                        QString d1 = n.firstChildElement("dateCrea").text();
+                        QString d2 = n.firstChildElement("dateModif").text();
+                        QString description = n.firstChildElement("description").text();
+                        QString file = n.firstChildElement("file").text();
 
 
-                        // We've found titre.
-                        if(xml.name() == "titre") {
-                            xml.readNext(); titre=xml.text().toString();
-                            qDebug()<<"titre="<<titre<<"\n";
-                        }
-                        if(xml.name() == "dateCrea") {
-                            xml.readNext();
-                            d1=xml.text().toString();
-                            qDebug()<<"dateCrea="<<d1<<"\n";
-                        }
-                        if(xml.name() == "dateModif") {
-                            xml.readNext();
-                            d2=xml.text().toString();
-                            qDebug()<<"dateModif="<<d2<<"\n";
-                        }
-                        // We've found text
-                        if(xml.name() == "description") {
-                            xml.readNext();
-                            description=xml.text().toString();
-                            qDebug()<<"description="<<description<<"\n";
-                        }
-                        if(xml.name() == "file") {
-                            xml.readNext();
-                            file=xml.text().toString();
-                            qDebug()<<"file="<<file<<"\n";
-                        }
-                    }
-                    // ...and next...
-                    xml.readNext();
-                }
-
-                NoteAvecFichier* a= new NoteAvecFichier(id,titre,description,file);
+                NoteAvecFichier* a= new NoteAvecFichier(idSearch,titre,description,file);
+                qDebug()<<a->getId();
+                qDebug()<<a->getTitre();
+                qDebug()<<a->getDescription();
+                qDebug()<<a->getFile();
 
                 QString strJ=d1.mid(0,2);
                 int j=strJ.toInt();
@@ -206,8 +134,9 @@ void VersionsManager::loadFichierFromXML(vector<Notes*> versions, QXmlStreamRead
                 QString strA=d1.mid(6,4);
                 int an=strA.toInt();
                 Date dateCrea=Date(j,m,an);
-                a->setDateCrea(dateCrea);
 
+                a->Notes::setDateCrea(dateCrea);
+                qDebug()<<"REMPLISSAGE";
                 QString str2J=d2.mid(0,2);
                 int j2=str2J.toInt();
                 QString str2M=d2.mid(3,2);
@@ -215,96 +144,19 @@ void VersionsManager::loadFichierFromXML(vector<Notes*> versions, QXmlStreamRead
                 QString str2A=d2.mid(6,4);
                 int an2=str2A.toInt();
                 Date dateModif=Date(j2,m2,an2);
-                a->setDateModif(dateModif);
+                qDebug()<<"ON CREE CETTE NOTE";
+                a->Notes::setDateModif(dateModif);
+                qDebug()<<"JUSTE APRES CA PLANTE";
+                this->versions.push_back(a);
 
-                versions.push_back(a);
-            }
 
-void VersionsManager::loadTacheFromXML(vector<Notes*> versions, QXmlStreamReader& xml, const QString& idSearch){
+}
 
-                QString id;
-                QString titre;
-                QString d1;
-                QString d2;
-                QString action;
-                QString priorite;
-                QString d3;
-                QString statut;
 
-                xml.readNext();
-                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "version")) {
-                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
+}
 
-                        if(xml.name() == "titre") {
-                            xml.readNext(); titre=xml.text().toString();
-                            qDebug()<<"titre="<<titre<<"\n";
-                        }
-                        if(xml.name() == "dateCrea") {
-                            xml.readNext();
-                            d1=xml.text().toString();
-                            qDebug()<<"dateCrea="<<d1<<"\n";
-                        }
-                        if(xml.name() == "dateModif") {
-                            xml.readNext();
-                            d2=xml.text().toString();
-                            qDebug()<<"dateModif="<<d2<<"\n";
-                        }
-                        if(xml.name() == "action") {
-                            xml.readNext();
-                            action=xml.text().toString();
-                            qDebug()<<"action="<<action<<"\n";
-                        }
-                        if(xml.name() == "priorite") {
-                            xml.readNext();
-                            priorite=xml.text().toString();
-                            qDebug()<<"priorite="<<priorite<<"\n";
-                        }
-                        if(xml.name() == "dateEch") {
-                            xml.readNext();
-                            d3=xml.text().toString();
-                            qDebug()<<"dateEch="<<d3<<"\n";
-                        }
-                        if(xml.name() == "statut") {
-                            xml.readNext();
-                            statut=xml.text().toString();
-                            qDebug()<<"statut="<<statut<<"\n";
-                        }
-                    }
-                    // ...and next...
-                    xml.readNext();
-                }
-
-                Tache* a= new Tache(idSearch,titre,action,priorite,statut);
-
-                QString strJ=d1.mid(0,2);
-                int j=strJ.toInt();
-                QString strM=d1.mid(3,2);
-                int m=strM.toInt();
-                QString strA=d1.mid(6,4);
-                int an=strA.toInt();
-                Date dateCrea=Date(j,m,an);
-                a->setDateCrea(dateCrea);
-
-                QString str2J=d2.mid(0,2);
-                int j2=str2J.toInt();
-                QString str2M=d2.mid(3,2);
-                int m2=str2M.toInt();
-                QString str2A=d2.mid(6,4);
-                int an2=str2A.toInt();
-                Date dateModif=Date(j2,m2,an2);
-                a->setDateModif(dateModif);
-
-                QString str3J=d3.mid(0,2);
-                int j3=str3J.toInt();
-                QString str3M=d3.mid(3,2);
-                int m3=str3M.toInt();
-                QString str3A=d3.mid(6,4);
-                int an3=str3A.toInt();
-                Date dateEch=Date(j3,m3,an3);
-                a->setDateEch(dateEch);
-
-                versions.push_back(a);
-            }
+void VersionsManager::loadTacheFromXML(QDomElement& xml, const QString& idSearch){
+}
 
 VersionsManager::VersionsManager():nbVersions(0),vId(""),vFile("versions.xml"){}
 		
@@ -313,17 +165,23 @@ VersionsManager::~VersionsManager(){
     versions.clear();
 }
 
-void VersionsManager::restoreVersion(const QString& id, unsigned int numeroVersion){
+void VersionsManager::restoreVersion(int numeroVersion){
 
     NotesManager& m=NotesManager::recupererInstance();
-    FenPrincipale& fp = FenPrincipale::getInstance();
+
     VersionsManager& v=VersionsManager::recupererInstance();
 
-m.supprimerNote(id);
-m.addNotes(versions[numeroVersion]);
+    QString type=typeid(versions[numeroVersion]).name();
+    Notes& n=m.getNote(vId,type);
+    Notes* note=&n;
+qDebug()<<"TEST";
+m.supprimerNote( vId);
+qDebug()<<"TEST";
+Notes* rest=versions[numeroVersion];
+rest->getTitre();
+m.addNotes(rest);
+qDebug()<<"POUR LA RESTO HIP HIP HIP";
 }
-
-
 
 VersionsManager::Handler VersionsManager::handler=VersionsManager::Handler(); //un objet handler de type Handler initialisé avec le constructeur Handler
 
@@ -423,13 +281,17 @@ QDomElement VersionsManager::VersionXMLFactory(QString& type, Notes* n,QDomDocum
     return newNodeTag;
 }
 
-void VersionsManager::updateComboBox(QComboBox* combobox){
-    loadVersion(vId);
+void VersionsManager::updateComboBox(QComboBox*& combobox, QString id){
+    qDebug()<<"ET ON SE FAIT UN PETIT UPDATE AVEC L'ID "<<id;
+    loadVersion(id);
+    qDebug()<<"ON A DES VERSIONS ! "<<versions.size();
     combobox->clear();
-    for(unsigned int i=0; i<versions.size();i++)
+    QString label;
+    for(int i=0; i<versions.size();i++)
     {
-
-       combobox->addItem("Version ",vId);
+        qDebug()<<"CA RAJOUTE";
+       label="Version du "+versions[i]->getDateCrea()+ " modifiée le "+ versions[i]->getDateModif();
+       combobox->addItem(label,i);
 }
 }
 //+i+" du "+versions[i]->getDateModif()

@@ -50,13 +50,13 @@ class VersionsManager{
         
         void addVersion( Notes* n,QString& id);  //permet d'ajouter d'ajouter une version dans le fichier des versions
 		void loadVersion(const QString& id); //permet de charger les versions dans le vecteur & changer d'id & recuperer le nombre de versions
-        void restoreVersion(const QString& id, unsigned int numeroVersion);
+        void restoreVersion(int numeroVersion);
 
-        void loadTacheFromXML(vector<Notes*> versions, QXmlStreamReader& xml,const QString& idSearch);//Sous-fonction de loadVersion
-        void loadFichierFromXML(vector<Notes*> versions, QXmlStreamReader& xml,const QString& idSearch);//Sous-fonction de loadVersion
-        void loadArticleFromXML(vector<Notes*> versions, QXmlStreamReader& xml,const QString& idSearch);//Sous-fonction de loadVersion
+        void loadTacheFromXML(QDomElement &xml, const QString& idSearch);//Sous-fonction de loadVersion
+        void loadFichierFromXML(QDomElement &xml, const QString& idSearch);//Sous-fonction de loadVersion
+        void loadArticleFromXML(QDomElement &xml, const QString& idSearch);//Sous-fonction de loadVersion
         
         QDomElement VersionXMLFactory(QString& type, Notes* n,QDomDocument doc);
-        void updateComboBox(QComboBox* combobox);
+        void updateComboBox(QComboBox*& combobox, QString id);
 
 };

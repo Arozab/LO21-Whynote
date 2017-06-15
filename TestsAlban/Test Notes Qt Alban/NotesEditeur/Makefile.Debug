@@ -77,7 +77,7 @@ OBJECTS       = debug/main.o \
 		debug/moc_editeurnote.o \
 		debug/moc_fenetrecorbeille.o
 
-DIST          =  notes.h \
+DIST          = versions.xml notes.h \
 		fenetrenewnote.h \
 		notemanager.h \
 		fenetreprincipale.h \
@@ -2212,7 +2212,15 @@ debug/main.o: main.cpp C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QApplicati
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QScrollArea \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QComboBox \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QGridLayout \
-		couplemanager.h
+		couplemanager.h \
+		versions.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtXml/QtXml \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtXml/QtXmlDepends \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtXml/qtxmlglobal.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtXml/qdom.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtXml/qxml.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtXml/qtxmlversion.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtCore/QTextCodec
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/main.o main.cpp
 
 debug/notes.o: notes.cpp notes.h \

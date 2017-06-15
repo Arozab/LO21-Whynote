@@ -3,30 +3,30 @@
     <article>
         <id>1</id>
         <titre>ArticleTest</titre>
-        <dateCrea>03/06/2017</dateCrea>
-        <dateModif>03/07/2017</dateModif>
+        <dateCrea>03/07/2017</dateCrea>
+        <dateModif>03/06/2017</dateModif>
         <text>Bonjour je m'appelle jean-pierre DUpuiss</text>
     </article>
     <noteAvecFichier>
         <id>2</id>
         <titre>NoteAvecFichierTestDeMort1</titre>
-        <dateCrea>13/01/2015</dateCrea>
-        <dateModif>04/12/2013</dateModif>
+        <dateCrea>04/12/2013</dateCrea>
+        <dateModif>13/01/2015</dateModif>
         <description>Fichier audio representant toi meme okey &lt;3</description>
         <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
     </noteAvecFichier>
     <article>
         <id>3</id>
         <titre>Test2</titre>
-        <dateCrea>03/06/2016</dateCrea>
-        <dateModif>02/03/2017</dateModif>
+        <dateCrea>02/03/2017</dateCrea>
+        <dateModif>03/06/2016</dateModif>
         <text>Salut moi c pascal le grand frere &lt;3</text>
     </article>
     <tache>
         <id>4</id>
         <titre>Tache Incroyable !!!</titre>
-        <dateCrea>03/06/2017</dateCrea>
-        <dateModif>28/02/2014</dateModif>
+        <dateCrea>28/02/2014</dateCrea>
+        <dateModif>03/06/2017</dateModif>
         <action>Ivre il se fait inonder et passe sur BFMTV</action>
         <priorite>Importante</priorite>
         <dateEch>21/12/2016</dateEch>
@@ -67,4 +67,11 @@ Yes ça marche !!!</text>
         <dateEch>12/12/2212</dateEch>
         <statut>important</statut>
     </tache>
+    <article>
+        <id>48</id>
+        <titre>Bonjour</titre>
+        <dateCrea>14/06/2017</dateCrea>
+        <dateModif>14/06/2017</dateModif>
+        <text>blablbalbla</text>
+    </article>
 </notes>

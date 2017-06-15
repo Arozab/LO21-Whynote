@@ -65,6 +65,7 @@ class NotesManager{
          */
         void setFilename(QString f){filename=f;}
 
+        Notes& getNote(QString id, QString type);
         /*!
          *  \brief Créé un nouvel article
          *  \param id : const QString&

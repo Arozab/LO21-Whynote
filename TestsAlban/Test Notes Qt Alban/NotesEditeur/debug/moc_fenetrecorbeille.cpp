@@ -30,17 +30,17 @@ struct qt_meta_stringdata_FenetreCorbeille_t {
 static const qt_meta_stringdata_FenetreCorbeille_t qt_meta_stringdata_FenetreCorbeille = {
     {
 QT_MOC_LITERAL(0, 0, 16), // "FenetreCorbeille"
-QT_MOC_LITERAL(1, 17, 13), // "supprimerNote"
+QT_MOC_LITERAL(1, 17, 13), // "activerBouton"
 QT_MOC_LITERAL(2, 31, 0), // ""
-QT_MOC_LITERAL(3, 32, 14), // "viderCorbeille"
-QT_MOC_LITERAL(4, 47, 13), // "restaurerNote"
-QT_MOC_LITERAL(5, 61, 6), // "Notes*"
-QT_MOC_LITERAL(6, 68, 13) // "activerBouton"
+QT_MOC_LITERAL(3, 32, 13), // "restaurerNote"
+QT_MOC_LITERAL(4, 46, 6), // "Notes*"
+QT_MOC_LITERAL(5, 53, 13), // "supprimerNote"
+QT_MOC_LITERAL(6, 67, 14) // "viderCorbeille"
 
     },
-    "FenetreCorbeille\0supprimerNote\0\0"
-    "viderCorbeille\0restaurerNote\0Notes*\0"
-    "activerBouton"
+    "FenetreCorbeille\0activerBouton\0\0"
+    "restaurerNote\0Notes*\0supprimerNote\0"
+    "viderCorbeille"
 };
 #undef QT_MOC_LITERAL
 
@@ -60,13 +60,13 @@ static const uint qt_meta_data_FenetreCorbeille[] = {
  // slots: name, argc, parameters, tag, flags
        1,    0,   34,    2, 0x0a /* Public */,
        3,    0,   35,    2, 0x0a /* Public */,
-       4,    0,   36,    2, 0x0a /* Public */,
+       5,    0,   36,    2, 0x0a /* Public */,
        6,    0,   37,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
+    0x80000000 | 4,
     QMetaType::Void,
-    0x80000000 | 5,
     QMetaType::Void,
 
        0        // eod
@@ -78,11 +78,11 @@ void FenetreCorbeille::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         FenetreCorbeille *_t = static_cast<FenetreCorbeille *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->supprimerNote(); break;
-        case 1: _t->viderCorbeille(); break;
-        case 2: { Notes* _r = _t->restaurerNote();
+        case 0: _t->activerBouton(); break;
+        case 1: { Notes* _r = _t->restaurerNote();
             if (_a[0]) *reinterpret_cast< Notes**>(_a[0]) = _r; }  break;
-        case 3: _t->activerBouton(); break;
+        case 2: _t->supprimerNote(); break;
+        case 3: _t->viderCorbeille(); break;
         default: ;
         }
     }
