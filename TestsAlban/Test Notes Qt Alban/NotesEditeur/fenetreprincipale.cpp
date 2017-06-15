@@ -52,6 +52,7 @@ FenPrincipale::FenPrincipale()
     menuCorbeille->addAction(montrerCorbeille);
 
     QObject::connect(actionQuitter, SIGNAL(triggered()), this, SLOT(quitter()));
+    QObject::connect(actionQuitter, SIGNAL(triggered()), qApp, SLOT(quit()));
 
     QObject::connect(ajouterArticle, SIGNAL(triggered()), this, SLOT(afficherNewArticle()));
     QObject::connect(ajouterTache, SIGNAL(triggered()), this, SLOT(afficherNewTache()));
@@ -197,6 +198,12 @@ void FenPrincipale::afficherCorbeille() {
     corbeil = fc;
     setCentralWidget(corbeil);
     corbeil->show();
+
+}
+
+void FenPrincipale::quitter() {
+    Corbeille& cor= Corbeille::getInstance();
+    cor.vider();
 }
 
 /*void FenPrincipale::ouvrirDialogue()

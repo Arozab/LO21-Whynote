@@ -107,7 +107,7 @@ FenetreNewNote::FenetreNewNote(QString type, QWidget* parent) : QWidget(parent) 
     this->setLayout(zone);
 
     QObject::connect(valider,SIGNAL(clicked()),this,SLOT(creerNote()));
-    QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(close()));
+    QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annule()));
 
     this->setWindowModality(Qt::ApplicationModal);
 }
@@ -191,6 +191,12 @@ void FenetreNewNote::creerNote() {
     }
     else
         QMessageBox::information(this, "Erreur", "Vous devez entrer un id !");
+}
+
+void FenetreNewNote::annule() {
+    FenPrincipale& fp=FenPrincipale::getInstance();
+    QWidget* zone= new QWidget;
+    fp.setCentralWidget(zone);
 }
 
 

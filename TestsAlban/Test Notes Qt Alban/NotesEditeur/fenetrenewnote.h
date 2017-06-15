@@ -77,6 +77,7 @@ public slots:
      *  \brief Creer une nouvelle note
      */
     void creerNote();
+    void annule();
 
 };
 #endif // FENETRENEWNOTE_H

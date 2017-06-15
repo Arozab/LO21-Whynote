@@ -160,10 +160,14 @@ public slots:
      */
     void afficherCorbeille();
 
+    /*!
+     *  \brief Quitte l'application
+     *  \return void
+     */
+    void quitter();
     //void supprimerNote();
     //void archiverNote();
     //void viderCorbeille() { NotesManager::recupererInstance().viderCorbeille(); }
-    //void quitter(); // demande si vider corbeille puis quitte
 };
 
 #endif
