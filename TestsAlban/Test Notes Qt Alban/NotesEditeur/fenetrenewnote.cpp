@@ -4,6 +4,7 @@
 #include "fenetreprincipale.h"
 #include "editeurnote.h"
 #include "editeurnotefactory.h"
+#include "versions.h"
 
 
 FenetreNewNote::FenetreNewNote(QString type, QWidget* parent) : QWidget(parent) {
@@ -117,6 +118,8 @@ void FenetreNewNote::creerNote() {
     NotesManager& m=NotesManager::recupererInstance();
     FenPrincipale& fp=FenPrincipale::getInstance();
     NotesManager::Iterator it=m.getIterator();
+    VersionsManager& v=VersionsManager::recupererInstance();
+
     while(!it.isDone() && it.current().getId()!=idEdit->text()){
         it.next();
     }
@@ -126,6 +129,7 @@ void FenetreNewNote::creerNote() {
     else if(idEdit->text()!="") {
         try
         {
+
             if (typeEdit->text() == "article")
             {
                 Article a=m.getNewArticle(idEdit->text(),titreEdit->text(),textEdit->toPlainText());
@@ -139,6 +143,8 @@ void FenetreNewNote::creerNote() {
                 textEdit->setDisabled(true);
                 valider->setDisabled(true);
                 annuler->setDisabled(true);
+
+                v.addVersion(pta);
             }
             else
                 if (typeEdit->text() == "tache")
@@ -153,6 +159,8 @@ void FenetreNewNote::creerNote() {
                     Date dateEch=Date(j,mo,an);
 
                     Tache a=m.getNewTache(idEdit->text(),titreEdit->text(),statutEdit->text(),actionEdit->text(),prioriteEdit->text());
+                    Tache* pta=&a;
+
                     a.setDateEch(dateEch);
                     QMessageBox::information(this,"Ajouter","Tache ajoutée !");
                     m.save();
@@ -166,11 +174,16 @@ void FenetreNewNote::creerNote() {
                     dateEchEdit->setDisabled(true);
                     valider->setDisabled(true);
                     annuler->setDisabled(true);
+
+                    //v.addVersion(&ref);
                 }
                 else  
                     if(typeEdit->text() == "noteFichier")
                     {
                         NoteAvecFichier a=m.getNewNoteAvecFichier(idEdit->text(),titreEdit->text(),descriptionEdit->toPlainText(),fileEdit->text());
+                        NoteAvecFichier* pta=&a;
+
+
                         QMessageBox::information(this,"Ajouter","NoteFichier ajoutée !");
                         m.save();
                         fp.actualiserNote();
@@ -182,7 +195,10 @@ void FenetreNewNote::creerNote() {
                         valider->setDisabled(true);
                         annuler->setDisabled(true);
 
+                        v.initVersion("noteAvecFichier",pta->getId());
+
                     }
+
         }
         catch (NotesException& e)
         {

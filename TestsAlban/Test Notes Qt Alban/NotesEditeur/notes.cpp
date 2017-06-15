@@ -1,4 +1,4 @@
-#include "notes.h"
+﻿#include "notes.h"
 #include <fstream>
 #include <QFile>
 #include <QTextCodec>
@@ -37,11 +37,23 @@ void Notes::setAncienneVersion(Notes* n){
 
 
 
+
 //--------------------ARTICLE------------------------//
 Article::Article(const QString& i, const QString& ti, const QString& t):Notes(i,ti),text(t){}
 void Article::setText(const QString& t){
 
     text=t;
+}
+
+
+/*void Article::afficher(ostream& f) const{
+    Notes::afficher(f);
+    f<<"\nTexte : "<<getText()<<endl<<endl<<endl;
+}*/
+
+
+Article* Article::editer(){
+    return this->clone();
 }
 
 
@@ -56,6 +68,17 @@ void NoteAvecFichier::setDescription(const QString& t){
 void NoteAvecFichier::setFile(const QString& t){
 
     file=t;
+}
+
+
+/*void NoteAvecFichier::afficher(ostream& f)const{
+    Notes::afficher(f);
+    f<<"\nDescription : "<<getDescription()<<"\nLien du fichier : "<<getFile()<<endl<<endl<<endl;
+}*/
+
+
+NoteAvecFichier* NoteAvecFichier::editer(){
+    return this->clone();
 }
 
 
@@ -82,4 +105,15 @@ void Tache::setStatut(QString t){
     statut=t;
 }
 
+
+/*void Tache::afficher(ostream& f)const{
+    Notes::afficher(f);
+    f<<"\nAction : "<<getAction()<<"\nPriorite : "<<getPriorite()<<"\nDate d'echeance : ";
+    getDateEch();
+    f<<"\nStatut de la tache : "<<getStatutTache()<<endl<<endl<<endl;
+}*/
+
+Tache* Tache::editer(){
+    return this->clone();
+}
 

@@ -82,15 +82,14 @@ FenPrincipale::FenPrincipale()
 
     dockTache = new QDockWidget(tr("Todo List"));
     dockTache->setAllowedAreas(Qt::LeftDockWidgetArea);
-
+    QString str;
     listeTache = new QListWidget(dockTache);
     for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
-        if (typeid(it.current()).name()=="tache"){
-        QString str=it.current().getTitre();
-        //str.append(" ");
-        //str.append(it.current().getTitre());
-        //liste->addItem(it.current().getTitre());
-        listeNote->addItem(str);}
+
+        if (QString(typeid(it.current()).name())=="5Tache"){
+        Tache& t = dynamic_cast<Tache&>(it.current());
+        str=t.getTitre()+ " pour le "+t.getDateEch();
+        listeTache->addItem(str);}
     }
     dockTache->setWidget(listeTache);
     addDockWidget(Qt::LeftDockWidgetArea, dockTache);
@@ -104,14 +103,7 @@ FenPrincipale::FenPrincipale()
     dockArchive->setWidget(listeArchive);
     addDockWidget(Qt::LeftDockWidgetArea, dockArchive);
 
-    // -- Liste des versions
-
-    listeVersion = new QComboBox();
-    listeVersion->addItem(tr("Afrique"));
-    listeVersion->addItem(tr("Amerique du Nord"));
-    
     QObject::connect(listeNote, SIGNAL(itemDoubleClicked(QListWidgetItem*)),this, SLOT(afficheNote(QListWidgetItem*)));
-
 
 //  **********  Zone Centrale *********** 
 
@@ -145,6 +137,7 @@ void FenPrincipale::afficheNote(QListWidgetItem* item){
     }
     else{
         NotesManager& m=NotesManager::recupererInstance();
+
         NotesManager::Iterator it=m.getIterator();
         while(!it.isDone() && it.current().getTitre()!=titre){
             it.next();

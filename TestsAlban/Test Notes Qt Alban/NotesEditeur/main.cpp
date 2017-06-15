@@ -6,6 +6,7 @@
 #include "notemanager.h"
 #include "couplemanager.h"
 #include "corbeille.h"
+#include"versions.h"
 #include <QFileDialog>
 
 
@@ -15,6 +16,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     QString fichier = QFileDialog::getOpenFileName(nullptr,"Selectionner le fichier de Notes");
     NotesManager& m=NotesManager::getInstance();
+    VersionsManager& v=VersionsManager::getInstance();
     Corbeille& c=Corbeille::getInstance();
     m.load(fichier);
     m.setFilename(fichier);

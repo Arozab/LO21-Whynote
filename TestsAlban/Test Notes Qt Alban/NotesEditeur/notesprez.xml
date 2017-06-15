@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notes>
+    
+    <noteAvecFichier>
+        <id>2</id>
+        <titre>Enregistrement vidéo</titre>
+        <dateCrea>04/12/2013</dateCrea>
+        <dateModif>13/01/2015</dateModif>
+        <description>Video de presentation</description>
+        <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
+    </noteAvecFichier>
+	<article>
+        <id>3</id>
+        <titre>Mon article de blog</titre>
+        <dateCrea>02/03/2017</dateCrea>
+        <dateModif>03/06/2016</dateModif>
+        <text>Bonjour à tous, l'UV LO21 c'est vraiment une super UV !</text>
+    </article>
+	<tache>
+        <id>4</id>
+        <titre>Acheter du lait</titre>
+        <dateCrea>28/02/2014</dateCrea>
+        <dateModif>03/06/2017</dateModif>
+        <action>Lait demi-ecreme</action>
+        <priorite>Importante</priorite>
+        <dateEch>21/12/2016</dateEch>
+        <statut>1</statut>
+	</tache>
+	<tache>
+        <id>5</id>
+        <titre>Acheter du poulet</titre>
+        <dateCrea>28/02/2014</dateCrea>
+        <dateModif>03/06/2017</dateModif>
+        <action>En petits morceaux</action>
+        <priorite>Importante</priorite>
+        <dateEch>22/12/2016</dateEch>
+        <statut>1</statut>
+	</tache>
+</notes>

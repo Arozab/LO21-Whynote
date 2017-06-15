@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<versions>
+        <id key="2">
+                <noteAvecFichier>
+                                <version num="2">
+					<titre>NoteAvecFichierTestDeMort1</titre>
+					<dateCrea>13/01/2015</dateCrea>
+					<dateModif>04/12/2013</dateModif>
+					<description>Fichier audio nouvelle version ma gueule</description>
+                                        <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
+                                </version>
+                                <version num="1">
+					<titre>NoteAvecFichierTestDeMort1</titre>
+					<dateCrea>13/01/2015</dateCrea>
+					<dateModif>04/12/2013</dateModif>
+					<description>Fichier audio representant toi meme okey</description>
+					<file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
+                                </version>
+		</noteAvecFichier>
+        </id>
+
+</versions>

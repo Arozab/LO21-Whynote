@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<versions>
+        <id key="2">
+		<noteAvecFichier>
+				<version>
+					<titre>Nouvel enregistrement video</titre>
+					<dateCrea>13/01/2015</dateCrea>
+					<dateModif>04/12/2016</dateModif>
+					<description>Fichier audio nouvelle version ma gueule</description>
+					<file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
+				</version>
+				<version>
+					<titre>Enregistrement video</titre>
+					<dateCrea>13/01/2015</dateCrea>
+					<dateModif>04/12/2015</dateModif>
+					<description>Fichier audio representant toi meme okey</description>
+					<file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
+				</version>
+		</noteAvecFichier>
+        </id>
+        <id key="3">
+		<article>
+			<version>
+				<titre>Mon article de blog</titre>
+				<dateCrea>02/03/2017</dateCrea>
+				<dateModif>03/06/2016</dateModif>
+				<text>Bonjour à tous, l'UV LO21 c'est vraiment une super UV !</text>
+			</version>
+		</article>
+	</id>
+	
+        <id key="4">
+		<tache>
+			<version>
+				<id>4</id>
+				<titre>Acheter du lait</titre>
+				<dateCrea>28/02/2014</dateCrea>
+				<dateModif>03/06/2017</dateModif>
+				<action>Lait demi-ecreme</action>
+				<priorite>Importante</priorite>
+				<dateEch>21/12/2016</dateEch>
+				<statut>1</statut>
+			</version>
+		</tache>
+	</id>
+	
+        <id key="5">
+		<version>
+			<tache>
+				<id>5</id>
+				<titre>Acheter du poulet</titre>
+				<dateCrea>28/02/2014</dateCrea>
+				<dateModif>03/06/2017</dateModif>
+				<action>En petits morceaux</action>
+				<priorite>Importante</priorite>
+				<dateEch>22/12/2016</dateEch>
+				<statut>1</statut>
+			</tache>
+		</version>
+         </id>
+
+</versions>

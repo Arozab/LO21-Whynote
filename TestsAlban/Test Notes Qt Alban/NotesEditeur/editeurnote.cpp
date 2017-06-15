@@ -1,8 +1,9 @@
-#include "notes.h"
+﻿#include "notes.h"
 #include "notemanager.h"
 #include "editeurnote.h"
 #include "fenetreprincipale.h"
 #include "corbeille.h"
+#include "versions.h"
 
 EditeurNote::EditeurNote(Notes *n, QWidget* parent) {
             idlabel = new QLabel("ID : ");
@@ -21,11 +22,19 @@ EditeurNote::EditeurNote(Notes *n, QWidget* parent) {
             supprimer = new QPushButton("Supprimer");
             annuler = new QPushButton("Annuler");
 
+            // -- Liste des versions
+
+            listeVersion = new QComboBox();
+            VersionsManager& v=VersionsManager::recupererInstance();
+            v.updateComboBox(listeVersion,n->getId());
+
+
             cid = new QHBoxLayout();
             ctitre = new QHBoxLayout();
             cdateCrea = new QHBoxLayout();
             cdateModif = new QHBoxLayout();
             cboutons = new QHBoxLayout();
+            crestaurer = new QVBoxLayout();
             cboutonEdition = new QHBoxLayout();
             zone = new QVBoxLayout();
 
@@ -40,6 +49,8 @@ EditeurNote::EditeurNote(Notes *n, QWidget* parent) {
             cboutons->addWidget(sauver);
             cboutons->addWidget(annuler);
             cboutons->addWidget(restaurer);
+            cboutons->addWidget(listeVersion);
+
 
             cboutonEdition->addWidget(editer);
             cboutonEdition->addWidget(supprimer);
@@ -69,6 +80,9 @@ void EditeurNote::activerEditer(){
     titreEdit->setDisabled(false);
     annuler->setDisabled(false);
     supprimer->setDisabled(true);
+
+
+
 }
 
 void EditeurNote::activerSauver(){
@@ -89,6 +103,22 @@ void EditeurNote::supprimeNote() {
       msgBox.close();
     }
 }
+
+void EditeurNote::restaureNote() {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Supprimer Note");
+    msgBox.setText("Voulez-vous vraiment restaurer cette version ?");
+    msgBox.setStandardButtons(QMessageBox::Yes);
+    msgBox.addButton(QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    if(msgBox.exec() == QMessageBox::Yes){
+      msgBox.close();
+      this->restaure();
+    }else {
+      msgBox.close();
+    }
+}
+
 
 void EditeurNote::annuleEdition() {
     restaurer->setDisabled(true);
@@ -120,9 +150,10 @@ ArticleEditeur::ArticleEditeur(Article *a,QWidget* parent) : EditeurNote(a,paren
                 QObject::connect(titreEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver()));
                 QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
                 QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
-                QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
+                QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(restaureNote()));
                 QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprimeNote()));
                 QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annuleEdition()));
+
 
                 zone->addLayout(cboutons);
                 zone->addLayout(cboutonEdition);
@@ -149,7 +180,8 @@ void ArticleEditeur::annuleEdition() {
 void ArticleEditeur::sauverNote() {
     NotesManager& m=NotesManager::recupererInstance();
     FenPrincipale& fp = FenPrincipale::getInstance();
-
+    VersionsManager& v=VersionsManager::recupererInstance();
+    qDebug()<<"ON ARRIVE DANS SAUVERNOTEARTICLE";
     // on crée un nouveau article et son ancienne version est celle avant la modification
     NotesManager::Iterator it=m.getIterator();
     while(!it.isDone() && it.current().getId()!=article->getId()){
@@ -187,12 +219,14 @@ void ArticleEditeur::sauverNote() {
     m.save();
 
     fp.actualiserNote();
-
+    v.updateComboBox(listeVersion,v.getId());
     article=a;
 
     QMessageBox::information(this,"Sauvegarder","Article sauvegardé !");
 
     sauver->setDisabled(true);
+
+    v.addVersion(a);
     }
 
 }
@@ -262,7 +296,7 @@ TacheEditeur::TacheEditeur(Tache *a,QWidget* parent) : EditeurNote(a,parent), ta
     QObject::connect(titreEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver()));
     QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
     QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
-    QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
+    QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(restaureNote()));
     QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprimeNote()));
     QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annuleEdition()));
 
@@ -294,10 +328,11 @@ void TacheEditeur::annuleEdition() {
     sauver->setDisabled(true);
 }
 
-
 void TacheEditeur::sauverNote() {
     NotesManager& m=NotesManager::recupererInstance();
     FenPrincipale& fp = FenPrincipale::getInstance();
+    VersionsManager& v=VersionsManager::recupererInstance();
+qDebug()<<"ON ARRIVE DANS SAUVERNOTETACHE";
 
     // on crée une nouvelle tache et son ancienne version est celle avant la modification
     NotesManager::Iterator it=m.getIterator();
@@ -352,12 +387,16 @@ void TacheEditeur::sauverNote() {
     m.save();
 
     fp.actualiserNote();
+    v.updateComboBox(listeVersion,v.getId());
 
     tache=a;
 
     QMessageBox::information(this,"Sauvegarder","Tache sauvegardée !");
 
     sauver->setDisabled(true);
+
+
+    v.addVersion(a);
     }
 }
 
@@ -405,7 +444,7 @@ NoteFichierEditeur::NoteFichierEditeur(NoteAvecFichier *a,QWidget* parent) : Edi
     QObject::connect(titreEdit,SIGNAL(textChanged(QString)),this,SLOT(activerSauver()));
     QObject::connect(sauver,SIGNAL(clicked()),this,SLOT(sauverNote()));
     QObject::connect(editer, SIGNAL(clicked()),this,SLOT(activerEditer()));
-    QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(activerEditer()));
+    QObject::connect(restaurer, SIGNAL(clicked()),this,SLOT(restaureNote()));
     QObject::connect(supprimer, SIGNAL(clicked()),this,SLOT(supprimeNote()));
     QObject::connect(annuler,SIGNAL(clicked()),this,SLOT(annuleEdition()));
 
@@ -436,7 +475,8 @@ void NoteFichierEditeur::annuleEdition() {
 void NoteFichierEditeur::sauverNote() {
     NotesManager& m=NotesManager::recupererInstance();
     FenPrincipale& fp = FenPrincipale::getInstance();
-
+    VersionsManager& v=VersionsManager::recupererInstance();
+    qDebug()<<"ON ARRIVE DANS SAUVERNOTEFICHIER";
     // on crée un nouveau NoteAvecFichier et son ancienne version est celle avant la modification
     NotesManager::Iterator it=m.getIterator();
     while(!it.isDone() && it.current().getId()!=noteFichier->getId()){
@@ -475,12 +515,16 @@ void NoteFichierEditeur::sauverNote() {
     m.save();
 
     fp.actualiserNote();
+    v.updateComboBox(listeVersion,v.getId());
 
     noteFichier=a;
 
     QMessageBox::information(this,"Sauvegarder","Note avec fichier sauvegardée !");
 
     sauver->setDisabled(true);
+
+    qDebug()<<"ON ARRIVE DANS ADD";
+    v.addVersion(a);
     }
 }
 
@@ -497,3 +541,21 @@ void NoteFichierEditeur::supprime(){
     fp.actualiserNote();
 }
 
+void EditeurNote::restaure() {
+    NotesManager& m=NotesManager::recupererInstance();
+    FenPrincipale& fp = FenPrincipale::getInstance();
+
+    VersionsManager& v= VersionsManager::recupererInstance();
+
+    //v.updateComboBox(listeVersion);
+    //q
+    //int index=listeVersion->getSelectedItem()->currentIndex;
+    QVariant itemData = listeVersion->itemData(listeVersion->currentIndex());
+    int index=itemData.toInt();
+    qDebug()<<"TYPE "<<typeid(index).name();
+    qDebug()<<"TEST";
+    v.restoreVersion(index);
+    fp.actualiserNote();
+    QMessageBox::information(this,"Restaurer","Article restauré !");
+
+    }

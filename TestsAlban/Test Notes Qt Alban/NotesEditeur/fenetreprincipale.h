@@ -1,4 +1,4 @@
-#ifndef HEADER_FENPRINCIPALE
+﻿#ifndef HEADER_FENPRINCIPALE
 #define HEADER_FENPRINCIPALE
 
 #include <QtWidgets>
@@ -32,12 +32,15 @@
 class FenPrincipale : public QMainWindow
 {
     Q_OBJECT
+
+
 public: 
 
     /*!
          *  \brief On récupère l'unique instance de fenêtre principale
          *  \return Une reference vers FenPrincpale
          */  
+
     static FenPrincipale& getInstance();
 
     /*!
