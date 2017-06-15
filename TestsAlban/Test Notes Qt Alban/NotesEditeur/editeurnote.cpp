@@ -180,7 +180,8 @@ void ArticleEditeur::annuleEdition() {
 void ArticleEditeur::sauverNote() {
     NotesManager& m=NotesManager::recupererInstance();
     FenPrincipale& fp = FenPrincipale::getInstance();
-
+    VersionsManager& v=VersionsManager::recupererInstance();
+    qDebug()<<"ON ARRIVE DANS SAUVERNOTEARTICLE";
     // on crée un nouveau article et son ancienne version est celle avant la modification
     NotesManager::Iterator it=m.getIterator();
     while(!it.isDone() && it.current().getId()!=article->getId()){
@@ -218,12 +219,14 @@ void ArticleEditeur::sauverNote() {
     m.save();
 
     fp.actualiserNote();
-
+    v.updateComboBox(listeVersion,v.getId());
     article=a;
 
     QMessageBox::information(this,"Sauvegarder","Article sauvegardé !");
 
     sauver->setDisabled(true);
+
+    v.addVersion(a);
     }
 
 }
@@ -328,6 +331,8 @@ void TacheEditeur::annuleEdition() {
 void TacheEditeur::sauverNote() {
     NotesManager& m=NotesManager::recupererInstance();
     FenPrincipale& fp = FenPrincipale::getInstance();
+    VersionsManager& v=VersionsManager::recupererInstance();
+qDebug()<<"ON ARRIVE DANS SAUVERNOTETACHE";
 
     // on crée une nouvelle tache et son ancienne version est celle avant la modification
     NotesManager::Iterator it=m.getIterator();
@@ -382,12 +387,16 @@ void TacheEditeur::sauverNote() {
     m.save();
 
     fp.actualiserNote();
+    v.updateComboBox(listeVersion,v.getId());
 
     tache=a;
 
     QMessageBox::information(this,"Sauvegarder","Tache sauvegardée !");
 
     sauver->setDisabled(true);
+
+
+    v.addVersion(a);
     }
 }
 
@@ -466,7 +475,8 @@ void NoteFichierEditeur::annuleEdition() {
 void NoteFichierEditeur::sauverNote() {
     NotesManager& m=NotesManager::recupererInstance();
     FenPrincipale& fp = FenPrincipale::getInstance();
-
+    VersionsManager& v=VersionsManager::recupererInstance();
+    qDebug()<<"ON ARRIVE DANS SAUVERNOTEFICHIER";
     // on crée un nouveau NoteAvecFichier et son ancienne version est celle avant la modification
     NotesManager::Iterator it=m.getIterator();
     while(!it.isDone() && it.current().getId()!=noteFichier->getId()){
@@ -505,12 +515,16 @@ void NoteFichierEditeur::sauverNote() {
     m.save();
 
     fp.actualiserNote();
+    v.updateComboBox(listeVersion,v.getId());
 
     noteFichier=a;
 
     QMessageBox::information(this,"Sauvegarder","Note avec fichier sauvegardée !");
 
     sauver->setDisabled(true);
+
+    qDebug()<<"ON ARRIVE DANS ADD";
+    v.addVersion(a);
     }
 }
 

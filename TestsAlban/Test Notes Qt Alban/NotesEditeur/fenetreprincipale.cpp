@@ -81,15 +81,14 @@ FenPrincipale::FenPrincipale()
 
     dockTache = new QDockWidget(tr("Todo List"));
     dockTache->setAllowedAreas(Qt::LeftDockWidgetArea);
-
+    QString str;
     listeTache = new QListWidget(dockTache);
     for(NotesManager::Iterator it=m.getIterator();!it.isDone();it.next()){
-        if (typeid(it.current()).name()=="5Tache"){
-        QString str=it.current().getTitre();
-        //str.append(" ");
-        //str.append(it.current().getTitre());
-        //liste->addItem(it.current().getTitre());
-        listeNote->addItem(str);}
+
+        if (QString(typeid(it.current()).name())=="5Tache"){
+        Tache& t = dynamic_cast<Tache&>(it.current());
+        str=t.getTitre()+ " pour le "+t.getDateEch();
+        listeTache->addItem(str);}
     }
     dockTache->setWidget(listeTache);
     addDockWidget(Qt::LeftDockWidgetArea, dockTache);

@@ -17,13 +17,57 @@
 
 using namespace std;
 
+void VersionsManager::initVersion( QString type, QString id)
+{
+
+    nbVersions++;// nbVersions est désormais le numéro de version que l'on va implémenter
+
+    QDomDocument dom("mon_xml");
+    QFile doc_xml("versions.xml");
+    if(!doc_xml.open(QIODevice::ReadOnly))
+    {
+        //QMessageBox::critical(this,"Erreur","Impossible d'ouvrir le ficher XML");
+        doc_xml.close();
+        return;
+    }
+    if(!dom.setContent(&doc_xml))
+    {
+       // QMessageBox::critical(this,"Erreur","Impossible d'ouvrir le ficher XML");
+        doc_xml.close();
+        return;
+    }
+    doc_xml.close();
+
+    QDomElement root = dom.documentElement();
 
 
-void VersionsManager::addVersion( Notes* n,QString& id)
+        QDomElement newNodeTag = dom.createElement(QString("id"));
+        QDomElement newType;
+        newNodeTag.setAttribute("key", id); // L'attribut id vaudra 2.
+        newType = dom.createElement(type);
+        newNodeTag.appendChild(newType);
+
+
+      QFile newfile("versions.xml");
+      if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+          throw NotesException(QString("erreur sauvegarde notes : ouverture fichier xml"));
+      QTextStream stream(&newfile);
+
+    QString write_doc = dom.toString();
+
+    stream << write_doc;
+
+    }
+
+
+
+
+void VersionsManager::addVersion( Notes* n)
 	{
+    qDebug()<<"C'EST PARTI POUR LE ADD VERSION";
     versions.push_back(n);//On ajoute la note au vecteur courant
     nbVersions++;// nbVersions est désormais le numéro de version que l'on va implémenter
-    QString	idSearch=vId;
+
     QDomDocument dom("mon_xml");
     QFile doc_xml("versions.xml");
     if(!doc_xml.open(QIODevice::ReadOnly))
@@ -40,22 +84,26 @@ void VersionsManager::addVersion( Notes* n,QString& id)
     }
     doc_xml.close();
     
-    QDomElement root = dom.documentElement().firstChildElement("versions");
-    QDomElement child = root.firstChildElement();
+    QDomElement root = dom.documentElement();
+    qDebug()<<root.tagName();
+    QDomElement child = dom.documentElement().firstChildElement("id");
       while( !child.isNull() ) {
-        if (child.attributeNode("key").value()==idSearch){
-            child = root.firstChildElement();
-            QString type = child.tagName();
-            child.appendChild(VersionXMLFactory(type,n,dom));
-            break;}
+        if (child.attributeNode("key").value()==vId){
+            QDomElement nodetype = child.firstChildElement();
+            QString type = nodetype.tagName();
+            nodetype.appendChild(VersionXMLFactory(type,n,dom));
+            break;
+            }
         else{
-        child = child.nextSiblingElement();}
+            qDebug()<<"Ca parcourt";
+        child = child.nextSiblingElement("id");}
       }
       if (child.isNull()){
+
+          qDebug()<<"PASTAGA LE RETOUR"<<typeid(n).name();
           QString type="new";
           child.appendChild(VersionXMLFactory(type,n,dom));
-          addVersion(n,id);
-          loadVersion(id);
+          loadVersion(vId);
       }
       QFile newfile("versions.xml");
       if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -65,14 +113,15 @@ void VersionsManager::addVersion( Notes* n,QString& id)
     QString write_doc = dom.toString();
 
     stream << write_doc;
+    qDebug()<<"MODIFS ENREGISTREES";
 	}
 
 void VersionsManager::loadVersion(const QString& idSearch) {
-    qDebug()<<"ON EN EST LA !";
+
     versions.clear();
-    qDebug()<<"ON EN EST LA !";
+
     nbVersions=0;//On vide le vecteur du VersionsManager
-    qDebug()<<"ON EN EST LA !";
+
     vId=idSearch; //Le chargement met automatiquement la valeur de l'id du VersionsManager à jour
 
     QDomDocument doc;
@@ -171,10 +220,7 @@ void VersionsManager::restoreVersion(int numeroVersion){
 
     VersionsManager& v=VersionsManager::recupererInstance();
 
-    QString type=typeid(versions[numeroVersion]).name();
-    Notes& n=m.getNote(vId,type);
-    Notes* note=&n;
-qDebug()<<"TEST";
+
 m.supprimerNote( vId);
 qDebug()<<"TEST";
 Notes* rest=versions[numeroVersion];
@@ -208,7 +254,7 @@ VersionsManager& VersionsManager::recupererInstance(){
 
 QDomElement VersionsManager::VersionXMLFactory(QString& type, Notes* n,QDomDocument doc){
     QDomElement newNodeTag = doc.createElement(QString("version"));
-    newNodeTag.setAttribute("num", this->nbVersions); // L'attribut id vaudra 2.
+
     if (type=="article"){
         Article& a1 = dynamic_cast<Article&>(*n);
         QDomNode newNodeTitre = doc.createTextNode(QString("titre"));
@@ -251,33 +297,33 @@ QDomElement VersionsManager::VersionXMLFactory(QString& type, Notes* n,QDomDocum
     }
     if (type=="noteAvecFichier"){
         NoteAvecFichier& f1 = dynamic_cast<NoteAvecFichier&>(*n);
-        QDomNode newNodeTitre = doc.createTextNode(QString("titre"));
+        QDomElement newNodeTitre = doc.createElement(QString("titre"));
+        QDomText newNodeTitreText=doc.createTextNode(f1.getTitre());
+        newNodeTitre.appendChild(newNodeTitreText);
 
-        newNodeTitre.setNodeValue(f1.getTitre());
-        QDomNode newNodeDateCrea = doc.createTextNode(QString("dateCrea"));
-        newNodeDateCrea.setNodeValue(f1.getDateCrea());
-        QDomNode newNodeDateModif = doc.createTextNode(QString("dateModif"));
-        newNodeDateModif.setNodeValue(f1.getDateModif());
-        QDomNode newNodeDescription = doc.createTextNode(QString("description"));
-        newNodeDescription.setNodeValue(f1.getDescription());
-        QDomNode newNodeFile = doc.createTextNode(QString("file"));
-        newNodeFile.setNodeValue(f1.getFile());
+        QDomElement newNodeDateCrea = doc.createElement(QString("dateCrea"));
+        QDomText newNodeDateCreaText=doc.createTextNode(f1.getDateCrea());
+        newNodeDateCrea.appendChild(newNodeDateCreaText);
+
+        QDomElement newNodeDateModif = doc.createElement(QString("dateModif"));
+        QDomText newNodeDateModifText=doc.createTextNode(f1.getDateModif());
+        newNodeDateModif.appendChild(newNodeDateModifText);
+
+        QDomElement newNodeDescription = doc.createElement(QString("description"));
+        QDomText newNodeDescriptionText=doc.createTextNode(f1.getDescription());
+        newNodeDescription.appendChild(newNodeDescriptionText);
+
+        QDomElement newNodeFile = doc.createElement(QString("file"));
+        QDomText newNodeFileText=doc.createTextNode(f1.getFile());
+        newNodeFile.appendChild(newNodeFileText);
                 
         newNodeTag.appendChild(newNodeTitre);
         newNodeTag.appendChild(newNodeDateCrea);
         newNodeTag.appendChild(newNodeDateModif);
         newNodeTag.appendChild(newNodeDescription);
         newNodeTag.appendChild(newNodeFile);}
-    if (type=="new"){
 
-        QDomElement newNodeTag = doc.createElement(QString("id"));
-        QDomElement newType;
-        newNodeTag.setAttribute("key", this->vId); // L'attribut id vaudra 2.
-        if(n->getType()=="7Article"){newType = doc.createElement(QString("article"));}
-        if(n->getType()=="15NoteAvecFichier"){newType = doc.createElement(QString("noteAvecFichier"));}
-        if(n->getType()=="5Tache"){ newType = doc.createElement(QString("tache"));}
-        newNodeTag.appendChild(newType);
-    }
+
     return newNodeTag;
 }
 
@@ -290,7 +336,7 @@ void VersionsManager::updateComboBox(QComboBox*& combobox, QString id){
     for(int i=0; i<versions.size();i++)
     {
         qDebug()<<"CA RAJOUTE";
-       label="Version du "+versions[i]->getDateCrea()+ " modifiée le "+ versions[i]->getDateModif();
+       label=versions[i]->getTitre()+",version du "+versions[i]->getDateCrea()+ " modifiée le "+ versions[i]->getDateModif();
        combobox->addItem(label,i);
 }
 }

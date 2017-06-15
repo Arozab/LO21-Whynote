@@ -48,9 +48,10 @@ class VersionsManager{
         Notes* getVersions(unsigned int i)const{return versions[i];} //permet d'afficher individuellement chaque version
         QString getId()const{return vId;}
         
-        void addVersion( Notes* n,QString& id);  //permet d'ajouter d'ajouter une version dans le fichier des versions
+        void addVersion(Notes* n);  //permet d'ajouter d'ajouter une version dans le fichier des versions
 		void loadVersion(const QString& id); //permet de charger les versions dans le vecteur & changer d'id & recuperer le nombre de versions
         void restoreVersion(int numeroVersion);
+        void initVersion(QString type, QString id);
 
         void loadTacheFromXML(QDomElement &xml, const QString& idSearch);//Sous-fonction de loadVersion
         void loadFichierFromXML(QDomElement &xml, const QString& idSearch);//Sous-fonction de loadVersion

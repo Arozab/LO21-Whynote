@@ -1,22 +1,56 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <versions>
-        <id key="2">
-                <noteAvecFichier>
-                                <version num="2">
-					<titre>NoteAvecFichierTestDeMort1</titre>
-					<dateCrea>13/01/2015</dateCrea>
-					<dateModif>04/12/2013</dateModif>
-					<description>Fichier audio nouvelle version ma gueule</description>
-                                        <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
-                                </version>
-                                <version num="1">
-					<titre>NoteAvecFichierTestDeMort1</titre>
-					<dateCrea>13/01/2015</dateCrea>
-                                        <dateModif>23/05/2000</dateModif>
-					<description>Fichier audio representant toi meme okey</description>
-					<file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
-                                </version>
-		</noteAvecFichier>
-        </id>
-
+ <id key="2">
+  <noteAvecFichier>
+   <version>
+    <titre>NoteAvecFichierTestDeMort1</titre>
+    <dateCrea>13/01/2015</dateCrea>
+    <dateModif>04/12/2013</dateModif>
+    <description>Fichier audio nouvelle version ma gueule</description>
+    <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
+   </version>
+   <version>
+    <titre>NoteAvecFichierTestDeMort1</titre>
+    <dateCrea>13/01/2015</dateCrea>
+    <dateModif>23/05/2000</dateModif>
+    <description>Fichier audio representant toi meme okey</description>
+    <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
+   </version>
+   <version>
+    <titre>NoteAvecFichierTestDeMort1 MODIF 19</titre>
+    <dateCrea>04/12/2013</dateCrea>
+    <dateModif>13/01/2015</dateModif>
+    <description>Fichier audio representant toi meme okey &lt;3</description>
+    <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
+   </version>
+   <version>
+    <titre>NoteAvecFichierTestDeMort1 MODIF 20</titre>
+    <dateCrea>13/01/2015</dateCrea>
+    <dateModif>04/12/2013</dateModif>
+    <description>Fichier audio representant toi meme okey &lt;3</description>
+    <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
+   </version>
+   <version>
+    <titre>NoteAvecFichierTestDeMort1 MODIF 21</titre>
+    <dateCrea>04/12/2013</dateCrea>
+    <dateModif>13/01/2015</dateModif>
+    <description>Constance c'est la plus belle</description>
+    <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
+   </version>
+   <version>
+    <titre>NoteAvecFichierTestDeMort1 MODIF 22</titre>
+    <dateCrea>04/12/2013</dateCrea>
+    <dateModif>13/01/2015</dateModif>
+    <description>Constance c'est la plus belle</description>
+    <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
+   </version>
+   <version>
+    <titre>NoteAvecFichierTestDeMort1 MODIF 25</titre>
+    <dateCrea>13/01/2015</dateCrea>
+    <dateModif>04/12/2013</dateModif>
+    <description>Fichier audio representant toi meme okey patate &lt;3</description>
+    <file>C:\Users\Alban\Documents\LO21-Whynote\TestsAlban\Test Notes Qt Alban\notes.xml</file>
+   </version>
+  </noteAvecFichier>
+ </id>
 </versions>
